@@ -9,23 +9,24 @@
 /* Begin PBXBuildFile section */
 		EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6A92A60EC630015C715 /* AppDelegate.swift */; };
 		EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */; };
-		EEC2D6AE2A60EC630015C715 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AD2A60EC630015C715 /* ViewController.swift */; };
-		EEC2D6B12A60EC630015C715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6AF2A60EC630015C715 /* Main.storyboard */; };
+		EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AD2A60EC630015C715 /* MainViewController.swift */; };
 		EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6B22A60EC630015C715 /* INUPhoneBook.xcdatamodeld */; };
 		EEC2D6B62A60EC640015C715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6B52A60EC640015C715 /* Assets.xcassets */; };
 		EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */; };
+		EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */; };
+		EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEC2D6C62A60F94E0015C715 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		EEC2D6A62A60EC630015C715 /* INUPhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INUPhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC2D6A92A60EC630015C715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EEC2D6AD2A60EC630015C715 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EEC2D6B02A60EC630015C715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EEC2D6AD2A60EC630015C715 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EEC2D6B32A60EC630015C715 /* INUPhoneBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = INUPhoneBook.xcdatamodel; sourceTree = "<group>"; };
 		EEC2D6B52A60EC640015C715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEC2D6B82A60EC640015C715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EEC2D6BA2A60EC640015C715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,14 +62,38 @@
 			children = (
 				EEC2D6A92A60EC630015C715 /* AppDelegate.swift */,
 				EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */,
-				EEC2D6AD2A60EC630015C715 /* ViewController.swift */,
-				EEC2D6AF2A60EC630015C715 /* Main.storyboard */,
+				EEC2D6C12A60F8210015C715 /* Models */,
+				EEC2D6C02A60F81A0015C715 /* View */,
+				EEC2D6C22A60F82A0015C715 /* Controllers */,
 				EEC2D6B52A60EC640015C715 /* Assets.xcassets */,
 				EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */,
 				EEC2D6BA2A60EC640015C715 /* Info.plist */,
 				EEC2D6B22A60EC630015C715 /* INUPhoneBook.xcdatamodeld */,
 			);
 			path = INUPhoneBook;
+			sourceTree = "<group>";
+		};
+		EEC2D6C02A60F81A0015C715 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEC2D6C12A60F8210015C715 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EEC2D6C22A60F82A0015C715 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EEC2D6AD2A60EC630015C715 /* MainViewController.swift */,
+				EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -86,6 +112,9 @@
 			dependencies = (
 			);
 			name = INUPhoneBook;
+			packageProductDependencies = (
+				EEC2D6C62A60F94E0015C715 /* SnapKit */,
+			);
 			productName = INUPhoneBook;
 			productReference = EEC2D6A62A60EC630015C715 /* INUPhoneBook.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +143,9 @@
 				Base,
 			);
 			mainGroup = EEC2D69D2A60EC620015C715;
+			packageReferences = (
+				EEC2D6C52A60F94E0015C715 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = EEC2D6A72A60EC630015C715 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -130,7 +162,6 @@
 			files = (
 				EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */,
 				EEC2D6B62A60EC640015C715 /* Assets.xcassets in Resources */,
-				EEC2D6B12A60EC630015C715 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,24 +172,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEC2D6AE2A60EC630015C715 /* ViewController.swift in Sources */,
+				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
 				EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
+				EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EEC2D6AF2A60EC630015C715 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EEC2D6B02A60EC630015C715 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -295,9 +319,10 @@
 				INFOPLIST_FILE = INUPhoneBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,9 +330,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yongheon.INUPhoneBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -322,9 +350,10 @@
 				INFOPLIST_FILE = INUPhoneBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,9 +361,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yongheon.INUPhoneBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -360,6 +392,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EEC2D6C52A60F94E0015C715 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EEC2D6C62A60F94E0015C715 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEC2D6C52A60F94E0015C715 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		EEC2D6B22A60EC630015C715 /* INUPhoneBook.xcdatamodeld */ = {
