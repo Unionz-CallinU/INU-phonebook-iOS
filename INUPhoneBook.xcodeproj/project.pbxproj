@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */; };
+		EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF72A6833F1002B6AE2 /* CustomCell.swift */; };
 		EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6A92A60EC630015C715 /* AppDelegate.swift */; };
 		EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */; };
 		EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AD2A60EC630015C715 /* MainViewController.swift */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		EE752AF72A6833F1002B6AE2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		EEC2D6A62A60EC630015C715 /* INUPhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INUPhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC2D6A92A60EC630015C715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,6 +80,7 @@
 		EEC2D6C02A60F81A0015C715 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EE752AF72A6833F1002B6AE2 /* CustomCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -92,6 +97,7 @@
 			children = (
 				EEC2D6AD2A60EC630015C715 /* MainViewController.swift */,
 				EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */,
+				EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -175,7 +181,9 @@
 				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
 				EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
+				EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
+				EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */,
 				EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
