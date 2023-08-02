@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */; };
 		EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF72A6833F1002B6AE2 /* CustomCell.swift */; };
+		EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF92A7A3D02002B6AE2 /* ResultViewController.swift */; };
+		EE752AFD2A7A3D7A002B6AE2 /* NaviHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AFC2A7A3D7A002B6AE2 /* NaviHelper.swift */; };
 		EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6A92A60EC630015C715 /* AppDelegate.swift */; };
 		EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */; };
 		EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AD2A60EC630015C715 /* MainViewController.swift */; };
@@ -22,6 +24,8 @@
 /* Begin PBXFileReference section */
 		EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		EE752AF72A6833F1002B6AE2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		EE752AF92A7A3D02002B6AE2 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		EE752AFC2A7A3D7A002B6AE2 /* NaviHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviHelper.swift; sourceTree = "<group>"; };
 		EEC2D6A62A60EC630015C715 /* INUPhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INUPhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC2D6A92A60EC630015C715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EE752AFB2A7A3D5A002B6AE2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EE752AFC2A7A3D7A002B6AE2 /* NaviHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		EEC2D69D2A60EC620015C715 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +78,7 @@
 			children = (
 				EEC2D6A92A60EC630015C715 /* AppDelegate.swift */,
 				EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */,
+				EE752AFB2A7A3D5A002B6AE2 /* Helpers */,
 				EEC2D6C12A60F8210015C715 /* Models */,
 				EEC2D6C02A60F81A0015C715 /* View */,
 				EEC2D6C22A60F82A0015C715 /* Controllers */,
@@ -96,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				EEC2D6AD2A60EC630015C715 /* MainViewController.swift */,
+				EE752AF92A7A3D02002B6AE2 /* ResultViewController.swift */,
 				EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */,
 				EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */,
 			);
@@ -179,8 +193,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
+				EE752AFD2A7A3D7A002B6AE2 /* NaviHelper.swift in Sources */,
 				EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
+				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
 				EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
 				EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */,
