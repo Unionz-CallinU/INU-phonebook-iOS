@@ -8,7 +8,19 @@ import UIKit
 
 import SnapKit
 
-final class MainViewController: NaviHelper, UISearchBarDelegate{
+final class MainViewController: NaviHelper, UISearchBarDelegate {
+  
+  private var filteredData: [User] = []  // 필터링된 결과를 저장할 배열
+  
+  let user: [User] = [User(employeeNum: "1",
+                           college: "인문대학",
+                           department: "교수",
+                           name: "김호식",
+                           position: "교수",
+                           role: "교수",
+                           phonNum:"010-1111-1111",
+                           email: "email@naver.com",
+                           image: UIImage(named: "INU1")!)]
   
   // MARK: - 화면구성
   private let titleImage: UIImageView = {
@@ -25,6 +37,12 @@ final class MainViewController: NaviHelper, UISearchBarDelegate{
     bar.setImage(UIImage(named: "icCancel"), for: .search, state: .normal)
     bar.layer.cornerRadius = 30
     return bar
+  }()
+  
+  private let resultTableView: UITableView = {
+    let tableView = UITableView()
+    tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.cellId)
+    return tableView
   }()
   
   override func viewDidLoad() {
@@ -63,12 +81,14 @@ final class MainViewController: NaviHelper, UISearchBarDelegate{
   }
   
   // MARK: - UISearchBarDelegate
-  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+  @objc func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let keyword = searchBar.text else { return }
     let searchResultController = ResultViewController()
     searchResultController.searchKeyword = keyword
+    
+    let users = user.filter { $0.name == keyword }
+    searchResultController.users = users
+    
     navigationController?.pushViewController(searchResultController, animated: true)
   }
 }
-
-
