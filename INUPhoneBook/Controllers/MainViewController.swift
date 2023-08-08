@@ -4,9 +4,11 @@
 //
 //  Created by 최용헌 on 2023/07/14.
 //
+import AVFoundation
 import UIKit
 
 import SnapKit
+import AVKit
 
 final class MainViewController: NaviHelper, UISearchBarDelegate {
   
@@ -20,7 +22,7 @@ final class MainViewController: NaviHelper, UISearchBarDelegate {
                            role: "교수",
                            phonNum:"010-1111-1111",
                            email: "email@naver.com",
-                           image: UIImage(named: "INU1")!)]
+                           image: UIImage(named: "INU1")!, isSaved: false)]
   
   // MARK: - 화면구성
   private let titleImage: UIImageView = {
@@ -46,6 +48,7 @@ final class MainViewController: NaviHelper, UISearchBarDelegate {
   }()
   
   override func viewDidLoad() {
+    
     super.viewDidLoad()
     self.view.backgroundColor = .white
     
@@ -91,4 +94,6 @@ final class MainViewController: NaviHelper, UISearchBarDelegate {
     
     navigationController?.pushViewController(searchResultController, animated: true)
   }
+
+  
 }

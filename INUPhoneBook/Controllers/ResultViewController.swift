@@ -94,7 +94,11 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     cell.phoneNum.text = users[indexPath.row].phonNum
     cell.college.text = users[indexPath.row].college
     cell.email.text = users[indexPath.row].email
-//    cell.star.isEnabled = users[indexPath.row].star
+    //    cell.star.isEnabled = users[indexPath.row].star
+    
+    let starButton = UIButton(type: .system)
+    starButton.setImage(UIImage(systemName: "star"), for: .normal)
+    cell.accessoryView = starButton // 별 버튼을 셀의 accessoryView로 설정합니다.
     return cell
   }
   
@@ -102,9 +106,10 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = users[indexPath.row]
     let detailVC = DetailViewController() // 새로운 디테일 뷰컨트롤러를 생성합니다.
-//    detailVC.selectedItem = selectedItem // 선택된 아이템 데이터를 전달합니다.
+    //    detailVC.selectedItem = selectedItem // 선택된 아이템 데이터를 전달합니다.
     self.navigationController?.pushViewController(detailVC, animated: true)
   }
+
 }
 
 

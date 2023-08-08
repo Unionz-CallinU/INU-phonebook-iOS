@@ -13,11 +13,23 @@ struct User {
   let phonNum: String
   let email: String
   let image: UIImage
-  var isSaved: Bool = false
+  var isSaved: Bool
 }
 
 final class CustomCell: UITableViewCell {
   static let cellId = "CellId"
+ 
+  var user: User? {
+    didSet {
+      guard let user = user else { return }
+      
+      profile.image = user.image
+      name.text = user.name
+      college.text = user.college
+      phoneNum.text = user.phonNum
+      email.text = user.email
+    }
+  }
   
   let profile: UIImageView = {
     let img = UIImageView()
@@ -46,11 +58,12 @@ final class CustomCell: UITableViewCell {
     return label
   }()
   
+  
   let star: UIButton = {
     let btn = UIButton()
     let img = UIImage(named: "Star")
     btn.setImage(img, for: .normal)
-//    btn.addTarget(self, action: #selector(likeBtnPressed), for: .touchUpInside)
+    btn.addTarget(self, action: #selector(likeBtnPressed), for: .touchUpInside)
     return btn
   }()
   
@@ -105,6 +118,23 @@ final class CustomCell: UITableViewCell {
       make.trailing.equalToSuperview().offset(-10)
       make.centerY.equalToSuperview()
     }
+  }
+  
+  @objc func likeBtnPressed() {
+    print("hello \(user?.isSaved)")
+
+    let emptyStarImg = UIImage(named: "Star")
+    let checkedStarImg = UIImage(named: "StarChecked")
+    
+    if user?.isSaved == false {
+      user?.isSaved = true
+      star.setImage(checkedStarImg, for: .normal)
+      print("\(user?.isSaved)")
+    } else {
+      user?.isSaved = false
+      star.setImage(emptyStarImg, for: .normal)
+    }
+    
   }
   
 }
