@@ -7,25 +7,42 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5B27696BB4895E0E997CD77A /* Pods_INUPhoneBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D4F627CDF64F28CC0C2533 /* Pods_INUPhoneBook.framework */; };
+		EE17F0902A82584600BA7EF0 /* SplashScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = EE17F08F2A82584600BA7EF0 /* SplashScreen.mp4 */; };
+		EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0922A825A9000BA7EF0 /* SplashScreenController.swift */; };
+		EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */; };
+		EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF72A6833F1002B6AE2 /* CustomCell.swift */; };
+		EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF92A7A3D02002B6AE2 /* ResultViewController.swift */; };
+		EE752AFD2A7A3D7A002B6AE2 /* NaviHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AFC2A7A3D7A002B6AE2 /* NaviHelper.swift */; };
 		EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6A92A60EC630015C715 /* AppDelegate.swift */; };
 		EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */; };
-		EEC2D6AE2A60EC630015C715 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AD2A60EC630015C715 /* ViewController.swift */; };
-		EEC2D6B12A60EC630015C715 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6AF2A60EC630015C715 /* Main.storyboard */; };
+		EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6AD2A60EC630015C715 /* MainViewController.swift */; };
 		EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6B22A60EC630015C715 /* INUPhoneBook.xcdatamodeld */; };
 		EEC2D6B62A60EC640015C715 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6B52A60EC640015C715 /* Assets.xcassets */; };
 		EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */; };
+		EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */; };
+		EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEC2D6C62A60F94E0015C715 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A04762A7C6F0F67241B460EC /* Pods-INUPhoneBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INUPhoneBook.release.xcconfig"; path = "Target Support Files/Pods-INUPhoneBook/Pods-INUPhoneBook.release.xcconfig"; sourceTree = "<group>"; };
+		C7D4F627CDF64F28CC0C2533 /* Pods_INUPhoneBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_INUPhoneBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D9A83BED1F5F0CD043009D92 /* Pods-INUPhoneBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INUPhoneBook.debug.xcconfig"; path = "Target Support Files/Pods-INUPhoneBook/Pods-INUPhoneBook.debug.xcconfig"; sourceTree = "<group>"; };
+		EE17F08F2A82584600BA7EF0 /* SplashScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SplashScreen.mp4; sourceTree = "<group>"; };
+		EE17F0922A825A9000BA7EF0 /* SplashScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenController.swift; sourceTree = "<group>"; };
+		EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		EE752AF72A6833F1002B6AE2 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		EE752AF92A7A3D02002B6AE2 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
+		EE752AFC2A7A3D7A002B6AE2 /* NaviHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaviHelper.swift; sourceTree = "<group>"; };
 		EEC2D6A62A60EC630015C715 /* INUPhoneBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = INUPhoneBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EEC2D6A92A60EC630015C715 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		EEC2D6AD2A60EC630015C715 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		EEC2D6B02A60EC630015C715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EEC2D6AD2A60EC630015C715 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		EEC2D6B32A60EC630015C715 /* INUPhoneBook.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = INUPhoneBook.xcdatamodel; sourceTree = "<group>"; };
 		EEC2D6B52A60EC640015C715 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EEC2D6B82A60EC640015C715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EEC2D6BA2A60EC640015C715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +50,47 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */,
+				5B27696BB4895E0E997CD77A /* Pods_INUPhoneBook.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9B411BDAEAC7CEFB7D4B59EB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D9A83BED1F5F0CD043009D92 /* Pods-INUPhoneBook.debug.xcconfig */,
+				A04762A7C6F0F67241B460EC /* Pods-INUPhoneBook.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		EE17F0912A825A2A00BA7EF0 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				EE17F08F2A82584600BA7EF0 /* SplashScreen.mp4 */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
+		EE752AFB2A7A3D5A002B6AE2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				EE752AFC2A7A3D7A002B6AE2 /* NaviHelper.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		EEC2D69D2A60EC620015C715 = {
 			isa = PBXGroup;
 			children = (
+				EE17F0912A825A2A00BA7EF0 /* Video */,
 				EEC2D6A82A60EC630015C715 /* INUPhoneBook */,
 				EEC2D6A72A60EC630015C715 /* Products */,
+				9B411BDAEAC7CEFB7D4B59EB /* Pods */,
+				FD0C10488C9A43148CF65E25 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,14 +107,51 @@
 			children = (
 				EEC2D6A92A60EC630015C715 /* AppDelegate.swift */,
 				EEC2D6AB2A60EC630015C715 /* SceneDelegate.swift */,
-				EEC2D6AD2A60EC630015C715 /* ViewController.swift */,
-				EEC2D6AF2A60EC630015C715 /* Main.storyboard */,
+				EE752AFB2A7A3D5A002B6AE2 /* Helpers */,
+				EEC2D6C12A60F8210015C715 /* Models */,
+				EEC2D6C02A60F81A0015C715 /* View */,
+				EEC2D6C22A60F82A0015C715 /* Controllers */,
 				EEC2D6B52A60EC640015C715 /* Assets.xcassets */,
 				EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */,
 				EEC2D6BA2A60EC640015C715 /* Info.plist */,
 				EEC2D6B22A60EC630015C715 /* INUPhoneBook.xcdatamodeld */,
 			);
 			path = INUPhoneBook;
+			sourceTree = "<group>";
+		};
+		EEC2D6C02A60F81A0015C715 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EE752AF72A6833F1002B6AE2 /* CustomCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EEC2D6C12A60F8210015C715 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EEC2D6C22A60F82A0015C715 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				EE17F0922A825A9000BA7EF0 /* SplashScreenController.swift */,
+				EEC2D6AD2A60EC630015C715 /* MainViewController.swift */,
+				EE752AF92A7A3D02002B6AE2 /* ResultViewController.swift */,
+				EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */,
+				EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		FD0C10488C9A43148CF65E25 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C7D4F627CDF64F28CC0C2533 /* Pods_INUPhoneBook.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,15 +161,20 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EEC2D6BD2A60EC640015C715 /* Build configuration list for PBXNativeTarget "INUPhoneBook" */;
 			buildPhases = (
+				076F58C75698027E503C8987 /* [CP] Check Pods Manifest.lock */,
 				EEC2D6A22A60EC630015C715 /* Sources */,
 				EEC2D6A32A60EC630015C715 /* Frameworks */,
 				EEC2D6A42A60EC630015C715 /* Resources */,
+				E64242F0F3BBBB3FB250C9C9 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = INUPhoneBook;
+			packageProductDependencies = (
+				EEC2D6C62A60F94E0015C715 /* SnapKit */,
+			);
 			productName = INUPhoneBook;
 			productReference = EEC2D6A62A60EC630015C715 /* INUPhoneBook.app */;
 			productType = "com.apple.product-type.application";
@@ -114,6 +203,9 @@
 				Base,
 			);
 			mainGroup = EEC2D69D2A60EC620015C715;
+			packageReferences = (
+				EEC2D6C52A60F94E0015C715 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = EEC2D6A72A60EC630015C715 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -128,37 +220,77 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EE17F0902A82584600BA7EF0 /* SplashScreen.mp4 in Resources */,
 				EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */,
 				EEC2D6B62A60EC640015C715 /* Assets.xcassets in Resources */,
-				EEC2D6B12A60EC630015C715 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		076F58C75698027E503C8987 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-INUPhoneBook-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E64242F0F3BBBB3FB250C9C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-INUPhoneBook/Pods-INUPhoneBook-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-INUPhoneBook/Pods-INUPhoneBook-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-INUPhoneBook/Pods-INUPhoneBook-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		EEC2D6A22A60EC630015C715 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EEC2D6AE2A60EC630015C715 /* ViewController.swift in Sources */,
+				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
+				EE752AFD2A7A3D7A002B6AE2 /* NaviHelper.swift in Sources */,
 				EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
+				EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */,
+				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
+				EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
+				EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */,
+				EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		EEC2D6AF2A60EC630015C715 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				EEC2D6B02A60EC630015C715 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -286,6 +418,7 @@
 		};
 		EEC2D6BE2A60EC640015C715 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D9A83BED1F5F0CD043009D92 /* Pods-INUPhoneBook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -295,9 +428,10 @@
 				INFOPLIST_FILE = INUPhoneBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -305,14 +439,18 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yongheon.INUPhoneBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		EEC2D6BF2A60EC640015C715 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A04762A7C6F0F67241B460EC /* Pods-INUPhoneBook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -322,9 +460,10 @@
 				INFOPLIST_FILE = INUPhoneBook/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -332,9 +471,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.yongheon.INUPhoneBook;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -360,6 +502,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		EEC2D6C52A60F94E0015C715 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EEC2D6C62A60F94E0015C715 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EEC2D6C52A60F94E0015C715 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		EEC2D6B22A60EC630015C715 /* INUPhoneBook.xcdatamodeld */ = {
