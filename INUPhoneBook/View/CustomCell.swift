@@ -2,33 +2,27 @@ import UIKit
 
 import SnapKit
 
-// 직원번호, 소속, 상세소속, 이름, 직위,담당업무, 전화번호, 이메일, 사진
-struct User {
-  let employeeNum: String
-  let college: String
-  let department: String
-  let name: String
-  let position: String
-  let role: String
-  let phonNum: String
-  let email: String
-  let image: UIImage
-  var isSaved: Bool
-}
-
 final class CustomCell: UITableViewCell {
   static let cellId = "CellId"
- 
+  
   var user: User? {
     didSet {
-      guard let user = user else { return }
-      
-      profile.image = user.image
-      name.text = user.name
-      college.text = user.college
-      phoneNum.text = user.phonNum
-      email.text = user.email
+      configureUIwithData()
     }
+  }
+  
+  var saveButtonPressed: ((CustomCell, Bool) -> ()) = { (sender, pressed) in }
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    // Initialization code
+    star.setImage(UIImage(systemName: "heart"), for: .normal)
+    star.tintColor = .gray
+  }
+  
+  override func setSelected(_ selected: Bool, animated: Bool) {
+    super.setSelected(selected, animated: animated)
+    // Configure the view for the selected state
   }
   
   let profile: UIImageView = {
@@ -58,12 +52,11 @@ final class CustomCell: UITableViewCell {
     return label
   }()
   
-  
   let star: UIButton = {
     let btn = UIButton()
     let img = UIImage(named: "Star")
     btn.setImage(img, for: .normal)
-    btn.addTarget(self, action: #selector(likeBtnPressed), for: .touchUpInside)
+    btn.addTarget(CustomCell.self, action: #selector(saveButtonTapped), for: .touchUpInside)
     return btn
   }()
   
@@ -120,22 +113,37 @@ final class CustomCell: UITableViewCell {
     }
   }
   
-  @objc func likeBtnPressed() {
-    print("hello \(user?.isSaved)")
-
-    let emptyStarImg = UIImage(named: "Star")
-    let checkedStarImg = UIImage(named: "StarChecked")
+  
+  func configureUIwithData() {
+    guard let user = user else { return }
     
-    if user?.isSaved == false {
-      user?.isSaved = true
-      star.setImage(checkedStarImg, for: .normal)
-      print("\(user?.isSaved)")
-    } else {
-      user?.isSaved = false
-      star.setImage(emptyStarImg, for: .normal)
-    }
-    
+    name.text = user.name
+    college.text = user.college
+    phoneNum.text = user.phoneNumber
+    email.text = user.email
+    setButtonStatus()
   }
   
+  @objc func saveButtonTapped(_ sender: UIButton) {
+    guard let isSaved = user?.isSaved else { return }
+    
+    // 뷰컨트롤로에서 전달받은 클로저를 실행 (내 자신 MusicCell/저장여부 전달하면서) ⭐️
+    saveButtonPressed(self, isSaved)
+    // 다시 저장 여부 셋팅
+    setButtonStatus()
+  }
+  
+  func setButtonStatus() {
+    guard let isSaved = self.user?.isSaved else { return }
+    // 저장이 되지 않았으면
+    if !isSaved {
+      star.setImage(UIImage(systemName: "heart"), for: .normal)
+      star.tintColor = .gray
+      // 저장이 되어 있으면
+    } else {
+      star.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+      star.tintColor = .red
+    }
+  }
 }
 
