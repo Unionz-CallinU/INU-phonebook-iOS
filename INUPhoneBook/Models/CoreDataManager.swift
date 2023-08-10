@@ -42,7 +42,7 @@ final class CoreDataManager {
   }
   
   // MARK: - [Create] 코어데이터에 데이터 생성하기 (Music ===> MusicSaved)
-  func saveUser(with user: User, message: String?, completion: @escaping () -> Void) {
+  func saveUser(with user: User, completion: @escaping () -> Void) {
     if let context = context, let entity = NSEntityDescription.entity(forEntityName: self.modelName, in: context) {
       if let userSaved = NSManagedObject(entity: entity, insertInto: context) as? Users {
         userSaved.phoneNumber = user.phoneNumber

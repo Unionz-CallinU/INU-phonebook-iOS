@@ -57,7 +57,7 @@ final class UserManager {
       switch result {
       case .success(let userDatas):
         dump(userDatas)
-        self.userApiDatas = userDatas
+        self.userApiDatas = [userDatas.data]
         self.checkWhetherSaved()
         completion()
       case .failure(let error):
@@ -76,8 +76,8 @@ final class UserManager {
   }
   
   // Create (데이터 생성하기)
-  func saveUserData(with user: User, message: String?, completion: @escaping () -> Void) {
-    coredataManager.saveUser(with: user, message: message) {
+  func saveUserData(with user: User, completion: @escaping () -> Void) {
+    coredataManager.saveUser(with: user) {
       self.fetchUsersFromCoreData {
         completion()
       }

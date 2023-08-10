@@ -12,26 +12,26 @@ import UIKit
 // 실제 API에서 받게 되는 정보
 
 struct UserData: Codable {
-  let resultCount: Int
-  let results: [User]
+  let code: Int
+  let msg: String
+  let data: User
 }
 
-// (저장여부 등을 지속적으로 관리(속성 변경 여부)해줘야해서, 클래스로 만듦)
 struct User: Codable {
-  let id: String?
-  let name: String?
-  let college: String?
-  let phoneNumber: String?
-  let department: String?
-  let role: String?
-  let email: String?
+  var id: String?
+  var name: String?
+  var college: String?
+  var phoneNumber: String?
+  var department: String?
+  var role: String?
+  var email: String?
   var isSaved: Bool = false
   
   enum CodingKeys: String, CodingKey {
     case id
     case name
     case college
-    case phoneNumber = "phone_number"
+    case phoneNumber
     case department
     case role
     case email

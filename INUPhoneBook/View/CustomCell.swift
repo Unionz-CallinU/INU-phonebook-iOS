@@ -5,26 +5,20 @@ import SnapKit
 final class CustomCell: UITableViewCell {
   static let cellId = "CellId"
   
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
+    setupLayout()
+    makeUI()
+
+  }
+
   var user: User? {
     didSet {
       configureUIwithData()
     }
   }
-  
-  var saveButtonPressed: ((CustomCell, Bool) -> ()) = { (sender, pressed) in }
-  
-  override func awakeFromNib() {
-    super.awakeFromNib()
-    // Initialization code
-    star.setImage(UIImage(systemName: "heart"), for: .normal)
-    star.tintColor = .gray
-  }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    // Configure the view for the selected state
-  }
-  
+ 
   let profile: UIImageView = {
     let img = UIImageView()
     return img
@@ -56,17 +50,12 @@ final class CustomCell: UITableViewCell {
     let btn = UIButton()
     let img = UIImage(named: "Star")
     btn.setImage(img, for: .normal)
-    btn.addTarget(CustomCell.self, action: #selector(saveButtonTapped), for: .touchUpInside)
+    btn.backgroundColor = .blue
+    btn.addTarget(CustomCell.self, action: #selector(starBtnTapped), for: .touchUpInside)
     return btn
   }()
   
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
-    setupLayout()
-    makeUI()
-  }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -110,9 +99,10 @@ final class CustomCell: UITableViewCell {
     star.snp.makeConstraints { make in
       make.trailing.equalToSuperview().offset(-10)
       make.centerY.equalToSuperview()
+      make.size.equalTo(CGSize(width: 30, height: 30)) // 버튼 크기 설정
+
     }
   }
-  
   
   func configureUIwithData() {
     guard let user = user else { return }
@@ -121,29 +111,10 @@ final class CustomCell: UITableViewCell {
     college.text = user.college
     phoneNum.text = user.phoneNumber
     email.text = user.email
-    setButtonStatus()
   }
   
-  @objc func saveButtonTapped(_ sender: UIButton) {
-    guard let isSaved = user?.isSaved else { return }
-    
-    // 뷰컨트롤로에서 전달받은 클로저를 실행 (내 자신 MusicCell/저장여부 전달하면서) ⭐️
-    saveButtonPressed(self, isSaved)
-    // 다시 저장 여부 셋팅
-    setButtonStatus()
-  }
-  
-  func setButtonStatus() {
-    guard let isSaved = self.user?.isSaved else { return }
-    // 저장이 되지 않았으면
-    if !isSaved {
-      star.setImage(UIImage(systemName: "heart"), for: .normal)
-      star.tintColor = .gray
-      // 저장이 되어 있으면
-    } else {
-      star.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-      star.tintColor = .red
-    }
+  @objc func starBtnTapped(){
+    print("나와라")
   }
 }
 
