@@ -5,20 +5,27 @@ import SnapKit
 final class CustomCell: UITableViewCell {
   static let cellId = "CellId"
   
+  var buttonAction: (() -> Void) = {}
+  let userManager = UserManager.shared
+
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
     setupLayout()
     makeUI()
-
+    
+    star.addTarget(self, action: #selector(requestTapped), for: .touchUpInside)
   }
-
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
   var user: User? {
     didSet {
       configureUIwithData()
     }
   }
- 
+  
   let profile: UIImageView = {
     let img = UIImageView()
     return img
@@ -50,17 +57,10 @@ final class CustomCell: UITableViewCell {
     let btn = UIButton()
     let img = UIImage(named: "Star")
     btn.setImage(img, for: .normal)
-    btn.backgroundColor = .blue
-    btn.addTarget(CustomCell.self, action: #selector(starBtnTapped), for: .touchUpInside)
     return btn
   }()
   
-
-  required init?(coder: NSCoder) {
-    fatalError("init(coder:) has not been implemented")
-  }
-  
-  func setupLayout(){
+  func setupLayout() {
     [
       profile,
       name,
@@ -69,7 +69,7 @@ final class CustomCell: UITableViewCell {
       email,
       star
     ].forEach {
-      self.addSubview($0)
+      self.contentView.addSubview($0)
     }
   }
   
@@ -100,7 +100,6 @@ final class CustomCell: UITableViewCell {
       make.trailing.equalToSuperview().offset(-10)
       make.centerY.equalToSuperview()
       make.size.equalTo(CGSize(width: 30, height: 30)) // 버튼 크기 설정
-
     }
   }
   
@@ -113,8 +112,37 @@ final class CustomCell: UITableViewCell {
     email.text = user.email
   }
   
-  @objc func starBtnTapped(){
-    print("나와라")
+  @objc func requestTapped() {
+    buttonAction()
   }
+  func handleButtonAction() {
+      let isSaved = user?.isSaved ?? false
+      let alertTitle = isSaved ? "삭제하시겠습니까?" : "추가하시겠습니까?"
+      
+      let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
+          self?.user?.isSaved.toggle()
+          self?.setButtonStatus()
+      }))
+      alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+      
+      if let topViewController = UIApplication.shared.windows.first?.rootViewController {
+          topViewController.present(alert, animated: true, completion: nil)
+      }
+  }
+
+  func setButtonStatus() {
+    let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
+    star.setImage(starImage, for: .normal)
+    // 버튼 액션 블록 설정
+    buttonAction = { [weak self] in
+      guard let self = self else { return }
+
+      self.user?.isSaved.toggle()
+      self.setButtonStatus()
+    }
+  }
+
 }
+
 

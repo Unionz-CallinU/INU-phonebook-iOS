@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 
 final class ResultViewController: NaviHelper, UISearchBarDelegate {
-
+  
   let userManager = UserManager.shared
   
   var searchKeyword: String?
@@ -100,7 +100,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
                                                    for: indexPath) as! CustomCell
     
-    let user = userManager.getUsersFromAPI()[indexPath.row]
+    var user = userManager.getUsersFromAPI()[indexPath.row]
     
     cell.name.text = user.name
     cell.email.text = user.email
@@ -108,11 +108,18 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     cell.phoneNum.text = user.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
 
-
-//    cell.selectionStyle = .none
+  
+    cell.user = user
+    cell.buttonAction = { [weak cell] in
+        guard let cell = cell else { return }
+        cell.handleButtonAction()
+    }
+    
+    cell.selectionStyle = .none
     return cell
   }
-
+  
+  
   // UITableViewDelegate 함수 (선택)
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
@@ -121,4 +128,4 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     self.navigationController?.pushViewController(detailVC, animated: true)
   }
 }
-    
+
