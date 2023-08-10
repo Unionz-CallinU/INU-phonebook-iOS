@@ -2,35 +2,23 @@ import UIKit
 
 import SnapKit
 
-// 직원번호, 소속, 상세소속, 이름, 직위,담당업무, 전화번호, 이메일, 사진
-struct User {
-  let employeeNum: String
-  let college: String
-  let department: String
-  let name: String
-  let position: String
-  let role: String
-  let phonNum: String
-  let email: String
-  let image: UIImage
-  var isSaved: Bool
-}
-
 final class CustomCell: UITableViewCell {
   static let cellId = "CellId"
- 
+  
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
+    setupLayout()
+    makeUI()
+
+  }
+
   var user: User? {
     didSet {
-      guard let user = user else { return }
-      
-      profile.image = user.image
-      name.text = user.name
-      college.text = user.college
-      phoneNum.text = user.phonNum
-      email.text = user.email
+      configureUIwithData()
     }
   }
-  
+ 
   let profile: UIImageView = {
     let img = UIImageView()
     return img
@@ -58,22 +46,16 @@ final class CustomCell: UITableViewCell {
     return label
   }()
   
-  
   let star: UIButton = {
     let btn = UIButton()
     let img = UIImage(named: "Star")
     btn.setImage(img, for: .normal)
-    btn.addTarget(self, action: #selector(likeBtnPressed), for: .touchUpInside)
+    btn.backgroundColor = .blue
+    btn.addTarget(CustomCell.self, action: #selector(starBtnTapped), for: .touchUpInside)
     return btn
   }()
   
-  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-    super.init(style: style, reuseIdentifier: reuseIdentifier)
-    
-    setupLayout()
-    makeUI()
-  }
-  
+
   required init?(coder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
@@ -117,25 +99,22 @@ final class CustomCell: UITableViewCell {
     star.snp.makeConstraints { make in
       make.trailing.equalToSuperview().offset(-10)
       make.centerY.equalToSuperview()
-    }
-  }
-  
-  @objc func likeBtnPressed() {
-    print("hello \(user?.isSaved)")
+      make.size.equalTo(CGSize(width: 30, height: 30)) // 버튼 크기 설정
 
-    let emptyStarImg = UIImage(named: "Star")
-    let checkedStarImg = UIImage(named: "StarChecked")
-    
-    if user?.isSaved == false {
-      user?.isSaved = true
-      star.setImage(checkedStarImg, for: .normal)
-      print("\(user?.isSaved)")
-    } else {
-      user?.isSaved = false
-      star.setImage(emptyStarImg, for: .normal)
     }
-    
   }
   
+  func configureUIwithData() {
+    guard let user = user else { return }
+    
+    name.text = user.name
+    college.text = user.college
+    phoneNum.text = user.phoneNumber
+    email.text = user.email
+  }
+  
+  @objc func starBtnTapped(){
+    print("나와라")
+  }
 }
 

@@ -4,25 +4,12 @@
 //
 //  Created by 최용헌 on 2023/07/14.
 //
-import AVFoundation
 import UIKit
 
 import SnapKit
-import AVKit
 
-final class MainViewController: NaviHelper, UISearchBarDelegate {
-  
-  private var filteredData: [User] = []  // 필터링된 결과를 저장할 배열
-  
-  let user: [User] = [User(employeeNum: "1",
-                           college: "인문대학",
-                           department: "교수",
-                           name: "김호식",
-                           position: "교수",
-                           role: "교수",
-                           phonNum:"010-1111-1111",
-                           email: "email@naver.com",
-                           image: UIImage(named: "INU1")!, isSaved: false)]
+final class MainViewController: NaviHelper, UITableViewDelegate {
+  let userManager = UserManager.shared
   
   // MARK: - 화면구성
   private let titleImage: UIImageView = {
@@ -41,12 +28,6 @@ final class MainViewController: NaviHelper, UISearchBarDelegate {
     return bar
   }()
   
-  private let resultTableView: UITableView = {
-    let tableView = UITableView()
-    tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.cellId)
-    return tableView
-  }()
-  
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -58,7 +39,7 @@ final class MainViewController: NaviHelper, UISearchBarDelegate {
     searchController.delegate = self
     navigationItemSetting()
   }
-  
+
   // MARK: - view 계층 구성
   func setupLayout(){
     [
@@ -82,18 +63,19 @@ final class MainViewController: NaviHelper, UISearchBarDelegate {
       make.height.equalTo(60)
     }
   }
-  
-  // MARK: - UISearchBarDelegate
-  @objc func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+}
+
+extension MainViewController: UISearchBarDelegate {
+  // 검색(Search) 버튼을 눌렀을때 호출되는 메서드
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let keyword = searchBar.text else { return }
-    let searchResultController = ResultViewController()
-    searchResultController.searchKeyword = keyword
-    
-    let users = user.filter { $0.name == keyword }
-    searchResultController.users = users
-    
-    navigationController?.pushViewController(searchResultController, animated: true)
+    let searchResultController = ResultViewController(searchKeyword: keyword)
+
+    userManager.fetchUsersFromAPI(with: keyword) { [self] in
+      DispatchQueue.main.async { [self] in
+        navigationController?.pushViewController(searchResultController, animated: true)
+      }
+    }
   }
 
-  
 }

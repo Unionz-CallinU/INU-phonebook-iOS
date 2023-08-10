@@ -10,9 +10,20 @@ import UIKit
 import SnapKit
 
 final class ResultViewController: NaviHelper, UISearchBarDelegate {
+
+  let userManager = UserManager.shared
   
   var searchKeyword: String?
-  var users: [User] = []
+  
+  init(searchKeyword: String) {
+    self.searchKeyword = searchKeyword
+    
+    super.init(nibName: nil, bundle: nil)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
   
   private let mainTitle: UILabel = {
     let label = UILabel()
@@ -82,35 +93,32 @@ final class ResultViewController: NaviHelper, UISearchBarDelegate {
 extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   // UITableViewDataSource 함수
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return users.count
+    return self.userManager.getUsersFromAPI().count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
-                                             for: indexPath) as! CustomCell
+    let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
+                                                   for: indexPath) as! CustomCell
     
-    cell.profile.image = users[indexPath.row].image
-    cell.name.text = users[indexPath.row].name
-    cell.phoneNum.text = users[indexPath.row].phonNum
-    cell.college.text = users[indexPath.row].college
-    cell.email.text = users[indexPath.row].email
-    //    cell.star.isEnabled = users[indexPath.row].star
+    let user = userManager.getUsersFromAPI()[indexPath.row]
     
-    let starButton = UIButton(type: .system)
-    starButton.setImage(UIImage(systemName: "star"), for: .normal)
-    cell.accessoryView = starButton // 별 버튼을 셀의 accessoryView로 설정합니다.
+    cell.name.text = user.name
+    cell.email.text = user.email
+    cell.college.text = user.college
+    cell.phoneNum.text = user.phoneNumber
+    cell.profile.image = UIImage(named: "INU1")!
+
+
+//    cell.selectionStyle = .none
     return cell
   }
-  
+
   // UITableViewDelegate 함수 (선택)
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let selectedItem = users[indexPath.row]
-    let detailVC = DetailViewController() // 새로운 디테일 뷰컨트롤러를 생성합니다.
-    //    detailVC.selectedItem = selectedItem // 선택된 아이템 데이터를 전달합니다.
+    let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
+    let detailVC = DetailViewController()
+    detailVC.userData = [selectedItem] // 선택된 아이템 데이터를 전달합니다.
     self.navigationController?.pushViewController(detailVC, animated: true)
   }
-
 }
-
-
-
+    
