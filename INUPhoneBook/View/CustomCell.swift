@@ -7,7 +7,7 @@ final class CustomCell: UITableViewCell {
   
   var buttonAction: (() -> Void) = {}
   let userManager = UserManager.shared
-
+  
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupLayout()
@@ -99,7 +99,7 @@ final class CustomCell: UITableViewCell {
     star.snp.makeConstraints { make in
       make.trailing.equalToSuperview().offset(-10)
       make.centerY.equalToSuperview()
-      make.size.equalTo(CGSize(width: 30, height: 30)) // 버튼 크기 설정
+      make.size.equalTo(CGSize(width: 30, height: 30))
     }
   }
   
@@ -115,34 +115,36 @@ final class CustomCell: UITableViewCell {
   @objc func requestTapped() {
     buttonAction()
   }
+  
   func handleButtonAction() {
-      let isSaved = user?.isSaved ?? false
-      let alertTitle = isSaved ? "삭제하시겠습니까?" : "추가하시겠습니까?"
-      
-      let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-      alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
-          self?.user?.isSaved.toggle()
-          self?.setButtonStatus()
-      }))
-      alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
-      
-      if let topViewController = UIApplication.shared.windows.first?.rootViewController {
-          topViewController.present(alert, animated: true, completion: nil)
-      }
+    let isSaved = user?.isSaved ?? false
+    let alertTitle = isSaved ? "삭제하시겠습니까?" : "추가하시겠습니까?"
+    
+    let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
+    
+    alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
+      self?.user?.isSaved.toggle()
+      self?.setButtonStatus()
+    }))
+    alert.addAction(UIAlertAction(title: "취소", style: .default, handler: nil))
+    
+    if let topViewController = UIApplication.shared.windows.first?.rootViewController {
+      topViewController.present(alert, animated: true, completion: nil)
+    }
   }
+
 
   func setButtonStatus() {
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
+    
     star.setImage(starImage, for: .normal)
     // 버튼 액션 블록 설정
     buttonAction = { [weak self] in
       guard let self = self else { return }
-
-      self.user?.isSaved.toggle()
-      self.setButtonStatus()
+      
+      self.handleButtonAction()
     }
   }
-
 }
 
 

@@ -100,7 +100,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
                                                    for: indexPath) as! CustomCell
     
-    var user = userManager.getUsersFromAPI()[indexPath.row]
+    let user = userManager.getUsersFromAPI()[indexPath.row]
     
     cell.name.text = user.name
     cell.email.text = user.email
