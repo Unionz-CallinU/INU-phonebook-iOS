@@ -7,6 +7,7 @@ final class CustomCell: UITableViewCell {
   
   var buttonAction: (() -> Void) = {}
   let userManager = UserManager.shared
+  var saveButtonPressed: ((CustomCell, Bool) -> ()) = { (sender, pressed) in }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -113,63 +114,28 @@ final class CustomCell: UITableViewCell {
   }
   
   @objc func requestTapped() {
-    buttonAction()
+    guard let user = user else { return }
+    saveButtonPressed(self, user.isSaved)
+
   }
-  
-  func makeMessegeAlert() {
-    let isSaved = user?.isSaved ?? false
-    let alertTitle = isSaved ? "삭제하시겠습니까?" : "추가하시겠습니까?"
-    
-    let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
-    
-    alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
-      if let user = self?.user, user.isSaved {
-        let deleteAlert = UIAlertController(title: "정말 삭제하시겠습니까?", message: nil, preferredStyle: .alert)
-        deleteAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
-          CoreDataManager.shared.deleteUser(with: user) {
-            DispatchQueue.main.async {
-              print("삭제 완료")
-            }
-          }
-        }))
-        deleteAlert.addAction(UIAlertAction(title: "취소", style: .default, handler: nil))
-        
-        if let topViewController = UIApplication.shared.windows.first?.rootViewController {
-          topViewController.present(alert, animated: true, completion: nil)
-        }
-      } else {
-        self?.user?.isSaved.toggle()
-        self?.setButtonStatus()
-        
-        if let user = self?.user {
-          CoreDataManager.shared.saveUser(with: user) {
-            DispatchQueue.main.async {
-              print("저장 완료")
-            }
-          }
-        }
-      }
-    }))
-    
-    alert.addAction(UIAlertAction(title: "취소", style: .default, handler: nil))
-    
-    if let topViewController = UIApplication.shared.windows.first?.rootViewController {
-      topViewController.present(alert, animated: true, completion: nil)
-    }
-  }
-  
-  
   
   func setButtonStatus() {
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
     
     star.setImage(starImage, for: .normal)
-    // 버튼 액션 블록 설정
-    buttonAction = { [weak self] in
-      guard let self = self else { return }
-      
-      self.makeMessegeAlert()
-    }
+    
+
+  }
+  
+  func starBtnTapped(_ sender: UIButton){
+    guard let isSaved = user?.isSaved else { return }
+    
+    // 뷰컨트롤로에서 전달받은 클로저를 실행 (내 자신 MusicCell/저장여부 전달하면서) ⭐️
+    saveButtonPressed(self, isSaved)
+    // 다시 저장 여부 셋팅
+    setButtonStatus()
+    self.user?.isSaved = isSaved
+
   }
 }
 

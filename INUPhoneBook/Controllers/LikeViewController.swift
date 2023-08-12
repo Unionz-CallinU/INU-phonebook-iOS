@@ -95,7 +95,7 @@ extension LikeViewController: UITableViewDataSource {
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
-    
+
     return cell
   }
 }
