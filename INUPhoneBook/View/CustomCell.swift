@@ -116,24 +116,50 @@ final class CustomCell: UITableViewCell {
     buttonAction()
   }
   
-  func handleButtonAction() {
+  func makeMessegeAlert() {
     let isSaved = user?.isSaved ?? false
     let alertTitle = isSaved ? "삭제하시겠습니까?" : "추가하시겠습니까?"
     
     let alert = UIAlertController(title: alertTitle, message: nil, preferredStyle: .alert)
     
     alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { [weak self] _ in
-      self?.user?.isSaved.toggle()
-      self?.setButtonStatus()
+      if let user = self?.user, user.isSaved {
+        let deleteAlert = UIAlertController(title: "정말 삭제하시겠습니까?", message: nil, preferredStyle: .alert)
+        deleteAlert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+          CoreDataManager.shared.deleteUser(with: user) {
+            DispatchQueue.main.async {
+              print("삭제 완료")
+            }
+          }
+        }))
+        deleteAlert.addAction(UIAlertAction(title: "취소", style: .default, handler: nil))
+        
+        if let topViewController = UIApplication.shared.windows.first?.rootViewController {
+          topViewController.present(alert, animated: true, completion: nil)
+        }
+      } else {
+        self?.user?.isSaved.toggle()
+        self?.setButtonStatus()
+        
+        if let user = self?.user {
+          CoreDataManager.shared.saveUser(with: user) {
+            DispatchQueue.main.async {
+              print("저장 완료")
+            }
+          }
+        }
+      }
     }))
+    
     alert.addAction(UIAlertAction(title: "취소", style: .default, handler: nil))
     
     if let topViewController = UIApplication.shared.windows.first?.rootViewController {
       topViewController.present(alert, animated: true, completion: nil)
     }
   }
-
-
+  
+  
+  
   func setButtonStatus() {
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
     
@@ -142,7 +168,7 @@ final class CustomCell: UITableViewCell {
     buttonAction = { [weak self] in
       guard let self = self else { return }
       
-      self.handleButtonAction()
+      self.makeMessegeAlert()
     }
   }
 }

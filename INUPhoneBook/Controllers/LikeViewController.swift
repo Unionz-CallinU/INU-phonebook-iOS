@@ -9,7 +9,10 @@ import UIKit
 
 import SnapKit
 
-final class LikeViewController: NaviHelper {
+final class LikeViewController: NaviHelper, UITableViewDelegate {
+  
+  let userManager = UserManager.shared
+  
   private let mainTitle: UILabel = {
     let label = UILabel()
     label.text = "즐겨찾기목록"
@@ -31,6 +34,14 @@ final class LikeViewController: NaviHelper {
     return label
   }()
   
+  private let tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.register(CustomCell.self,
+                       forCellReuseIdentifier: CustomCell.cellId)
+    
+    return tableView
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -46,31 +57,45 @@ final class LikeViewController: NaviHelper {
   func setupLayout(){
     [
       mainTitle,
-      mainImage,
-      bottomTitle
+      tableView
     ].forEach {
       view.addSubview($0)
     }
   }
   
   func makeUI(){
+    tableView.dataSource = self
+    tableView.delegate = self
+    
     mainTitle.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(10)
-      make.bottom.equalTo(mainImage.snp.top).offset(30)
       make.centerX.equalToSuperview()
+      make.top.equalToSuperview().offset(100)
     }
     
-    mainImage.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.centerY.equalToSuperview().offset(-100)
+    tableView.snp.makeConstraints { make in
+      make.top.equalTo(mainTitle.snp.bottom).offset(20)
+      make.leading.trailing.bottom.equalToSuperview()
     }
     
-    bottomTitle.snp.makeConstraints { make in
-      make.top.equalTo(mainImage.snp.bottom).offset(50)
-      make.centerX.equalToSuperview()
-    }
   }
 }
 
-
-
+extension LikeViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return userManager.getUsersFromCoreData().count
+  }
+  
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
+                                             for: indexPath) as! CustomCell
+    
+    let user = userManager.getUsersFromCoreData()[indexPath.row]
+    cell.name.text = user.name
+    cell.email.text = user.email
+    cell.college.text = user.college
+    cell.phoneNum.text = user.phoneNumber
+    cell.profile.image = UIImage(named: "INU1")!
+    
+    return cell
+  }
+}

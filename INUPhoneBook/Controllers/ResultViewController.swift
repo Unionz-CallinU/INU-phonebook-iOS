@@ -78,7 +78,7 @@ final class ResultViewController: NaviHelper, UISearchBarDelegate {
     
     searchController.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.centerY.equalToSuperview().offset(-200)
+      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
       make.width.equalToSuperview().multipliedBy(0.9)
       make.height.equalTo(60)
     }
@@ -88,6 +88,7 @@ final class ResultViewController: NaviHelper, UISearchBarDelegate {
       make.left.right.bottom.equalToSuperview()
     }
   }
+  
 }
 
 extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
@@ -107,12 +108,13 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
-
-  
+    
+    
     cell.user = user
     cell.buttonAction = { [weak cell] in
-        guard let cell = cell else { return }
-        cell.handleButtonAction()
+      guard let cell = cell else { return }
+      cell.makeMessegeAlert()
+      
     }
     
     cell.selectionStyle = .none

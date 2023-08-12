@@ -44,28 +44,25 @@ final class CoreDataManager {
   // MARK: - [Create] 코어데이터에 데이터 생성하기 (Music ===> MusicSaved)
   func saveUser(with user: User, completion: @escaping () -> Void) {
     if let context = context, let entity = NSEntityDescription.entity(forEntityName: self.modelName, in: context) {
-      if let userSaved = NSManagedObject(entity: entity, insertInto: context) as? Users {
-        userSaved.phoneNumber = user.phoneNumber
-        userSaved.name = user.name
-        userSaved.college = user.college
-        userSaved.email = user.email
-        userSaved.department = user.department
-        userSaved.role = user.role
-        userSaved.id  = user.id
-        
-        if context.hasChanges {
-          do {
-            try context.save()
-            completion()
-          } catch {
-            print(error)
-            completion()
-          }
-        }
+      let userSaved = Users(entity: entity, insertInto: context)
+      
+      userSaved.phoneNumber = user.phoneNumber
+      userSaved.name = user.name
+      userSaved.college = user.college
+      userSaved.email = user.email
+      userSaved.department = user.department
+      userSaved.role = user.role
+      userSaved.id = user.id
+      
+      do {
+        try context.save()
+        completion()
+      } catch {
+        print(error)
       }
     }
-    completion()
   }
+  
   
   // MARK: - [Update] 코어데이터에서 데이터 수정하기 (일치하는 데이터 찾아서 ===> 수정)
   func updateUser(with user: Users, completion: @escaping () -> Void) {
