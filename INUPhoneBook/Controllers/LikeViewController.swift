@@ -34,7 +34,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     return label
   }()
   
-  private let tableView: UITableView = {
+  private let resultTableView: UITableView = {
     let tableView = UITableView()
     tableView.register(CustomCell.self,
                        forCellReuseIdentifier: CustomCell.cellId)
@@ -51,28 +51,29 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     makeUI()
     
     navigationItemSetting()
+ 
     self.navigationItem.rightBarButtonItem = .none
   }
   
   func setupLayout(){
     [
       mainTitle,
-      tableView
+      resultTableView
     ].forEach {
       view.addSubview($0)
     }
   }
   
   func makeUI(){
-    tableView.dataSource = self
-    tableView.delegate = self
+    resultTableView.dataSource = self
+    resultTableView.delegate = self
     
     mainTitle.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalToSuperview().offset(100)
     }
     
-    tableView.snp.makeConstraints { make in
+    resultTableView.snp.makeConstraints { make in
       make.top.equalTo(mainTitle.snp.bottom).offset(20)
       make.leading.trailing.bottom.equalToSuperview()
     }
@@ -86,16 +87,65 @@ extension LikeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
-                                             for: indexPath) as! CustomCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId, for: indexPath) as! CustomCell
     
-    let user = userManager.getUsersFromCoreData()[indexPath.row]
+    // 코어데이터에서 가져오는걸로 수정해야함
+    let user = userManager.getUsersFromAPI()[indexPath.row]
+    let img = UIImage(named: "StarChecked")
+    
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
-
+    cell.star.setImage(img, for: .normal)
+    
+    cell.saveButtonPressed = { [weak self] (senderCell, isSaved) in
+      guard let self = self else { return }
+      
+      if isSaved {
+        self.makeRemoveCheckAlert { removeAction in
+          if removeAction {
+            self.userManager.deleteUserFromCoreData(with: user) {
+              senderCell.user?.isSaved = false
+              senderCell.setButtonStatus()
+              tableView.reloadData()
+              print("저장된 것 삭제")
+            }
+          } else {
+            print("저장된 것 삭제하기 취소됨")
+          }
+        }
+      }
+    }
+    
+    cell.selectionStyle = .none
     return cell
+  }
+
+  
+  func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
+    let alert = UIAlertController(title: "삭제?",
+                                  message: "정말 저장된거 지우시겠습니까?",
+                                  preferredStyle: .alert)
+    let ok = UIAlertAction(title: "확인",
+                           style: .default) { okAction in
+      completion(true)
+    }
+    let cancel = UIAlertAction(title: "취소",
+                               style: .cancel) { cancelAction in
+      completion(false)
+    }
+    alert.addAction(ok)
+    alert.addAction(cancel)
+    self.present(alert, animated: true, completion: nil)
+  }
+  
+  // UITableViewDelegate 함수 (선택)
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
+    let detailVC = DetailViewController()
+    detailVC.userData = [selectedItem] // 선택된 아이템 데이터를 전달합니다.
+    self.navigationController?.pushViewController(detailVC, animated: true)
   }
 }

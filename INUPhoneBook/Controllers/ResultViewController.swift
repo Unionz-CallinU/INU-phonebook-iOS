@@ -35,7 +35,7 @@ final class ResultViewController: NaviHelper, UISearchBarDelegate {
   private let searchController: UISearchBar = {
     let bar = UISearchBar()
     bar.placeholder = "상세정보를 입력하세요"
-    bar.backgroundImage = UIImage()   // 빈 이미지를 넣어서 주변 사각형 제거
+    bar.backgroundImage = UIImage()  
     return bar
   }()
   
@@ -88,7 +88,6 @@ final class ResultViewController: NaviHelper, UISearchBarDelegate {
       make.left.right.bottom.equalToSuperview()
     }
   }
-  
 }
 
 extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
@@ -100,45 +99,38 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
                                                    for: indexPath) as! CustomCell
-    
+
     let user = userManager.getUsersFromAPI()[indexPath.row]
-    
+    let starImage = user.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
+
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
-    
-    
+    cell.star.setImage(starImage, for: .normal)
     cell.user = user
     
     cell.saveButtonPressed = { [weak self] (senderCell, isSaved) in
       guard let self = self else { return }
-      // 저장이 안되어 있던 것이면
       if !isSaved {
-        // 저장하려는 알럿메세지 띄우기
         self.makeMessegeAlert { savedAction in
-          // 저장함(확인) 선택하면
           if savedAction {
             self.userManager.saveUserData(with: user) {
-              // 저장여부 설정 및 버튼 스타일 바꾸기(셀이 음악 가지고 있음)
               senderCell.user?.isSaved = true
-              // 저장 여부 바뀌었으니, 버튼 재설정
               senderCell.setButtonStatus()
               print("저장됨")
             }
           } else {
             print("취소됨")
+            print(user.isSaved)
           }
         }
-        // 이미 저장이 되어 있던 것이면
       } else {
-        // 정말 지울 것인지를 묻는 알럿메세지 띄우기
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
             self.userManager.deleteUserFromCoreData(with: user) {
               senderCell.user?.isSaved = false
-              // 저장 여부 바뀌었으니, 버튼 재설정
               senderCell.setButtonStatus()
               print("저장된 것 삭제")
             }
@@ -153,25 +145,35 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func makeMessegeAlert(completion: @escaping (Bool) -> Void) {
-    let alert = UIAlertController(title: "저장?", message: "H", preferredStyle: .alert)
+    let alert = UIAlertController(title: "저장?",
+                                  message: "정말 저장하시겠습니까?",
+                                  preferredStyle: .alert)
     
-    let ok = UIAlertAction(title: "확인", style: .default) { okAction in
+    let ok = UIAlertAction(title: "확인",
+                           style: .default) { okAction in
       completion(true)
     }
-    let cancel = UIAlertAction(title: "취소", style: .cancel) { cancelAction in
+    let cancel = UIAlertAction(title: "취소",
+                               style: .cancel) { cancelAction in
       completion(false)
     }
-    alert.addAction(ok)
+
     alert.addAction(cancel)
+    alert.addAction(ok)
+    
     self.present(alert, animated: true, completion: nil)
   }
   
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
-    let alert = UIAlertController(title: "삭제?", message: "정말 저장된거 지우시겠습니까?", preferredStyle: .alert)
-    let ok = UIAlertAction(title: "확인", style: .default) { okAction in
+    let alert = UIAlertController(title: "삭제?",
+                                  message: "정말 저장된거 지우시겠습니까?",
+                                  preferredStyle: .alert)
+    let ok = UIAlertAction(title: "확인",
+                           style: .default) { okAction in
       completion(true)
     }
-    let cancel = UIAlertAction(title: "취소", style: .cancel) { cancelAction in
+    let cancel = UIAlertAction(title: "취소",
+                               style: .cancel) { cancelAction in
       completion(false)
     }
     alert.addAction(ok)

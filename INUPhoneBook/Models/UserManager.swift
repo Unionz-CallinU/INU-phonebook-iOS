@@ -62,6 +62,7 @@ final class UserManager {
         completion()
       case .failure(let error):
         print(error.localizedDescription)
+        self.checkWhetherSaved()
         completion()
       }
     }
@@ -101,14 +102,14 @@ final class UserManager {
   
   // 이미 저장된 데이터인지 확인하기 (다른 화면에서 저장 여부 표시하기 위해)
   func checkWhetherSaved() {
-    let savedUserIds = userSavedDatas.map { $0.id }
-    userApiDatas = userApiDatas.map { user in
-      var newUser = user
-      if savedUserIds.contains(user.id) {
-        newUser.isSaved = true
+    userApiDatas.forEach { user in
+      //코어데이터에 저장된 것들 중 음악 및 가수 이름이 같은 것 찾아내서
+      if userSavedDatas.contains(where: {
+        $0.id == user.id && $0.name == user.name
+      }) {
+        user.isSaved = true
       }
-      return newUser
     }
   }
-  
 }
+

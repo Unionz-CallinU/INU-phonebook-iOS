@@ -17,7 +17,7 @@ class DetailViewController: UIViewController {
     let btn = UIButton()
     btn.setImage(UIImage(named: "Plus"), for: .normal)
     btn.setTitleColor(.black, for: .normal)
-    btn.addTarget(DetailViewController.self, action: #selector(addToLike), for: .touchUpInside)
+    btn.addTarget(self, action: #selector(addToLike), for: .touchUpInside)
     return btn
   }()
   
@@ -179,5 +179,6 @@ class DetailViewController: UIViewController {
   }
   
   @objc func addToLike(){
+    print("hh")
   }
 }

@@ -17,7 +17,7 @@ struct UserData: Codable {
   let data: User
 }
 
-struct User: Codable {
+class User: Codable {
   var id: String?
   var name: String?
   var college: String?

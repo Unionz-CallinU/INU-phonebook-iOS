@@ -13,8 +13,6 @@ final class CustomCell: UITableViewCell {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     setupLayout()
     makeUI()
-    
-    star.addTarget(self, action: #selector(requestTapped), for: .touchUpInside)
   }
   
   required init?(coder: NSCoder) {
@@ -54,10 +52,11 @@ final class CustomCell: UITableViewCell {
     return label
   }()
   
-  let star: UIButton = {
+  lazy var star: UIButton = {
     let btn = UIButton()
     let img = UIImage(named: "Star")
     btn.setImage(img, for: .normal)
+    btn.addTarget(self, action: #selector(requestTapped), for: .touchUpInside)
     return btn
   }()
   
@@ -121,21 +120,20 @@ final class CustomCell: UITableViewCell {
   
   func setButtonStatus() {
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
-    
-    star.setImage(starImage, for: .normal)
-    
 
+    guard let isSaved = self.user?.isSaved else { return }
+    if !isSaved {
+      star.setImage(starImage, for: .normal)
+    } else{
+      star.setImage(starImage, for: .normal)
+    }
   }
   
   func starBtnTapped(_ sender: UIButton){
     guard let isSaved = user?.isSaved else { return }
     
-    // 뷰컨트롤로에서 전달받은 클로저를 실행 (내 자신 MusicCell/저장여부 전달하면서) ⭐️
     saveButtonPressed(self, isSaved)
-    // 다시 저장 여부 셋팅
     setButtonStatus()
-    self.user?.isSaved = isSaved
-
   }
 }
 
