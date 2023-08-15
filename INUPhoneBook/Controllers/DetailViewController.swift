@@ -5,21 +5,15 @@
 //  Created by 최용헌 on 2523/07/19.
 //
 
+// 오른쪽 네비게이션 바버튼 기능추가해야함
 import UIKit
 
 import SnapKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: NaviHelper {
   let userManager = UserManager.shared
   var userData: [User]?
-  
-  private let likeButton: UIButton = {
-    let btn = UIButton()
-    btn.setImage(UIImage(named: "Plus"), for: .normal)
-    btn.setTitleColor(.black, for: .normal)
-    btn.addTarget(DetailViewController.self, action: #selector(addToLike), for: .touchUpInside)
-    return btn
-  }()
+  var userToCore: Users?
   
   private let circleImage: UIImageView = {
     let view = UIImageView()
@@ -88,12 +82,24 @@ class DetailViewController: UIViewController {
     self.view.backgroundColor = .white
     self.navigationController?.navigationBar.topItem?.title = ""
     self.navigationController?.navigationBar.tintColor = .black
-    
+  
     setupLayout()
     makeUI()
+    
     cellToDetail()
+    cellToDetailCore()
+    setNavigationbar()
   }
   
+  func setNavigationbar() {
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      image: UIImage(named: "Plus"),
+      style: .plain,
+      target: self,
+      action: #selector(addToLike)
+    )
+  }
+
   func cellToDetail() {
     guard let data = userData?.first else { return }
     nameTextLabel.text = data.name
@@ -104,10 +110,19 @@ class DetailViewController: UIViewController {
     emailLabel.text = data.email
   }
   
+  func cellToDetailCore(){
+    guard let dataToCore = userToCore else { return }
+    nameTextLabel.text = dataToCore.name
+    collegeLabel.text = dataToCore.college
+    departmentLabel.text = dataToCore.department
+    phoneNumLabel.text = dataToCore.phoneNumber
+    roleLabel.text = dataToCore.role
+    emailLabel.text = dataToCore.email
+  }
+  
   // MARK: - view 계층 구성
-  func setupLayout(){
+  func setupLayout() {
     [
-      likeButton,
       circleImage,
       professorImage,
       phoneNumLabel,
@@ -121,18 +136,13 @@ class DetailViewController: UIViewController {
       view.addSubview($0)
     }
   }
+
   
   // MARK: - UI세팅
   func makeUI() {
-    likeButton.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(65)
-      make.trailing.equalToSuperview().offset(-20)
-    }
-    
     professorImage.snp.makeConstraints { make in
       make.leading.equalToSuperview().offset(163)
       make.top.equalToSuperview().offset(171)
-//      make.trailing.equalTo(circleImage.snp.trailing).offset(-35)
     }
     
     circleImage.snp.makeConstraints { make in
@@ -179,6 +189,6 @@ class DetailViewController: UIViewController {
   }
   
   @objc func addToLike(){
-    print("hh")
+    print("Hello")
   }
 }

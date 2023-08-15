@@ -5,11 +5,13 @@
 //  Created by 최용헌 on 2023/08/02.
 //
 
+// 검색기능 메인하고 똑같이 추가
+
 import UIKit
 
 import SnapKit
 
-final class ResultViewController: NaviHelper, UISearchBarDelegate {
+final class ResultViewController: NaviHelper {
   
   let userManager = UserManager.shared
   
@@ -188,5 +190,20 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     detailVC.userData = [selectedItem] // 선택된 아이템 데이터를 전달합니다.
     self.navigationController?.pushViewController(detailVC, animated: true)
   }
+}
+
+extension ResultViewController: UISearchBarDelegate {
+  // 검색(Search) 버튼을 눌렀을때 호출되는 메서드
+  func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+    guard let keyword = searchBar.text else { return }
+    let searchResultController = ResultViewController(searchKeyword: keyword)
+
+    userManager.fetchUsersFromAPI(with: keyword) { [self] in
+      DispatchQueue.main.async { [self] in
+        navigationController?.pushViewController(searchResultController, animated: true)
+      }
+    }
+  }
+
 }
 

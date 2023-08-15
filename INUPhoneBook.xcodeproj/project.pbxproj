@@ -28,6 +28,7 @@
 		EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEC2D6C62A60F94E0015C715 /* SnapKit */; };
 		EEC732462A8BA97B0059A709 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */; };
 		EEC732472A8BA97B0059A709 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */; };
+		EEC732492A8BB3A60059A709 /* SavedCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732482A8BB3A60059A709 /* SavedCustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
 		EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		EEC732482A8BB3A60059A709 /* SavedCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				EE752AF72A6833F1002B6AE2 /* CustomCell.swift */,
+				EEC732482A8BB3A60059A709 /* SavedCustomCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				EE17F0A62A83385A00BA7EF0 /* UserManager.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
 				EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */,
+				EEC732492A8BB3A60059A709 /* SavedCustomCell.swift in Sources */,
 				EEC732472A8BA97B0059A709 /* Users+CoreDataProperties.swift in Sources */,
 				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
 				EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */,

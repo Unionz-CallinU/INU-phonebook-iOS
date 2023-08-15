@@ -1,13 +1,20 @@
+//
+//  SavedCustomCell.swift
+//  INUPhoneBook
+//
+//  Created by 최용헌 on 2023/08/15.
+//
+
 import UIKit
 
 import SnapKit
 
-final class CustomCell: UITableViewCell {
-  static let cellId = "CellId"
+final class SavedCustomCell: UITableViewCell {
+  static let cellId = "SavedCellId"
   
   var buttonAction: (() -> Void) = {}
   let userManager = UserManager.shared
-  var saveButtonPressed: ((CustomCell, Bool) -> ()) = { (sender, pressed) in }
+  var saveButtonPressed: ((SavedCustomCell) -> ()) = { (sender) in }
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -19,7 +26,7 @@ final class CustomCell: UITableViewCell {
     fatalError("init(coder:) has not been implemented")
   }
   
-  var user: User? {
+  var user: Users? {
     didSet {
       configureUIwithData()
     }
@@ -113,8 +120,8 @@ final class CustomCell: UITableViewCell {
   }
   
   @objc func requestTapped() {
-    guard let user = user else { return }
-    saveButtonPressed(self, user.isSaved)
+    saveButtonPressed(self)
+
   }
   
   func setButtonStatus() {
@@ -129,9 +136,9 @@ final class CustomCell: UITableViewCell {
   }
   
   func starBtnTapped(_ sender: UIButton){
-    guard let isSaved = user?.isSaved else { return }
+    guard let _ = user?.isSaved else { return }
     
-    saveButtonPressed(self, isSaved)
+    saveButtonPressed(self)
     setButtonStatus()
   }
 }
