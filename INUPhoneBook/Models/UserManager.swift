@@ -85,8 +85,24 @@ final class UserManager {
     }
   }
   
+  func deleteUser(with user: User, completion: @escaping () -> Void) {
+    // 동일한 데이터(제목&가수이름)를 가진 것들을 찾아내서 (배열로 리턴)
+    let usersSaved = userSavedDatas.filter { $0.id == user.id }
+    
+    // 전달
+    if let targetUserSaved = usersSaved.first {
+      self.deleteUserFromCoreData(with: targetUserSaved) {
+        print("지우기 완료")
+        completion()
+      }
+    } else {
+      print("저장된 것 없음")
+      completion()
+    }
+  }
+  
   // Delete (데이터 지우기) - Users(entity)를 가진 데이터 지우기
-  func deleteUserFromCoreData(with user: User, completion: @escaping () -> Void) {
+  func deleteUserFromCoreData(with user: Users, completion: @escaping () -> Void) {
     coredataManager.deleteUser(with: user) {
       self.fetchUsersFromCoreData {
         completion()

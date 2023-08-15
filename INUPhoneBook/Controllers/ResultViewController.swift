@@ -129,7 +129,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
       } else {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
-            self.userManager.deleteUserFromCoreData(with: user) {
+            self.userManager.deleteUser(with: user) {
               senderCell.user?.isSaved = false
               senderCell.setButtonStatus()
               print("저장된 것 삭제")

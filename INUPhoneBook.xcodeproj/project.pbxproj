@@ -10,8 +10,6 @@
 		5B27696BB4895E0E997CD77A /* Pods_INUPhoneBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7D4F627CDF64F28CC0C2533 /* Pods_INUPhoneBook.framework */; };
 		EE17F0902A82584600BA7EF0 /* SplashScreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = EE17F08F2A82584600BA7EF0 /* SplashScreen.mp4 */; };
 		EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0922A825A9000BA7EF0 /* SplashScreenController.swift */; };
-		EE17F0A32A83365500BA7EF0 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0A12A83365500BA7EF0 /* Users+CoreDataClass.swift */; };
-		EE17F0A42A83365500BA7EF0 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0A22A83365500BA7EF0 /* Users+CoreDataProperties.swift */; };
 		EE17F0A62A83385A00BA7EF0 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0A52A83385A00BA7EF0 /* UserManager.swift */; };
 		EE17F0A92A8338B100BA7EF0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0A82A8338B100BA7EF0 /* NetworkManager.swift */; };
 		EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AA2A83395F00BA7EF0 /* User.swift */; };
@@ -28,6 +26,8 @@
 		EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */; };
 		EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */; };
 		EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEC2D6C62A60F94E0015C715 /* SnapKit */; };
+		EEC732462A8BA97B0059A709 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */; };
+		EEC732472A8BA97B0059A709 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,8 +36,6 @@
 		D9A83BED1F5F0CD043009D92 /* Pods-INUPhoneBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-INUPhoneBook.debug.xcconfig"; path = "Target Support Files/Pods-INUPhoneBook/Pods-INUPhoneBook.debug.xcconfig"; sourceTree = "<group>"; };
 		EE17F08F2A82584600BA7EF0 /* SplashScreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = SplashScreen.mp4; sourceTree = "<group>"; };
 		EE17F0922A825A9000BA7EF0 /* SplashScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenController.swift; sourceTree = "<group>"; };
-		EE17F0A12A83365500BA7EF0 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		EE17F0A22A83365500BA7EF0 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		EE17F0A52A83385A00BA7EF0 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		EE17F0A82A8338B100BA7EF0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EE17F0AA2A83395F00BA7EF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -55,6 +53,8 @@
 		EEC2D6B82A60EC640015C715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EEC2D6BA2A60EC640015C715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
+		EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +151,8 @@
 		EEC2D6C12A60F8210015C715 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EE17F0A12A83365500BA7EF0 /* Users+CoreDataClass.swift */,
-				EE17F0A22A83365500BA7EF0 /* Users+CoreDataProperties.swift */,
+				EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */,
+				EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */,
 				EE17F0AA2A83395F00BA7EF0 /* User.swift */,
 				EE17F0A52A83385A00BA7EF0 /* UserManager.swift */,
 				EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */,
@@ -307,14 +307,14 @@
 				EE17F0A62A83385A00BA7EF0 /* UserManager.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
 				EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */,
-				EE17F0A32A83365500BA7EF0 /* Users+CoreDataClass.swift in Sources */,
+				EEC732472A8BA97B0059A709 /* Users+CoreDataProperties.swift in Sources */,
 				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
 				EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */,
+				EEC732462A8BA97B0059A709 /* Users+CoreDataClass.swift in Sources */,
 				EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
 				EE17F0A92A8338B100BA7EF0 /* NetworkManager.swift in Sources */,
 				EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */,
-				EE17F0A42A83365500BA7EF0 /* Users+CoreDataProperties.swift in Sources */,
 				EE17F0AD2A83574F00BA7EF0 /* CoreDataManager.swift in Sources */,
 				EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */,
 			);

@@ -77,7 +77,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       make.top.equalTo(mainTitle.snp.bottom).offset(20)
       make.leading.trailing.bottom.equalToSuperview()
     }
-    
   }
 }
 
@@ -87,16 +86,17 @@ extension LikeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId, for: indexPath) as! CustomCell
+    let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
+                                             for: indexPath) as! CustomCell
     
     // 코어데이터에서 가져오는걸로 수정해야함
-    let user = userManager.getUsersFromAPI()[indexPath.row]
+    let userTest = userManager.getUsersFromCoreData()[indexPath.row]
     let img = UIImage(named: "StarChecked")
-    
-    cell.name.text = user.name
-    cell.email.text = user.email
-    cell.college.text = user.college
-    cell.phoneNum.text = user.phoneNumber
+
+    cell.name.text = userTest.name
+    cell.email.text = userTest.email
+    cell.college.text = userTest.college
+    cell.phoneNum.text = userTest.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
     cell.star.setImage(img, for: .normal)
     
@@ -106,7 +106,7 @@ extension LikeViewController: UITableViewDataSource {
       if isSaved {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
-            self.userManager.deleteUserFromCoreData(with: user) {
+            self.userManager.deleteUserFromCoreData(with: userTest) {
               senderCell.user?.isSaved = false
               senderCell.setButtonStatus()
               tableView.reloadData()
@@ -141,7 +141,7 @@ extension LikeViewController: UITableViewDataSource {
     self.present(alert, animated: true, completion: nil)
   }
   
-  // UITableViewDelegate 함수 (선택)
+  // UITableViewDelegate 함수 ,코어데이터로 변경해야함, 검색을 아무것도 안하고 디테일로 넘어가면 에러
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
     let detailVC = DetailViewController()
