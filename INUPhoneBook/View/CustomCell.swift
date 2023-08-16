@@ -25,29 +25,29 @@ final class CustomCell: UITableViewCell {
     }
   }
   
-  let profile: UIImageView = {
+  lazy var profile: UIImageView = {
     let img = UIImageView()
     return img
   }()
   
-  let name: UILabel = {
+  lazy var name: UILabel = {
     let label = UILabel()
     return label
   }()
   
-  let college: UILabel = {
+  lazy var college: UILabel = {
     let label = UILabel()
     label.textColor = .gray
     label.font = UIFont.systemFont(ofSize: 14)
     return label
   }()
   
-  let phoneNum: UILabel = {
+  lazy var phoneNum: UILabel = {
     let label = UILabel()
     return label
   }()
   
-  let email: UILabel = {
+  lazy var email: UILabel = {
     let label = UILabel()
     return label
   }()

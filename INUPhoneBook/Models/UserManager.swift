@@ -124,6 +124,7 @@ final class UserManager {
         $0.id == user.id && $0.name == user.name
       }) {
         user.isSaved = true
+        
       }
     }
   }
