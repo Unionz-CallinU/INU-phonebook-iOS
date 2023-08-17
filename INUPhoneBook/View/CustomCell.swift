@@ -11,6 +11,7 @@ final class CustomCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
     setupLayout()
     makeUI()
   }
@@ -62,11 +63,9 @@ final class CustomCell: UITableViewCell {
   
   func setupLayout() {
     [
-      profile,
       name,
       college,
       phoneNum,
-      email,
       star
     ].forEach {
       self.contentView.addSubview($0)
@@ -74,14 +73,9 @@ final class CustomCell: UITableViewCell {
   }
   
   func makeUI() {
-    profile.snp.makeConstraints { make in
-      make.size.equalTo(CGSize(width: 80, height: 80))
-      make.leading.equalToSuperview().offset(-8)
-      make.top.equalToSuperview().offset(8)
-    }
     name.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(10)
-      make.leading.equalTo(profile.snp.trailing).offset(-10)
+      make.leading.equalToSuperview().offset(20)
     }
     college.snp.makeConstraints { make in
       make.leading.equalTo(name.snp.leading).offset(50)
@@ -91,11 +85,7 @@ final class CustomCell: UITableViewCell {
       make.leading.equalTo(name.snp.leading)
       make.top.equalTo(name.snp.bottom).offset(5)
     }
-    email.snp.makeConstraints { make in
-      make.leading.equalTo(name.snp.leading)
-      make.top.equalTo(phoneNum.snp.bottom).offset(5)
-      make.bottom.equalToSuperview().offset(-10)
-    }
+
     star.snp.makeConstraints { make in
       make.trailing.equalToSuperview().offset(-10)
       make.centerY.equalToSuperview()

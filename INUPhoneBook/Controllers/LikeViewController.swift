@@ -5,7 +5,7 @@
 //  Created by 최용헌 on 2023/07/14.
 //
 
-// star 버튼 안눌리는거 해결해야함(완료), 저장된거 없을 때와 있을 때 화면 구분(완료) , cell이 0개가 되었을 때 새로 추가되었을 때 화면 리로드, 카테고리 추가
+//  cell이 0개가 되었을 때 새로 추가되었을 때 화면 리로드, 카테고리 추가
 
 import UIKit
 
@@ -53,6 +53,15 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     makeUI()
     
     navigationItemSetting()
+    setNavigationbar()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    
+  }
+  func setNavigationbar() {
+    navigationItem.rightBarButtonItem = .none
   }
   
   func setupLayout(){
@@ -109,6 +118,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
 }
 
 extension LikeViewController: UITableViewDataSource {
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+      return 70
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return userManager.getUsersFromCoreData().count
   }

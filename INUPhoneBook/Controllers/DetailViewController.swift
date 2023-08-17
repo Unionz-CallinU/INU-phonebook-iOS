@@ -5,7 +5,7 @@
 //  Created by 최용헌 on 2523/07/19.
 //
 
-// 오른쪽 네비게이션 바버튼 기능추가해야함
+// 번호 누르면 바로 전화 가능하게, 이메일 누르면 바로 전달 가능하게
 import UIKit
 
 import SnapKit
@@ -212,7 +212,7 @@ class DetailViewController: NaviHelper {
 
       } else {
         // 즐겨찾기에 없는 경우 - 추가 로직 구현
-        self.makeMessegeAlert { savedAction in
+        self.makeMessageAlert { savedAction in
           if savedAction {
             self.userManager.saveUserData(with: user!) {
               user?.isSaved = true
@@ -227,7 +227,7 @@ class DetailViewController: NaviHelper {
   }
 
   
-  func makeMessegeAlert(completion: @escaping (Bool) -> Void) {
+  func makeMessageAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "저장?",
                                   message: "정말 저장하시겠습니까?",
                                   preferredStyle: .alert)
