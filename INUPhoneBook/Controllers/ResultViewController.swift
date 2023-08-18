@@ -14,10 +14,7 @@ final class ResultViewController: NaviHelper {
   
   let userManager = UserManager.shared
   var searchKeyword: String?
-  
-  let categories = ["카테고리1", "카테고리2", "카테고리3", "카테고리4"]
-  var selectedCategory: String?
-  
+    
   init(searchKeyword: String) {
     self.searchKeyword = searchKeyword
     
@@ -48,31 +45,6 @@ final class ResultViewController: NaviHelper {
     return tableView
   }()
   
-  private var alertTextField: UITextField!
-  
-  private var arrowDown: UIButton = {
-    let arrow = UIButton()
-    let img = UIImage(named: "Left")
-    arrow.setImage(img, for: .normal)
-    arrow.sizeToFit()
-    arrow.addTarget(self, action: #selector(showCategoryList), for: .touchUpInside)
-    return arrow
-  }()
-  
-  lazy var pickerView: UIPickerView = {
-    let picker = UIPickerView()
-    picker.delegate = self
-    picker.dataSource = self
-    return picker
-  }()
-  
-  private func configureAlertTextField() {
-    alertTextField = UITextField()
-    alertTextField.placeholder = "기본"
-    alertTextField.rightView = arrowDown
-    alertTextField.rightViewMode = .always
-  }
-  
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
@@ -85,7 +57,6 @@ final class ResultViewController: NaviHelper {
     
     resultTableView.delegate = self
     resultTableView.dataSource = self
-    
   }
   
   // MARK: - view 계층 구성
@@ -187,24 +158,29 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   }
 }
 
+
 // MARK: - Alert 함수
 extension ResultViewController {
-  
+  // addtextfield가 아니라 버튼을 경고창안에 넣는건?
   func makeMessageAlert(completion: @escaping (Bool, String?) -> Void) {
     let alert = UIAlertController(title: "저장?",
                                   message: "저장할 카테고리를 선택해 주세요:",
                                   preferredStyle: .alert)
-    
-    alert.addTextField { [self] (textField) in
-      textField.placeholder = "기본"
-      textField.rightView = self.arrowDown
-      textField.rightViewMode = .always
-      self.alertTextField = textField
-      
-      // arrowDown 버튼이 눌렸을 때의 액션 설정
-      self.arrowDown.addTarget(self, action: #selector(showCategoryList), for: .touchUpInside)
-    }
-    
+//    alert.addTextField {  textField in
+//      let arrow = UIButton()
+//      let img = UIImage(named: "Left")
+//
+//      arrow.setImage(img, for: .normal)
+//      arrow.sizeToFit()
+//
+//      textField.sizeToFit()
+//      textField.placeholder = "기본"
+//      textField.rightViewMode = .always
+//      textField.rightView = arrow
+//
+//      arrow.addTarget(self, action: #selector(self.showCategoryList), for: .touchUpInside)
+//    }
+  
     let ok = UIAlertAction(title: "확인",
                            style: .default) { okAction in
       let selectedCategory = alert.textFields?.first?.text
@@ -220,30 +196,6 @@ extension ResultViewController {
     alert.addAction(ok)
     
     self.present(alert, animated: true, completion: nil)
-  }
-  
-  @objc func showCategoryList() {
-      // inputAccessoryView 설정
-      let pickerViewToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: 44))
-      pickerViewToolbar.items = [UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil), UIBarButtonItem(title: "완료", style: .done, target: self, action: #selector(hidePickerView))]
-      
-      self.alertTextField.inputAccessoryView = pickerViewToolbar
-
-      // pickerView 위치 조정
-      self.pickerView.frame = CGRect(x: 0, y: self.view.frame.size.height - self.pickerView.frame.size.height, width: self.view.frame.size.width, height: self.pickerView.frame.size.height)
-
-      // inputView 및 inputAccessoryView를 설정한 후 재로드
-      self.alertTextField.inputView = self.pickerView
-      self.alertTextField.reloadInputViews()
-  }
-
-  @objc func hidePickerView() {
-      self.alertTextField.resignFirstResponder()
-  }
-
-  // 화면을 터치하면 pickerView 숨기기
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-      self.alertTextField.resignFirstResponder()
   }
 
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
@@ -262,8 +214,6 @@ extension ResultViewController {
     alert.addAction(cancel)
     self.present(alert, animated: true, completion: nil)
   }
-  
-
 }
 
 // MARK: - 서치바 함수
@@ -279,30 +229,23 @@ extension ResultViewController: UISearchBarDelegate {
       }
     }
   }
-  
 }
 
 // MARK: - pickerview 함수
-extension ResultViewController: UIPickerViewDelegate,
-                                UIPickerViewDataSource {
-  func numberOfComponents(in pickerView: UIPickerView) -> Int {
-    return 1
-  }
+extension ResultViewController {
   
-  func pickerView(_ pickerView: UIPickerView,
-                  numberOfRowsInComponent component: Int) -> Int {
-    return categories.count
+  @objc func showCategoryList(sender: UIButton) {
+    let dropDown = DropDown()
+    dropDown.anchorView = sender
+    dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
+    dropDown.dataSource = ["카테고리1", "카테고리2", "카테고리3", "카테고리3"]
+    dropDown.selectionAction = { [weak self] (index, item) in
+      // DropDown의 항목 선택 시의 동작을 구현합니다.
+      guard let self = self else { return }
+      // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
+      print("선택된 카테고리: \(item)")
+    }
+    dropDown.show()
   }
-  
-  func pickerView(_ pickerView: UIPickerView,
-                  titleForRow row: Int,
-                  forComponent component: Int) -> String? {
-    return categories[row]
-  }
-  
-  func pickerView(_ pickerView: UIPickerView,
-                  didSelectRow row: Int,
-                  inComponent component: Int) {
-    selectedCategory = categories[row]
-  }
+
 }
