@@ -115,18 +115,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     cell.saveButtonPressed = { [weak self] (senderCell, isSaved) in
       guard let self = self else { return }
       if !isSaved {
-        self.makeMessageAlert{ savedAction, title  in
-          if savedAction {
-            self.userManager.saveUserData(with: user) {
-              senderCell.user?.isSaved = true
-              senderCell.setButtonStatus()
-              print("저장됨")
-            }
-          } else {
-            print("취소됨")
-            print(user.isSaved)
-          }
-        }
+        self.didTapButton(senderCell: cell)
       } else {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
@@ -160,44 +149,8 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
 
 
 // MARK: - Alert 함수
-extension ResultViewController {
-  // addtextfield가 아니라 버튼을 경고창안에 넣는건?
-  func makeMessageAlert(completion: @escaping (Bool, String?) -> Void) {
-    let alert = UIAlertController(title: "저장?",
-                                  message: "저장할 카테고리를 선택해 주세요:",
-                                  preferredStyle: .alert)
-//    alert.addTextField {  textField in
-//      let arrow = UIButton()
-//      let img = UIImage(named: "Left")
-//
-//      arrow.setImage(img, for: .normal)
-//      arrow.sizeToFit()
-//
-//      textField.sizeToFit()
-//      textField.placeholder = "기본"
-//      textField.rightViewMode = .always
-//      textField.rightView = arrow
-//
-//      arrow.addTarget(self, action: #selector(self.showCategoryList), for: .touchUpInside)
-//    }
-  
-    let ok = UIAlertAction(title: "확인",
-                           style: .default) { okAction in
-      let selectedCategory = alert.textFields?.first?.text
-      completion(true, selectedCategory)
-    }
-    
-    let cancel = UIAlertAction(title: "취소",
-                               style: .cancel) { cancelAction in
-      completion(false, nil)
-    }
-    
-    alert.addAction(cancel)
-    alert.addAction(ok)
-    
-    self.present(alert, animated: true, completion: nil)
-  }
 
+extension ResultViewController {
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
                                   message: "정말 저장된거 지우시겠습니까?",
@@ -214,6 +167,16 @@ extension ResultViewController {
     alert.addAction(cancel)
     self.present(alert, animated: true, completion: nil)
   }
+  
+  @objc private func didTapButton(senderCell: CustomCell) {
+      let popupViewController = MyPopupViewController(title: "타이틀",
+                                                      desc: "디스크립션",
+                                                      user: senderCell.user,
+                                                      senderCell: senderCell)
+      popupViewController.modalPresentationStyle = .overFullScreen
+      self.present(popupViewController, animated: false)
+  }
+
 }
 
 // MARK: - 서치바 함수
@@ -249,3 +212,4 @@ extension ResultViewController {
   }
 
 }
+

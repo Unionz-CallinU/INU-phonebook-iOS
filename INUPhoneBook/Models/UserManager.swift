@@ -103,12 +103,24 @@ final class UserManager {
   
   // Delete (데이터 지우기) - Users(entity)를 가진 데이터 지우기
   func deleteUserFromCoreData(with user: Users, completion: @escaping () -> Void) {
+    guard let context = CoreDataManager.shared.context else {
+      completion()
+      return
+    }
+    
+    context.delete(user)
     coredataManager.deleteUser(with: user) {
-      self.fetchUsersFromCoreData {
-        completion()
-      }
+      self.fetchUsersFromCoreData {}
+    }
+    do {
+      try context.save()
+      completion()
+    } catch {
+      print(error)
+      completion()
     }
   }
+  
   
   // Read (모든 Users(entity) 불러오기) (코어데이터에서 가져와서)
   private func fetchUsersFromCoreData(completion: () -> Void) {
