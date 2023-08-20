@@ -8,11 +8,11 @@
 import UIKit
 
 import SnapKit
-
 class MyPopupView: UIView {
   
   var leftButtonAction: (() -> Void)?
   var rightButtonAction: (() -> Void)?
+  var selectButtonAction: (() -> Void)?
   
   private let popupView: UIView = {
     let view = UIView()
@@ -32,7 +32,7 @@ class MyPopupView: UIView {
   private let titleLabel: UILabel = {
     let label = UILabel()
     label.textColor = .black
-    label.font = .systemFont(ofSize: 30)
+    label.font = .systemFont(ofSize: 24)
     label.numberOfLines = 0
     label.textAlignment = .center
     return label
@@ -41,7 +41,7 @@ class MyPopupView: UIView {
   private let descLabel: UILabel = {
     let label = UILabel()
     label.textColor = .gray
-    label.font = .systemFont(ofSize: 24)
+    label.font = .systemFont(ofSize: 16)
     label.numberOfLines = 0
     label.textAlignment = .center
     return label
@@ -51,6 +51,30 @@ class MyPopupView: UIView {
     let view = UIView()
     view.backgroundColor = .gray
     return view
+  }()
+  
+  private let selectView: UIView = {
+    let view = UIView()
+    view.layer.cornerRadius = 4
+    view.layer.borderWidth = 1
+    view.layer.borderColor = UIColor.gray.cgColor
+    view.backgroundColor = .clear
+    return view
+  }()
+  
+  private let selectLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = .gray
+    label.font = .systemFont(ofSize: 16)
+    label.numberOfLines = 1
+    label.text = "기본"
+    return label
+  }()
+  
+  private let selectButton: UIButton = {
+    let button = UIButton()
+    button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+    return button
   }()
   
   private let leftButton: UIButton = {
@@ -68,19 +92,20 @@ class MyPopupView: UIView {
     button.setBackgroundImage(UIColor.systemBlue.asImage(), for: .normal)
     button.setBackgroundImage(UIColor.blue.asImage(), for: .highlighted)
     button.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
-  
+    
     return button
   }()
   
   init(title: String,
        desc: String,
-       leftButtonTitle: String = "Cancel",
-       rightButtonTitle: String = "Submit") {
+       leftButtonTitle: String = "취소",
+       rightButtonTitle: String = "확인") {
     
     self.titleLabel.text = title
     self.descLabel.text = desc
     self.leftButton.setTitle(leftButtonTitle, for: .normal)
     self.rightButton.setTitle(rightButtonTitle, for: .normal)
+    
     super.init(frame: .zero)
     
     self.backgroundColor = .black.withAlphaComponent(0.3)
@@ -90,10 +115,19 @@ class MyPopupView: UIView {
     self.popupView.addSubview(self.leftButton)
     self.popupView.addSubview(self.rightButton)
     
-    self.setupConstraints()
+    let arrowImage = UIImage(systemName: "arrow.right")
+    self.selectButton.setImage(arrowImage, for: .normal)
+    self.selectButton.semanticContentAttribute = .forceRightToLeft
     
     self.bodyStackView.addArrangedSubview(self.titleLabel)
     self.bodyStackView.addArrangedSubview(self.descLabel)
+    
+    self.selectView.addSubview(self.selectButton)
+    self.selectView.addSubview(self.selectLabel)
+    
+    self.bodyStackView.addArrangedSubview(self.selectView)
+    
+    self.setupConstraints()
   }
   
   required init?(coder: NSCoder) {
@@ -102,35 +136,49 @@ class MyPopupView: UIView {
   
   private func setupConstraints() {
     self.popupView.snp.makeConstraints { make in
-      make.left.right.equalToSuperview().inset(32)
-      make.centerY.equalToSuperview()
+      make.centerX.centerY.equalToSuperview()
+      make.width.equalToSuperview().multipliedBy(0.8)
     }
     
     self.bodyStackView.snp.makeConstraints { make in
-      make.top.equalToSuperview().inset(32)
-      make.left.right.equalToSuperview().inset(24)
+      make.top.left.right.equalToSuperview().inset(24)
+      make.bottom.equalTo(self.separatorLineView.snp.top).inset(-24)
+    }
+    
+    self.selectView.snp.makeConstraints { make in
+      make.height.equalTo(36)
+      make.width.equalTo(descLabel.snp.width)
+    }
+    
+    self.selectButton.snp.makeConstraints { make in
+      make.centerY.equalToSuperview()
+      make.width.equalTo(descLabel.snp.width)
+    }
+    
+    self.selectLabel.snp.makeConstraints { make in
+      make.centerY.equalToSuperview()
+      make.centerX.equalTo(selectButton)
     }
     
     self.separatorLineView.snp.makeConstraints { make in
-      make.top.equalTo(self.bodyStackView.snp.bottom).offset(24)
       make.left.right.equalToSuperview()
+      make.bottom.equalTo(self.leftButton.snp.top)
       make.height.equalTo(1)
     }
     
     self.leftButton.snp.makeConstraints { make in
-      make.top.equalTo(self.separatorLineView.snp.bottom)
       make.bottom.left.equalToSuperview()
-      make.width.equalToSuperview().dividedBy(2)
+      make.width.equalTo(self.popupView.snp.width).multipliedBy(0.5)
       make.height.equalTo(56)
     }
     
     self.rightButton.snp.makeConstraints { make in
-      make.top.equalTo(self.separatorLineView.snp.bottom)
       make.bottom.right.equalToSuperview()
-      make.width.equalToSuperview().dividedBy(2)
+      make.width.equalTo(self.popupView.snp.width).multipliedBy(0.5)
       make.height.equalTo(56)
     }
   }
+  
   
   @objc private func leftButtonTapped() {
     leftButtonAction?()
@@ -138,6 +186,10 @@ class MyPopupView: UIView {
   
   @objc private func rightButtonTapped() {
     rightButtonAction?()
+  }
+  
+  @objc private func selectButtonTapped() {
+    selectButtonAction?()
   }
 }
 
