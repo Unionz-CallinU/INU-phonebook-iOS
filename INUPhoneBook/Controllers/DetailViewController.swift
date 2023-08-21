@@ -190,7 +190,7 @@ class DetailViewController: NaviHelper {
     // userdata - api, usertocore,
     // 메인에서 바로 즐겨찾기가서 상세조회 누르고 버튼누르는 경우 - 코어데이터에서 가져와야함
     // 검색 후 상세조회누르고 버튼 누르는 경우 - api에서 가져오기
-    // 데이터의 id 혹은 이름이 코어데이터에 이미 있으면 삭제하시겠습니까 없으면 추가하시겠습니까
+    // 데이터의 id 혹은 이름이 코어데이터에 이미 있으면 삭제하시겠습니까 없으면 추가하시겠습니까 여기서 지우면 문제발생
     
   @objc func addToLike() {
     let user = userData?.first

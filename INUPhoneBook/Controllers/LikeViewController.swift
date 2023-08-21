@@ -14,7 +14,8 @@ import SnapKit
 final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   let userManager = UserManager.shared
-  
+  private let sections: [String] = ["기본"]
+
   private let mainTitle: UILabel = {
     let label = UILabel()
     label.text = "즐겨찾기목록"

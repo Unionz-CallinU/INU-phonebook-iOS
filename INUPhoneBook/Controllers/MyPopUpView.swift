@@ -71,10 +71,16 @@ class MyPopupView: UIView {
     return label
   }()
   
-  private let selectButton: UIButton = {
+  lazy var selectButton: UIButton = {
     let button = UIButton()
     button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     return button
+  }()
+  
+  private let selectBtnImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "Left")
+    return view
   }()
   
   private let leftButton: UIButton = {
@@ -115,13 +121,10 @@ class MyPopupView: UIView {
     self.popupView.addSubview(self.leftButton)
     self.popupView.addSubview(self.rightButton)
     
-    let arrowImage = UIImage(systemName: "arrow.right")
-    self.selectButton.setImage(arrowImage, for: .normal)
-    self.selectButton.semanticContentAttribute = .forceRightToLeft
-    
     self.bodyStackView.addArrangedSubview(self.titleLabel)
     self.bodyStackView.addArrangedSubview(self.descLabel)
-    
+
+    self.selectView.addSubview(self.selectBtnImage)
     self.selectView.addSubview(self.selectButton)
     self.selectView.addSubview(self.selectLabel)
     
@@ -153,6 +156,11 @@ class MyPopupView: UIView {
     self.selectButton.snp.makeConstraints { make in
       make.centerY.equalToSuperview()
       make.width.equalTo(descLabel.snp.width)
+    }
+    
+    self.selectBtnImage.snp.makeConstraints { make in
+      make.trailing.equalTo(selectButton.snp.trailing).offset(-20)
+      make.centerY.equalToSuperview()
     }
     
     self.selectLabel.snp.makeConstraints { make in

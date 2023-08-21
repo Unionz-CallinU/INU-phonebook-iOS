@@ -8,6 +8,7 @@
 import UIKit
 
 import SnapKit
+import DropDown
 
 class MyPopupViewController: UIViewController {
   private let userManager = UserManager.shared
@@ -43,6 +44,10 @@ class MyPopupViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
       }
     }
+    
+    self.popupView.selectButtonAction = { [weak self] in
+      self?.showCategoryList(sender: self?.popupView.selectButton ?? UIButton())
+    }
   }
   
   required init?(coder: NSCoder) {
@@ -53,5 +58,19 @@ class MyPopupViewController: UIViewController {
     self.popupView.snp.makeConstraints { make in
       make.edges.equalToSuperview()
     }
+  }
+  
+  @objc func showCategoryList(sender: UIButton) {
+    let dropDown = DropDown()
+    dropDown.anchorView = sender
+    dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
+    dropDown.dataSource = ["카테고리1", "카테고리2", "카테고리3", "카테고리3"]
+    dropDown.selectionAction = { [weak self] (index, item) in
+      // DropDown의 항목 선택 시의 동작을 구현합니다.
+      guard let self = self else { return }
+      // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
+      print("선택된 카테고리: \(item)")
+    }
+    dropDown.show()
   }
 }
