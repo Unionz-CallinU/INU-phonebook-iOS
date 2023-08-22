@@ -71,7 +71,6 @@ class MyPopupViewController: UIViewController {
       guard let self = self else { return }
       // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
       self.user?.category = item
-      
       print("선택된 카테고리: \(self.user?.category)")
     }
     dropDown.show()

@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22F82" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Entity" representedClassName="Entity" syncable="YES" codeGenerationType="class"/>
     <entity name="Users" representedClassName="Users" syncable="YES">
+        <attribute name="category" optional="YES" attributeType="String"/>
         <attribute name="college" optional="YES" attributeType="String"/>
         <attribute name="department" optional="YES" attributeType="String"/>
         <attribute name="email" optional="YES" attributeType="String"/>

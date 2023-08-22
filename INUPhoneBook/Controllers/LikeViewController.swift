@@ -15,7 +15,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   let userManager = UserManager.shared
   
-  private let sections: [String] = ["기본"]
+  private var sections: [String] = ["기본"]
   
   private let mainTitle: UILabel = {
     let label = UILabel()
@@ -37,14 +37,38 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     label.textColor = .gray
     return label
   }()
-
+  
   private let editButton: UIButton = {
-      let btn = UIButton()
-      let img = UIImage(named: "Edit")
-      btn.setImage(img, for: .normal)
-      return btn
+    let btn = UIButton()
+    let img = UIImage(named: "Edit")
+    btn.setImage(img, for: .normal)
+    btn.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+    return btn
   }()
-
+  
+  lazy var buttonStackView: UIStackView = {
+    let stackView = UIStackView()
+    stackView.axis = .horizontal
+    stackView.alignment = .fill
+    stackView.spacing = 10
+    return stackView
+  }()
+  
+  private let plusButton: UIButton = {
+    let btn = UIButton()
+    let img = UIImage(named: "Plus")
+    btn.setImage(img, for: .normal)
+    btn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+    return btn
+  }()
+  
+  private let minusButton: UIButton = {
+    let btn = UIButton()
+    let img = UIImage(named: "Minus")
+    btn.setImage(img, for: .normal)
+    return btn
+  }()
+  
   private let resultTableView: UITableView = {
     let tableView = UITableView()
     tableView.register(SavedCustomCell.self,
@@ -64,6 +88,12 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     navigationItemSetting()
     setNavigationbar()
     
+    let users = userManager.getUsersFromCoreData()
+    for user in users {
+      if user.category == nil {
+        user.category = "기본"
+      }
+    }
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -91,7 +121,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       ].forEach {
         view.addSubview($0)
       }
- 
     }
   }
   
@@ -130,6 +159,62 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       }
     }
   }
+  
+  @objc private func editButtonTapped() {
+    editButton.isHidden = true
+    
+    // editButton의 숨김 상태 변경 이후에 뷰의 레이아웃 업데이트
+    view.setNeedsLayout()
+    view.layoutIfNeeded()
+    
+    if editButton.isHidden {
+      // 버튼 추가
+      buttonStackView.addArrangedSubview(plusButton)
+      buttonStackView.addArrangedSubview(minusButton)
+      
+      // 버튼이 슈퍼뷰에 추가된 후에 제약 조건 설정
+      view.addSubview(buttonStackView)
+      buttonStackView.snp.makeConstraints { make in
+        make.trailing.equalToSuperview().offset(-10)
+        make.top.equalTo(mainTitle.snp.bottom).offset(50)
+      }
+    }
+  }
+  
+  @objc private func plusButtonTapped() {
+    showCategoryInputAlert()
+  }
+  
+  func showCategoryInputAlert() {
+    let alert = UIAlertController(title: "",
+                                  message: "새로운 카테고리 이름을 입력하세요",
+                                  preferredStyle: .alert)
+    
+    alert.addTextField { textField in
+      textField.placeholder = "카테고리 이름"
+    }
+    
+    let addAction = UIAlertAction(title: "추가", style: .default) { [weak self] action in
+      guard let categoryName = alert.textFields?.first?.text, !categoryName.isEmpty else {
+        return
+      }
+      
+      // 중복 체크
+      if self?.sections.contains(categoryName) == false {
+        // 새로운 카테고리 추가
+        self?.sections.append(categoryName)
+        self?.resultTableView.reloadData()
+      }
+    }
+    
+    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+    
+    alert.addAction(addAction)
+    alert.addAction(cancelAction)
+    
+    present(alert, animated: true, completion: nil)
+  }
+  
 }
 
 extension LikeViewController: UITableViewDataSource {
@@ -138,14 +223,22 @@ extension LikeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return userManager.getUsersFromCoreData().count
+//     TableView에 표시될 셀의 개수를 반환
+    let users = userManager.getUsersFromCoreData()
+    let filteredUsers = users.filter { $0.category == sections[section] } // 카테고리가 일치하는 사용자만 반환
+    return filteredUsers.count
   }
   
+  
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    // 셀의 내용을 정의함
     let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId,
                                              for: indexPath) as! SavedCustomCell
     
-    let userTest = userManager.getUsersFromCoreData()[indexPath.row]
+    let users = userManager.getUsersFromCoreData()
+    let filteredUsers = users.filter { $0.category == sections[indexPath.section] }
+    
+    let userTest = filteredUsers[indexPath.row] // category 속성이 일치하는 사용자를 가져옴
     let img = UIImage(named: "StarChecked")
     
     cell.name.text = userTest.name
@@ -157,6 +250,7 @@ extension LikeViewController: UITableViewDataSource {
     
     cell.user = userTest
     
+    // saveButtonPressed 클로저 등록
     cell.saveButtonPressed = { [weak self] (senderCell) in
       guard let self = self else { return }
       self.makeRemoveCheckAlert { okAction in
@@ -170,10 +264,11 @@ extension LikeViewController: UITableViewDataSource {
         }
       }
     }
-  
+    
     cell.selectionStyle = .none
     return cell
   }
+  
   
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",

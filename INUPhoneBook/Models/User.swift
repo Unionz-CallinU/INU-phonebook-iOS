@@ -26,7 +26,7 @@ class User: Codable {
   var role: String?
   var email: String?
   var isSaved: Bool = false
-  var category: String = "기본"
+  var category: String? = "기본"
   
   enum CodingKeys: String, CodingKey {
     case id

@@ -15,6 +15,8 @@
 		EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AA2A83395F00BA7EF0 /* User.swift */; };
 		EE17F0AD2A83574F00BA7EF0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */; };
 		EE63FDAF2A94395E005DD117 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDAE2A94395E005DD117 /* StringExtension.swift */; };
+		EE63FDB52A94A859005DD117 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */; };
+		EE63FDB62A94A859005DD117 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */; };
 		EE73FD0E2A90EFEC00719D26 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73FD0D2A90EFEC00719D26 /* PopUpViewController.swift */; };
 		EE73FD102A90F05E00719D26 /* MyPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73FD0F2A90F05E00719D26 /* MyPopUpView.swift */; };
 		EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */; };
@@ -29,8 +31,6 @@
 		EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EEC2D6B72A60EC640015C715 /* LaunchScreen.storyboard */; };
 		EEC2D6C42A60F8D80015C715 /* LikeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */; };
 		EEC2D6C72A60F94E0015C715 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = EEC2D6C62A60F94E0015C715 /* SnapKit */; };
-		EEC732462A8BA97B0059A709 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */; };
-		EEC732472A8BA97B0059A709 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */; };
 		EEC732492A8BB3A60059A709 /* SavedCustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC732482A8BB3A60059A709 /* SavedCustomCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +45,8 @@
 		EE17F0AA2A83395F00BA7EF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		EE63FDAE2A94395E005DD117 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
+		EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Users+CoreDataClass.swift"; path = "INUPhoneBook/Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Users+CoreDataProperties.swift"; path = "INUPhoneBook/Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		EE73FD0D2A90EFEC00719D26 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		EE73FD0F2A90F05E00719D26 /* MyPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPopUpView.swift; sourceTree = "<group>"; };
 		EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -60,8 +62,6 @@
 		EEC2D6B82A60EC640015C715 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EEC2D6BA2A60EC640015C715 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EEC2D6C32A60F8D80015C715 /* LikeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeViewController.swift; sourceTree = "<group>"; };
-		EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		EEC732482A8BB3A60059A709 /* SavedCustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -169,8 +169,8 @@
 		EEC2D6C12A60F8210015C715 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EEC732442A8BA97B0059A709 /* Users+CoreDataClass.swift */,
-				EEC732452A8BA97B0059A709 /* Users+CoreDataProperties.swift */,
+				EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */,
+				EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */,
 				EE17F0AA2A83395F00BA7EF0 /* User.swift */,
 				EE17F0A52A83385A00BA7EF0 /* UserManager.swift */,
 				EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */,
@@ -322,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE73FD102A90F05E00719D26 /* MyPopUpView.swift in Sources */,
+				EE63FDB52A94A859005DD117 /* Users+CoreDataClass.swift in Sources */,
 				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
 				EE752AFD2A7A3D7A002B6AE2 /* NaviHelper.swift in Sources */,
 				EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */,
@@ -330,12 +331,11 @@
 				EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */,
 				EEC732492A8BB3A60059A709 /* SavedCustomCell.swift in Sources */,
 				EE73FD0E2A90EFEC00719D26 /* PopUpViewController.swift in Sources */,
-				EEC732472A8BA97B0059A709 /* Users+CoreDataProperties.swift in Sources */,
 				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
 				EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */,
 				EE63FDAF2A94395E005DD117 /* StringExtension.swift in Sources */,
-				EEC732462A8BA97B0059A709 /* Users+CoreDataClass.swift in Sources */,
 				EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */,
+				EE63FDB62A94A859005DD117 /* Users+CoreDataProperties.swift in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
 				EE17F0A92A8338B100BA7EF0 /* NetworkManager.swift in Sources */,
 				EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */,
