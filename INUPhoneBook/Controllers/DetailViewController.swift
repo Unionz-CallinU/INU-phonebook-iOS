@@ -105,7 +105,7 @@ class DetailViewController: NaviHelper {
     nameTextLabel.text = data.name
     collegeLabel.text = data.college
     departmentLabel.text = data.department
-    phoneNumLabel.text = data.phoneNumber
+    phoneNumLabel.text = data.phoneNumber?.withHypen
     roleLabel.text = data.role
     emailLabel.text = data.email
   }
@@ -115,7 +115,7 @@ class DetailViewController: NaviHelper {
     nameTextLabel.text = dataToCore.name
     collegeLabel.text = dataToCore.college
     departmentLabel.text = dataToCore.department
-    phoneNumLabel.text = dataToCore.phoneNumber
+    phoneNumLabel.text = dataToCore.phoneNumber?.withHypen
     roleLabel.text = dataToCore.role
     emailLabel.text = dataToCore.email
   }

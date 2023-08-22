@@ -16,7 +16,8 @@ class MyPopupViewController: UIViewController {
   private var user: User?
   private var senderCell: CustomCell?
   
-  
+  private let sections: [String] = ["기본"]
+
   init(title: String, desc: String, user: User?, senderCell: CustomCell?) {
     self.popupView = MyPopupView(title: title, desc: desc)
     super.init(nibName: nil, bundle: nil)
@@ -64,12 +65,14 @@ class MyPopupViewController: UIViewController {
     let dropDown = DropDown()
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
-    dropDown.dataSource = ["카테고리1", "카테고리2", "카테고리3", "카테고리3"]
+    dropDown.dataSource = sections
     dropDown.selectionAction = { [weak self] (index, item) in
       // DropDown의 항목 선택 시의 동작을 구현합니다.
       guard let self = self else { return }
       // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
-      print("선택된 카테고리: \(item)")
+      self.user?.category = item
+      
+      print("선택된 카테고리: \(self.user?.category)")
     }
     dropDown.show()
   }

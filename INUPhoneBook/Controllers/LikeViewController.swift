@@ -14,8 +14,9 @@ import SnapKit
 final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   let userManager = UserManager.shared
+  
   private let sections: [String] = ["기본"]
-
+  
   private let mainTitle: UILabel = {
     let label = UILabel()
     label.text = "즐겨찾기목록"
@@ -36,7 +37,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     label.textColor = .gray
     return label
   }()
-  
+
+  private let editButton: UIButton = {
+      let btn = UIButton()
+      let img = UIImage(named: "Edit")
+      btn.setImage(img, for: .normal)
+      return btn
+  }()
+
   private let resultTableView: UITableView = {
     let tableView = UITableView()
     tableView.register(SavedCustomCell.self,
@@ -55,12 +63,13 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     
     navigationItemSetting()
     setNavigationbar()
+    
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    
   }
+  
   func setNavigationbar() {
     navigationItem.rightBarButtonItem = .none
   }
@@ -77,10 +86,12 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     } else {
       [
         mainTitle,
+        editButton,
         resultTableView
       ].forEach {
         view.addSubview($0)
       }
+ 
     }
   }
   
@@ -109,9 +120,12 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         make.centerX.equalToSuperview()
         make.top.equalToSuperview().offset(100)
       }
-      
+      editButton.snp.makeConstraints { make in
+        make.trailing.equalToSuperview().offset(-10)
+        make.top.equalTo(mainTitle.snp.bottom).offset(50)
+      }
       resultTableView.snp.makeConstraints { make in
-        make.top.equalTo(mainTitle.snp.bottom).offset(20)
+        make.top.equalTo(editButton.snp.bottom)
         make.leading.trailing.bottom.equalToSuperview()
       }
     }
@@ -120,7 +134,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
 
 extension LikeViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-      return 70
+    return 70
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -156,7 +170,7 @@ extension LikeViewController: UITableViewDataSource {
         }
       }
     }
-    
+  
     cell.selectionStyle = .none
     return cell
   }
@@ -187,4 +201,41 @@ extension LikeViewController: UITableViewDataSource {
     self.navigationController?.pushViewController(detailVC, animated: true)
     
   }
+}
+
+extension LikeViewController {
+  
+  // MARK: - Section
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return sections.count
+  }
+  
+  func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return sections[section]
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let headerView = UILabel()
+    headerView.text = sections[section]
+    headerView.backgroundColor = UIColor(red: 0.91,
+                                         green: 0.91,
+                                         blue: 0.91,
+                                         alpha: 1.00)
+    headerView.font = UIFont.boldSystemFont(ofSize: 16)
+    headerView.textAlignment = .center
+    headerView.textColor = .blue
+    
+    let style = NSMutableParagraphStyle()
+    style.headIndent = 20
+    style.firstLineHeadIndent = 20
+    
+    let attributes = [NSAttributedString.Key.paragraphStyle: style]
+    let attributedString = NSAttributedString(string: headerView.text ?? "",
+                                              attributes: attributes)
+    headerView.attributedText = attributedString
+    
+    return headerView
+  }
+  
+  
 }
