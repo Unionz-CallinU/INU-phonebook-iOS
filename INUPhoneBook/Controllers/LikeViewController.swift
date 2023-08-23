@@ -42,7 +42,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let btn = UIButton()
     let img = UIImage(named: "Edit")
     btn.setImage(img, for: .normal)
-    btn.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
+    btn.addTarget(self,
+                  action: #selector(editButtonTapped),
+                  for: .touchUpInside)
     return btn
   }()
   
@@ -58,7 +60,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let btn = UIButton()
     let img = UIImage(named: "Plus")
     btn.setImage(img, for: .normal)
-    btn.addTarget(self, action: #selector(plusButtonTapped), for: .touchUpInside)
+    btn.addTarget(self,
+                  action: #selector(plusButtonTapped),
+                  for: .touchUpInside)
     return btn
   }()
   
@@ -66,6 +70,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let btn = UIButton()
     let img = UIImage(named: "Minus")
     btn.setImage(img, for: .normal)
+    btn.addTarget(self,
+                  action: #selector(minusButtonTapped),
+                  for: .touchUpInside)
     return btn
   }()
   
@@ -73,7 +80,11 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let tableView = UITableView()
     tableView.register(SavedCustomCell.self,
                        forCellReuseIdentifier: SavedCustomCell.cellId)
+    if #available(iOS 15, *) {
+        tableView.sectionHeaderTopPadding = 5
+    }
     
+    tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
     return tableView
   }()
   
@@ -194,10 +205,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       textField.placeholder = "카테고리 이름"
     }
     
-    let addAction = UIAlertAction(title: "추가", style: .default) { [weak self] action in
-      guard let categoryName = alert.textFields?.first?.text, !categoryName.isEmpty else {
-        return
-      }
+    let addAction = UIAlertAction(title: "추가",
+                                  style: .default) { [weak self] action in
+      guard let categoryName = alert.textFields?.first?.text,
+              !categoryName.isEmpty else { return }
       
       // 중복 체크
       if self?.sections.contains(categoryName) == false {
@@ -207,7 +218,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       }
     }
     
-    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+    let cancelAction = UIAlertAction(title: "취소",
+                                     style: .cancel,
+                                     handler: nil)
     
     alert.addAction(addAction)
     alert.addAction(cancelAction)
@@ -215,6 +228,30 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     present(alert, animated: true, completion: nil)
   }
   
+  @objc private func minusButtonTapped() {
+      showDeleteSectionAlert()
+  }
+
+  func showDeleteSectionAlert() {
+      let alert = UIAlertController(title: "섹션 삭제",
+                                    message: "선택한 섹션을 삭제하시겠습니까?",
+                                    preferredStyle: .alert)
+      
+      let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] action in
+          // 삭제 작업 수행
+          if let selectedSection = self?.resultTableView.indexPathForSelectedRow?.section {
+              self?.sections.remove(at: selectedSection)
+              self?.resultTableView.deleteSections(IndexSet(integer: selectedSection), with: .automatic)
+          }
+      }
+      
+      let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+      
+      alert.addAction(deleteAction)
+      alert.addAction(cancelAction)
+      
+      present(alert, animated: true, completion: nil)
+  }
 }
 
 extension LikeViewController: UITableViewDataSource {
@@ -223,22 +260,20 @@ extension LikeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//     TableView에 표시될 셀의 개수를 반환
     let users = userManager.getUsersFromCoreData()
-    let filteredUsers = users.filter { $0.category == sections[section] } // 카테고리가 일치하는 사용자만 반환
+    let filteredUsers = users.filter { $0.category == sections[section] }
     return filteredUsers.count
   }
   
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    // 셀의 내용을 정의함
     let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId,
                                              for: indexPath) as! SavedCustomCell
     
     let users = userManager.getUsersFromCoreData()
     let filteredUsers = users.filter { $0.category == sections[indexPath.section] }
     
-    let userTest = filteredUsers[indexPath.row] // category 속성이 일치하는 사용자를 가져옴
+    let userTest = filteredUsers[indexPath.row]
     let img = UIImage(named: "StarChecked")
     
     cell.name.text = userTest.name
@@ -250,7 +285,6 @@ extension LikeViewController: UITableViewDataSource {
     
     cell.user = userTest
     
-    // saveButtonPressed 클로저 등록
     cell.saveButtonPressed = { [weak self] (senderCell) in
       guard let self = self else { return }
       self.makeRemoveCheckAlert { okAction in
@@ -268,7 +302,6 @@ extension LikeViewController: UITableViewDataSource {
     cell.selectionStyle = .none
     return cell
   }
-  
   
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
@@ -299,7 +332,6 @@ extension LikeViewController: UITableViewDataSource {
 }
 
 extension LikeViewController {
-  
   // MARK: - Section
   func numberOfSections(in tableView: UITableView) -> Int {
     return sections.count
@@ -308,7 +340,7 @@ extension LikeViewController {
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return sections[section]
   }
-  
+
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = UILabel()
     headerView.text = sections[section]
@@ -331,6 +363,5 @@ extension LikeViewController {
     
     return headerView
   }
-  
   
 }
