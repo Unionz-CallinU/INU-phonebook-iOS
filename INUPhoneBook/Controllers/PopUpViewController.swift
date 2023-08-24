@@ -39,7 +39,7 @@ class MyPopupViewController: UIViewController {
       guard let self = self, let user = self.user else { return }
       
       self.userManager.saveUserData(with: user) {
-        user.isSaved = true
+        self.user?.isSaved = true
         self.senderCell?.setButtonStatus()
         
         self.dismiss(animated: true, completion: nil)

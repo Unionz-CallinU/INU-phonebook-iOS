@@ -54,6 +54,8 @@ final class CoreDataManager {
       userSaved.role = user.role
       userSaved.id = user.id
       userSaved.category = user.category
+      userSaved.isSaved = user.isSaved
+      
       do {
         try context.save()
         completion()

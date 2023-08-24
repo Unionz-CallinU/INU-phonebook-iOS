@@ -339,7 +339,6 @@ extension LikeViewController: UITableViewDataSource {
     
     detailVC.userToCore = selectedUser
     self.navigationController?.pushViewController(detailVC, animated: true)
-    
   }
 }
 
@@ -354,19 +353,15 @@ extension LikeViewController {
   }
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerView = UIView() // Use a UIView as a container for header components
-    headerView.backgroundColor = UIColor(red: 0.91,
-                                         green: 0.91,
-                                         blue: 0.91,
-                                         alpha: 1.00)
+    let headerView = UIView()
+    headerView.backgroundColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1.00)
     
-    // Create a custom UIButton for minus button
     let checkButton = UIButton(type: .custom)
-    let btnImage = checkButtonStatus ?  UIImage(named: "checked") : UIImage(named: "emptycheck")
+    let btnImage = UIImage(named: "emptycheck")
     
     checkButton.setImage(btnImage, for: .normal)
-    checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
-
+    checkButton.addTarget(self, action: #selector(checkButtonTapped(_:)), for: .touchUpInside)
+    
     // Create a UILabel for section title
     let titleLabel = UILabel()
     titleLabel.text = sections[section]
@@ -392,14 +387,19 @@ extension LikeViewController {
         make.centerY.equalTo(headerView.snp.centerY)
       }
     }
-    // Set the visibility of the minusButton based on minusButtonVisible
     checkButton.isHidden = !minusButtonVisible
+    
     return headerView
   }
   
-  @objc func checkButtonTapped(){
-    checkButtonStatus.toggle()
-    resultTableView.reloadData()
+  @objc func checkButtonTapped(_ sender: UIButton) {
+    if let headerView = sender.superview,
+       let minusButton = headerView.subviews.first(where: { $0 is UIButton }) as? UIButton {
+      checkButtonStatus.toggle()
+      
+      let btnImage = checkButtonStatus ?  UIImage(named: "checked") : UIImage(named: "emptycheck")
+      minusButton.setImage(btnImage, for: .normal)
+    }
   }
 }
 

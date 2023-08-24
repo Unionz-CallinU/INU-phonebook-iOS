@@ -9,6 +9,7 @@
 import UIKit
 
 import SnapKit
+import DropDown
 
 class DetailViewController: NaviHelper {
   let userManager = UserManager.shared
@@ -24,7 +25,7 @@ class DetailViewController: NaviHelper {
   
   private let professorImage: UIImageView = {
     let view = UIImageView()
-    let image = UIImage(named: "mainimage")?.withRenderingMode(.alwaysOriginal)
+    let image = UIImage(named: "mainimage")
     view.image = image
     view.frame = CGRect(x: 0, y: 0, width: 62, height: 81)
     return view
@@ -76,6 +77,29 @@ class DetailViewController: NaviHelper {
     return label
   }()
   
+  // MARK: - 즐겨찾기에 등록된 경우 추가되는 UI
+  private let selectLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = .blue
+    label.font = .systemFont(ofSize: 16)
+    label.numberOfLines = 1
+    label.text = "기본"
+    return label
+  }()
+  
+  lazy var selectButton: UIButton = {
+    let button = UIButton()
+        button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+    button.backgroundColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1.00)
+    return button
+  }()
+  
+  private let selectBtnImage: UIImageView = {
+    let view = UIImageView()
+    view.image = UIImage(named: "Left")
+    return view
+  }()
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -83,9 +107,8 @@ class DetailViewController: NaviHelper {
     self.navigationController?.navigationBar.topItem?.title = ""
     self.navigationController?.navigationBar.tintColor = .black
     
-    setupLayout()
-    makeUI()
-    
+    isSavedCheck()
+
     cellToDetail()
     cellToDetailCore()
     setNavigationbar()
@@ -121,6 +144,42 @@ class DetailViewController: NaviHelper {
   }
   
   // MARK: - view 계층 구성
+  func isSavedCheck() {
+    let user = userData?.first
+    let userToCore = userToCore
+    let checkDataCore = userManager.getUsersFromCoreData()
+    
+    if let userId = user?.id ?? userToCore?.id {
+      if let _ = checkDataCore.first(where: { $0.id == userId }) {
+        print("없음")
+        setupLayoutToCore()
+        makeUIToCore()
+      } else {
+        setupLayout()
+        makeUI()
+      }
+    }
+  }
+  
+  func setupLayoutToCore() {
+    [
+      selectButton,
+      selectBtnImage,
+      selectLabel,
+      circleImage,
+      professorImage,
+      phoneNumLabel,
+      emailLabel,
+      nameTextLabel,
+      collegeLabel,
+      departmentLabel,
+      roleLabel,
+      dividerView
+    ].forEach {
+      view.addSubview($0)
+    }
+  }
+  
   func setupLayout() {
     [
       circleImage,
@@ -136,7 +195,7 @@ class DetailViewController: NaviHelper {
       view.addSubview($0)
     }
   }
-  
+
   // MARK: - UI세팅
   func makeUI() {
     professorImage.snp.makeConstraints { make in
@@ -187,11 +246,77 @@ class DetailViewController: NaviHelper {
     }
   }
   
-    // userdata - api, usertocore,
-    // 메인에서 바로 즐겨찾기가서 상세조회 누르고 버튼누르는 경우 - 코어데이터에서 가져와야함
-    // 검색 후 상세조회누르고 버튼 누르는 경우 - api에서 가져오기
-    // 데이터의 id 혹은 이름이 코어데이터에 이미 있으면 삭제하시겠습니까 없으면 추가하시겠습니까 여기서 지우면 문제발생
+  func makeUIToCore() {
+    selectButton.snp.makeConstraints { make in
+      make.top.equalToSuperview().offset(118)
+      make.width.equalToSuperview()
+    }
     
+    selectLabel.snp.makeConstraints { make in
+      make.top.equalTo(selectButton.snp.top)
+      make.leading.equalTo(selectButton.snp.leading).offset(20)
+      make.centerY.equalTo(selectButton)
+    }
+    
+    selectBtnImage.snp.makeConstraints { make in
+      make.top.equalTo(selectButton.snp.centerY).offset(-5)
+      make.trailing.equalTo(selectButton.snp.trailing).offset(-20)
+    
+    }
+    
+    professorImage.snp.makeConstraints { make in
+      make.leading.equalToSuperview().offset(163)
+      make.top.equalTo(circleImage.snp.top).offset(15)
+    }
+    
+    circleImage.snp.makeConstraints { make in
+      make.leading.equalToSuperview().offset(138)
+      make.top.equalTo(selectButton.snp.bottom).offset(30)
+    }
+    
+    nameTextLabel.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.top.equalTo(circleImage.snp.bottom).offset(50)
+    }
+    
+    collegeLabel.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.top.equalTo(nameTextLabel.snp.bottom).offset(10)
+    }
+    
+    departmentLabel.snp.makeConstraints { make in
+      make.centerX.equalToSuperview().offset(-20)
+      make.top.equalTo(collegeLabel.snp.bottom).offset(10)
+    }
+    
+    dividerView.snp.makeConstraints { make in
+      make.leading.equalTo(departmentLabel.snp.trailing).offset(5)
+      make.width.equalTo(1)
+      make.height.equalTo(departmentLabel)
+      make.top.equalTo(departmentLabel)
+    }
+    
+    roleLabel.snp.makeConstraints { make in
+      make.leading.equalTo(dividerView.snp.trailing).offset(5)
+      make.top.equalTo(departmentLabel)
+    }
+    
+    phoneNumLabel.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.top.equalTo(departmentLabel.snp.bottom).offset(30)
+    }
+    
+    emailLabel.snp.makeConstraints { make in
+      make.centerX.equalToSuperview()
+      make.top.equalTo(phoneNumLabel.snp.bottom).offset(10)
+    }
+  }
+  
+  // userdata - api, usertocore,
+  // 메인에서 바로 즐겨찾기가서 상세조회 누르고 버튼누르는 경우 - 코어데이터에서 가져와야함
+  // 검색 후 상세조회누르고 버튼 누르는 경우 - api에서 가져오기
+  // 데이터의 id 혹은 이름이 코어데이터에 이미 있으면 삭제하시겠습니까 없으면 추가하시겠습니까 여기서 지우면 문제발생
+  
   @objc func addToLike() {
     let user = userData?.first
     let userToCore = userToCore
@@ -209,7 +334,7 @@ class DetailViewController: NaviHelper {
             print("저장된 것 삭제하기 취소됨")
           }
         }
-
+        
       } else {
         // 즐겨찾기에 없는 경우 - 추가 로직 구현
         self.makeMessageAlert { savedAction in
@@ -225,7 +350,7 @@ class DetailViewController: NaviHelper {
       }
     }
   }
-
+  
   
   func makeMessageAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "저장?",
@@ -262,6 +387,29 @@ class DetailViewController: NaviHelper {
     alert.addAction(ok)
     alert.addAction(cancel)
     self.present(alert, animated: true, completion: nil)
+  }
+  
+  @objc func selectButtonTapped(sender: UIButton) {
+    let categories = CategoryManager.shared.fetchCategories()
+    var categoryNames: [String] = []
+    
+    for category in categories {
+      if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
+        categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
+      }
+    }
+
+    let dropDown = DropDown()
+    dropDown.anchorView = sender
+    dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
+    dropDown.dataSource = categoryNames
+    dropDown.selectionAction = { [weak self] (index, item) in
+      // DropDown의 항목 선택 시의 동작을 구현합니다.
+      guard let self = self else { return }
+      // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
+      self.userToCore?.category = item
+    }
+    dropDown.show()
   }
 }
 
