@@ -14,6 +14,7 @@ import SnapKit
 final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   let userManager = UserManager.shared
+  let categoryManager = CategoryManager.shared
   
   private var sections: [String] = ["기본"]
   
@@ -99,12 +100,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     navigationItemSetting()
     setNavigationbar()
     
-    let users = userManager.getUsersFromCoreData()
-    for user in users {
-      if user.category == nil {
-        user.category = "기본"
-      }
-    }
+    setSections()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -113,6 +109,15 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   func setNavigationbar() {
     navigationItem.rightBarButtonItem = .none
+  }
+  
+  func setSections(){
+    sections = categoryManager.fetchCategories().map { $0.cellCategory ?? "기본" }
+    
+    if let defaultIndex = sections.firstIndex(of: "기본") {
+        sections.remove(at: defaultIndex)
+        sections.insert("기본", at: 0)
+    }
   }
   
   func setupLayout(){
@@ -213,6 +218,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       // 중복 체크
       if self?.sections.contains(categoryName) == false {
         // 새로운 카테고리 추가
+        self?.categoryManager.save(sectionName: categoryName)
         self?.sections.append(categoryName)
         self?.resultTableView.reloadData()
       }

@@ -62,10 +62,19 @@ class MyPopupViewController: UIViewController {
   }
   
   @objc func showCategoryList(sender: UIButton) {
+    let categories = CategoryManager.shared.fetchCategories()
+    var categoryNames: [String] = []
+    
+    for category in categories {
+      if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
+        categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
+      }
+    }
+
     let dropDown = DropDown()
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
-    dropDown.dataSource = sections
+    dropDown.dataSource = categoryNames
     dropDown.selectionAction = { [weak self] (index, item) in
       // DropDown의 항목 선택 시의 동작을 구현합니다.
       guard let self = self else { return }
