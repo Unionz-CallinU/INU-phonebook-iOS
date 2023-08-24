@@ -15,7 +15,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   let userManager = UserManager.shared
   let categoryManager = CategoryManager.shared
-  
+  var minusButtonVisible: Bool = false
+  var checkButtonStatus: Bool = false
+
   private var sections: [String] = ["기본"]
   
   private let mainTitle: UILabel = {
@@ -82,7 +84,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     tableView.register(SavedCustomCell.self,
                        forCellReuseIdentifier: SavedCustomCell.cellId)
     if #available(iOS 15, *) {
-        tableView.sectionHeaderTopPadding = 5
+      tableView.sectionHeaderTopPadding = 5
     }
     
     tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -115,8 +117,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     sections = categoryManager.fetchCategories().map { $0.cellCategory ?? "기본" }
     
     if let defaultIndex = sections.firstIndex(of: "기본") {
-        sections.remove(at: defaultIndex)
-        sections.insert("기본", at: 0)
+      sections.remove(at: defaultIndex)
+      sections.insert("기본", at: 0)
     }
   }
   
@@ -213,7 +215,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let addAction = UIAlertAction(title: "추가",
                                   style: .default) { [weak self] action in
       guard let categoryName = alert.textFields?.first?.text,
-              !categoryName.isEmpty else { return }
+            !categoryName.isEmpty else { return }
       
       // 중복 체크
       if self?.sections.contains(categoryName) == false {
@@ -235,28 +237,32 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   }
   
   @objc private func minusButtonTapped() {
-      showDeleteSectionAlert()
+    minusButtonVisible.toggle()
+    resultTableView.reloadData()
   }
-
+  
   func showDeleteSectionAlert() {
-      let alert = UIAlertController(title: "섹션 삭제",
-                                    message: "선택한 섹션을 삭제하시겠습니까?",
-                                    preferredStyle: .alert)
+    let alert = UIAlertController(title: "섹션 삭제",
+                                  message: "선택한 섹션을 삭제하시겠습니까?",
+                                  preferredStyle: .alert)
+    
+    let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] action in
+      // 선택한 섹션 가져오기
+      guard let index = self?.resultTableView.indexPathForSelectedRow?.section else { return }
       
-      let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] action in
-          // 삭제 작업 수행
-          if let selectedSection = self?.resultTableView.indexPathForSelectedRow?.section {
-              self?.sections.remove(at: selectedSection)
-              self?.resultTableView.deleteSections(IndexSet(integer: selectedSection), with: .automatic)
-          }
-      }
+      // section 배열에서 제거
+      self?.sections.remove(at: index)
       
-      let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-      
-      alert.addAction(deleteAction)
-      alert.addAction(cancelAction)
-      
-      present(alert, animated: true, completion: nil)
+      // resultTableView에서 해당 섹션 삭제
+      self?.resultTableView.deleteSections(IndexSet(integer: index), with: .automatic)
+    }
+    
+    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+    
+    alert.addAction(deleteAction)
+    alert.addAction(cancelAction)
+    
+    present(alert, animated: true, completion: nil)
   }
 }
 
@@ -346,28 +352,54 @@ extension LikeViewController {
   func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
     return sections[section]
   }
-
+  
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    let headerView = UILabel()
-    headerView.text = sections[section]
+    let headerView = UIView() // Use a UIView as a container for header components
     headerView.backgroundColor = UIColor(red: 0.91,
                                          green: 0.91,
                                          blue: 0.91,
                                          alpha: 1.00)
-    headerView.font = UIFont.boldSystemFont(ofSize: 16)
-    headerView.textAlignment = .center
-    headerView.textColor = .blue
     
-    let style = NSMutableParagraphStyle()
-    style.headIndent = 20
-    style.firstLineHeadIndent = 20
+    // Create a custom UIButton for minus button
+    let checkButton = UIButton(type: .custom)
+    let btnImage = checkButtonStatus ?  UIImage(named: "checked") : UIImage(named: "emptycheck")
     
-    let attributes = [NSAttributedString.Key.paragraphStyle: style]
-    let attributedString = NSAttributedString(string: headerView.text ?? "",
-                                              attributes: attributes)
-    headerView.attributedText = attributedString
+    checkButton.setImage(btnImage, for: .normal)
+    checkButton.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+
+    // Create a UILabel for section title
+    let titleLabel = UILabel()
+    titleLabel.text = sections[section]
+    titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
+    titleLabel.textColor = .blue
     
+    if minusButtonVisible == true {
+      headerView.addSubview(checkButton)
+      checkButton.snp.makeConstraints { make in
+        make.leading.equalTo(headerView.snp.leading).offset(10)
+        make.centerY.equalTo(headerView.snp.centerY)
+      }
+      
+      headerView.addSubview(titleLabel)
+      titleLabel.snp.makeConstraints { make in
+        make.leading.equalTo(checkButton.snp.trailing).offset(10)
+        make.centerY.equalTo(headerView.snp.centerY)
+      }
+    } else {
+      headerView.addSubview(titleLabel)
+      titleLabel.snp.makeConstraints { make in
+        make.leading.equalTo(headerView.snp.leading).offset(20)
+        make.centerY.equalTo(headerView.snp.centerY)
+      }
+    }
+    // Set the visibility of the minusButton based on minusButtonVisible
+    checkButton.isHidden = !minusButtonVisible
     return headerView
   }
   
+  @objc func checkButtonTapped(){
+    checkButtonStatus.toggle()
+    resultTableView.reloadData()
+  }
 }
+
