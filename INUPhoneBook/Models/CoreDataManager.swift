@@ -65,6 +65,17 @@ final class CoreDataManager {
     }
   }
   
+  func updateCategory(for user: Users, with category: String, completion: @escaping () -> Void) {
+      user.category = category
+      
+      do {
+          try context?.save()
+          completion()
+      } catch {
+          print(error)
+      }
+  }
+
   
   // MARK: - [Update] 코어데이터에서 데이터 수정하기 (일치하는 데이터 찾아서 ===> 수정)
   func updateUser(with user: Users, completion: @escaping () -> Void) {

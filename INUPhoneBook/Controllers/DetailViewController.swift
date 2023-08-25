@@ -13,6 +13,9 @@ import DropDown
 
 class DetailViewController: NaviHelper {
   let userManager = UserManager.shared
+  let categoryManager = CategoryManager.shared
+  let coreDataManager = CoreDataManager.shared
+  
   var userData: [User]?
   var userToCore: Users?
   
@@ -78,12 +81,12 @@ class DetailViewController: NaviHelper {
   }()
   
   // MARK: - 즐겨찾기에 등록된 경우 추가되는 UI
-  private let selectLabel: UILabel = {
+  lazy var selectLabel: UILabel = {
     let label = UILabel()
     label.textColor = .blue
     label.font = .systemFont(ofSize: 16)
     label.numberOfLines = 1
-    label.text = "기본"
+    label.text = userToCore?.category
     return label
   }()
   
@@ -394,22 +397,34 @@ class DetailViewController: NaviHelper {
     var categoryNames: [String] = []
     
     for category in categories {
-      if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
-        categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
+      if let categoryName = category.cellCategory {
+        categoryNames.append(categoryName)
       }
     }
-
+    
     let dropDown = DropDown()
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
     dropDown.selectionAction = { [weak self] (index, item) in
-      // DropDown의 항목 선택 시의 동작을 구현합니다.
       guard let self = self else { return }
-      // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
-      self.userToCore?.category = item
+      
+      if let userToCore = self.userToCore {
+        self.coreDataManager.updateCategory(for: userToCore, with: item) {
+          self.selectLabel.text = item
+          print("Category updated.")
+        }
+      }
     }
+    
     dropDown.show()
   }
+
+  
+  func isCategoryAlreadyExists(_ category: String) -> Bool {
+    let categories = CategoryManager.shared.fetchCategories()
+    return categories.contains { $0.cellCategory == category }
+  }
+
 }
 

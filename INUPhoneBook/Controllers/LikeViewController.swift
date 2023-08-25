@@ -197,6 +197,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         make.top.equalTo(mainTitle.snp.bottom).offset(50)
       }
     }
+    minusButtonVisible.toggle()
+    resultTableView.reloadData()
   }
   
   @objc private func plusButtonTapped() {
@@ -237,33 +239,13 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   }
   
   @objc private func minusButtonTapped() {
-    minusButtonVisible.toggle()
-    resultTableView.reloadData()
+ 
   }
   
   func showDeleteSectionAlert() {
-    let alert = UIAlertController(title: "섹션 삭제",
-                                  message: "선택한 섹션을 삭제하시겠습니까?",
-                                  preferredStyle: .alert)
-    
-    let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { [weak self] action in
-      // 선택한 섹션 가져오기
-      guard let index = self?.resultTableView.indexPathForSelectedRow?.section else { return }
-      
-      // section 배열에서 제거
-      self?.sections.remove(at: index)
-      
-      // resultTableView에서 해당 섹션 삭제
-      self?.resultTableView.deleteSections(IndexSet(integer: index), with: .automatic)
-    }
-    
-    let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
-    
-    alert.addAction(deleteAction)
-    alert.addAction(cancelAction)
-    
-    present(alert, animated: true, completion: nil)
+
   }
+
 }
 
 extension LikeViewController: UITableViewDataSource {
@@ -339,6 +321,7 @@ extension LikeViewController: UITableViewDataSource {
     
     detailVC.userToCore = selectedUser
     self.navigationController?.pushViewController(detailVC, animated: true)
+    
   }
 }
 
@@ -362,7 +345,6 @@ extension LikeViewController {
     checkButton.setImage(btnImage, for: .normal)
     checkButton.addTarget(self, action: #selector(checkButtonTapped(_:)), for: .touchUpInside)
     
-    // Create a UILabel for section title
     let titleLabel = UILabel()
     titleLabel.text = sections[section]
     titleLabel.font = UIFont.boldSystemFont(ofSize: 16)

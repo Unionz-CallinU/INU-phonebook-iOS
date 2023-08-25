@@ -106,6 +106,7 @@ final class SavedCustomCell: UITableViewCell {
     college.text = user.college
     phoneNum.text = user.phoneNumber?.withHypen
     email.text = user.email
+    
   }
   
   @objc func requestTapped() {

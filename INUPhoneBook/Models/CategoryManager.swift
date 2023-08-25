@@ -38,16 +38,26 @@ class CategoryManager {
     }
   }
   
-  func fetchCategories() -> [Categories] {
-      let fetchRequest: NSFetchRequest<Categories> = Categories.fetchRequest()
-      
-      do {
-          let categories = try persistentContainer.viewContext.fetch(fetchRequest)
-          return categories
-      } catch {
-          print("Error fetching categories: \(error.localizedDescription)")
-          return []
-      }
+  func deleteCategory(category: Categories) {
+    persistentContainer.viewContext.delete(category)
+    
+    do {
+      try persistentContainer.viewContext.save()
+    } catch {
+      print("Error deleting category: \(error.localizedDescription)")
+    }
   }
-
+  
+  func fetchCategories() -> [Categories] {
+    let fetchRequest: NSFetchRequest<Categories> = Categories.fetchRequest()
+    
+    do {
+      let categories = try persistentContainer.viewContext.fetch(fetchRequest)
+      return categories
+    } catch {
+      print("Error fetching categories: \(error.localizedDescription)")
+      return []
+    }
+  }
+  
 }

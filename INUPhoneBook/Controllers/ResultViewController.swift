@@ -170,12 +170,12 @@ extension ResultViewController {
   }
   
   @objc private func didTapButton(senderCell: CustomCell) {
-      let popupViewController = MyPopupViewController(title: "즐겨찾기",
-                                                      desc: "즐겨찾기목록에 추가하시겠습니까?",
-                                                      user: senderCell.user,
-                                                      senderCell: senderCell)
-      popupViewController.modalPresentationStyle = .overFullScreen
-      self.present(popupViewController, animated: false)
+    let popupViewController = MyPopupViewController(title: "즐겨찾기",
+                                                    desc: "즐겨찾기목록에 추가하시겠습니까?",
+                                                    user: senderCell.user,
+                                                    senderCell: senderCell)
+    popupViewController.modalPresentationStyle = .overFullScreen
+    self.present(popupViewController, animated: false)
   }
 }
 
