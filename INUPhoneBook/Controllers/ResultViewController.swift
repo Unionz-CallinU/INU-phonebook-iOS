@@ -138,19 +138,24 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   // UITableViewDelegate 함수 (선택)
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
-    let detailVC = DetailViewController()
-    detailVC.userData = [selectedItem] // 선택된 아이템 데이터를 전달합니다.
-    self.navigationController?.pushViewController(detailVC, animated: true)
+    
+    if let existingUser = userManager.getUsersFromCoreData().first(where: { $0.id == selectedItem.id }) {
+      let detailVC = DetailViewController()
+      detailVC.userToCore = existingUser
+      self.navigationController?.pushViewController(detailVC, animated: true)
+    } else {
+      let detailVC = DetailViewController()
+      detailVC.userData = [selectedItem]
+      self.navigationController?.pushViewController(detailVC, animated: true)
+    }
   }
-  
+
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 70
   }
 }
 
-
 // MARK: - Alert 함수
-
 extension ResultViewController {
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",

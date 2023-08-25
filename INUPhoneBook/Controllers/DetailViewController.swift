@@ -429,10 +429,5 @@ class DetailViewController: NaviHelper {
     
     dropDown.show()
   }
-  
-  func isCategoryAlreadyExists(_ category: String) -> Bool {
-    let categories = CategoryManager.shared.fetchCategories()
-    return categories.contains { $0.cellCategory == category }
-  }
 }
 
