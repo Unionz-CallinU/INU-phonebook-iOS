@@ -86,13 +86,13 @@ class DetailViewController: NaviHelper {
     label.textColor = .blue
     label.font = .systemFont(ofSize: 16)
     label.numberOfLines = 1
-    label.text = userToCore?.category
+    label.text = userToCore?.category ?? "기본"
     return label
   }()
   
   lazy var selectButton: UIButton = {
     let button = UIButton()
-        button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+    button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     button.backgroundColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1.00)
     return button
   }()
@@ -111,19 +111,28 @@ class DetailViewController: NaviHelper {
     self.navigationController?.navigationBar.tintColor = .black
     
     isSavedCheck()
-
+    
     cellToDetail()
     cellToDetailCore()
     setNavigationbar()
   }
   
   func setNavigationbar() {
-    navigationItem.rightBarButtonItem = UIBarButtonItem(
-      image: UIImage(named: "Plus"),
-      style: .plain,
-      target: self,
-      action: #selector(addToLike)
-    )
+    if ((userToCore?.isSaved) != nil) {
+      navigationItem.rightBarButtonItem = UIBarButtonItem (
+        image: UIImage(named: "Minus"),
+        style: .plain,
+        target: self,
+        action: #selector(addToLike)
+      )
+    } else {
+      navigationItem.rightBarButtonItem = UIBarButtonItem (
+        image: UIImage(named: "Plus"),
+        style: .plain,
+        target: self,
+        action: #selector(addToLike)
+      )
+    }
   }
   
   func cellToDetail() {
@@ -198,7 +207,7 @@ class DetailViewController: NaviHelper {
       view.addSubview($0)
     }
   }
-
+  
   // MARK: - UI세팅
   func makeUI() {
     professorImage.snp.makeConstraints { make in
@@ -264,7 +273,7 @@ class DetailViewController: NaviHelper {
     selectBtnImage.snp.makeConstraints { make in
       make.top.equalTo(selectButton.snp.centerY).offset(-5)
       make.trailing.equalTo(selectButton.snp.trailing).offset(-20)
-    
+      
     }
     
     professorImage.snp.makeConstraints { make in
@@ -327,6 +336,7 @@ class DetailViewController: NaviHelper {
     
     if let userId = user?.id ?? userToCore?.id {
       if let existingUser = checkDataCore.first(where: { $0.id == userId }) {
+        
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
             self.userManager.deleteUserFromCoreData(with: existingUser) {
@@ -419,12 +429,10 @@ class DetailViewController: NaviHelper {
     
     dropDown.show()
   }
-
   
   func isCategoryAlreadyExists(_ category: String) -> Bool {
     let categories = CategoryManager.shared.fetchCategories()
     return categories.contains { $0.cellCategory == category }
   }
-
 }
 

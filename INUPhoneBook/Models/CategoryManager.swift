@@ -38,15 +38,28 @@ class CategoryManager {
     }
   }
   
-  func deleteCategory(category: Categories) {
-    persistentContainer.viewContext.delete(category)
-    
-    do {
-      try persistentContainer.viewContext.save()
-    } catch {
-      print("Error deleting category: \(error.localizedDescription)")
-    }
+  func deleteCategory(category: String) {
+      let context = persistentContainer.viewContext
+      
+      // Fetch the categories to be deleted
+      let fetchRequest: NSFetchRequest<Categories> = Categories.fetchRequest()
+      fetchRequest.predicate = NSPredicate(format: "cellCategory == %@", category)
+      
+      do {
+          let categories = try context.fetch(fetchRequest)
+          
+          for category in categories {
+              context.delete(category)
+          }
+          
+          try context.save()
+      } catch {
+          print("Error deleting category:", error.localizedDescription)
+      }
   }
+
+
+
   
   func fetchCategories() -> [Categories] {
     let fetchRequest: NSFetchRequest<Categories> = Categories.fetchRequest()
