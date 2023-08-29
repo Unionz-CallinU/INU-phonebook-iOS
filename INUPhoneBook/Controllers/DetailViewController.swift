@@ -6,6 +6,7 @@
 //
 
 // 번호 누르면 바로 전화 가능하게, 이메일 누르면 바로 전달 가능하게
+// 결과페이지에서 디테일 누를 때 코어데이터에 있으면 코어데이터, 없으면 api에서 즐겨찾기는 코어데이터에서
 import UIKit
 
 import SnapKit
@@ -18,6 +19,7 @@ class DetailViewController: NaviHelper {
   
   var userData: [User]?
   var userToCore: Users?
+  var userToLike: User?
   
   private let circleImage: UIImageView = {
     let view = UIImageView()
@@ -143,6 +145,16 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = data.phoneNumber?.withHypen
     roleLabel.text = data.role
     emailLabel.text = data.email
+    
+    userToLike?.id = data.id
+    userToLike?.name = data.name
+    userToLike?.college = data.college
+    userToLike?.phoneNumber = data.phoneNumber
+    userToLike?.department = data.department
+    userToLike?.role = data.role
+    userToLike?.email = data.email
+    userToLike?.isSaved = data.isSaved
+    userToLike?.category = data.category
   }
   
   func cellToDetailCore(){
@@ -153,6 +165,16 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = dataToCore.phoneNumber?.withHypen
     roleLabel.text = dataToCore.role
     emailLabel.text = dataToCore.email
+    
+    userToLike?.id = dataToCore.id
+    userToLike?.name = dataToCore.name
+    userToLike?.college = dataToCore.college
+    userToLike?.phoneNumber = dataToCore.phoneNumber
+    userToLike?.department = dataToCore.department
+    userToLike?.role = dataToCore.role
+    userToLike?.email = dataToCore.email
+    userToLike?.isSaved = dataToCore.isSaved
+    userToLike?.category = dataToCore.category
   }
   
   // MARK: - view 계층 구성
@@ -352,10 +374,7 @@ class DetailViewController: NaviHelper {
         // 즐겨찾기에 없는 경우 - 추가 로직 구현
         self.makeMessageAlert { savedAction in
           if savedAction {
-            self.userManager.saveUserData(with: user!) {
-              user?.isSaved = true
-              print("저장됨")
-            }
+            didTapButton(senderCell: userToLike!)
           } else {
             print("취소됨")
           }
@@ -431,3 +450,15 @@ class DetailViewController: NaviHelper {
   }
 }
 
+extension DetailViewController {
+  // User로 받음
+  @objc private func didTapButton(senderCell: CustomCell) {
+    let popupViewController = MyPopupViewController(title: "즐겨찾기",
+                                                    desc: "즐겨찾기목록에 추가하시겠습니까?",
+                                                    user: senderCell.user,
+                                                    senderCell: senderCell)
+    
+    popupViewController.modalPresentationStyle = .overFullScreen
+    self.present(popupViewController, animated: false)
+  }
+}
