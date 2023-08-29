@@ -20,6 +20,7 @@ class DetailViewController: NaviHelper {
   var userData: [User]?
   var userToCore: Users?
   var userToLike: User?
+  var cell: CustomCell?
   
   private let circleImage: UIImageView = {
     let view = UIImageView()
@@ -154,7 +155,9 @@ class DetailViewController: NaviHelper {
     userToLike?.role = data.role
     userToLike?.email = data.email
     userToLike?.isSaved = data.isSaved
-    userToLike?.category = data.category
+    userToLike?.college = data.category
+    
+    userToLike = data
   }
   
   func cellToDetailCore(){
@@ -166,15 +169,6 @@ class DetailViewController: NaviHelper {
     roleLabel.text = dataToCore.role
     emailLabel.text = dataToCore.email
     
-    userToLike?.id = dataToCore.id
-    userToLike?.name = dataToCore.name
-    userToLike?.college = dataToCore.college
-    userToLike?.phoneNumber = dataToCore.phoneNumber
-    userToLike?.department = dataToCore.department
-    userToLike?.role = dataToCore.role
-    userToLike?.email = dataToCore.email
-    userToLike?.isSaved = dataToCore.isSaved
-    userToLike?.category = dataToCore.category
   }
   
   // MARK: - view 계층 구성
@@ -295,7 +289,6 @@ class DetailViewController: NaviHelper {
     selectBtnImage.snp.makeConstraints { make in
       make.top.equalTo(selectButton.snp.centerY).offset(-5)
       make.trailing.equalTo(selectButton.snp.trailing).offset(-20)
-      
     }
     
     professorImage.snp.makeConstraints { make in
@@ -358,7 +351,6 @@ class DetailViewController: NaviHelper {
     
     if let userId = user?.id ?? userToCore?.id {
       if let existingUser = checkDataCore.first(where: { $0.id == userId }) {
-        
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
             self.userManager.deleteUserFromCoreData(with: existingUser) {
@@ -369,19 +361,13 @@ class DetailViewController: NaviHelper {
             print("저장된 것 삭제하기 취소됨")
           }
         }
-        
       } else {
         // 즐겨찾기에 없는 경우 - 추가 로직 구현
-        self.makeMessageAlert { savedAction in
-          if savedAction {
-            didTapButton(senderCell: userToLike!)
-          } else {
-            print("취소됨")
-          }
-        }
+        didTapButton()
       }
     }
   }
+
   
   
   func makeMessageAlert(completion: @escaping (Bool) -> Void) {
@@ -452,13 +438,11 @@ class DetailViewController: NaviHelper {
 
 extension DetailViewController {
   // User로 받음
-  @objc private func didTapButton(senderCell: CustomCell) {
-    let popupViewController = MyPopupViewController(title: "즐겨찾기",
-                                                    desc: "즐겨찾기목록에 추가하시겠습니까?",
-                                                    user: senderCell.user,
-                                                    senderCell: senderCell)
-    
-    popupViewController.modalPresentationStyle = .overFullScreen
-    self.present(popupViewController, animated: false)
+  @objc private func didTapButton() {
+    let pop = PopUpViewAtDetail(title: "즐겨찾기",
+                                desc: "즐겨찾기목록에 추가하시겠습니까?",
+                                user: userToLike)
+    pop.modalPresentationStyle = .overFullScreen
+    self.present(pop, animated: false)
   }
 }

@@ -16,6 +16,7 @@
 		EE17F0AD2A83574F00BA7EF0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */; };
 		EE5F1A352A96D9D4002745C7 /* Categories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F1A332A96D9D4002745C7 /* Categories+CoreDataClass.swift */; };
 		EE5F1A362A96D9D4002745C7 /* Categories+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F1A342A96D9D4002745C7 /* Categories+CoreDataProperties.swift */; };
+		EE5F1A3C2A9E3BC1002745C7 /* PopUpViewAtDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F1A3B2A9E3BC1002745C7 /* PopUpViewAtDetail.swift */; };
 		EE63FDAF2A94395E005DD117 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDAE2A94395E005DD117 /* StringExtension.swift */; };
 		EE63FDB52A94A859005DD117 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */; };
 		EE63FDB62A94A859005DD117 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */; };
@@ -49,6 +50,7 @@
 		EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		EE5F1A332A96D9D4002745C7 /* Categories+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		EE5F1A342A96D9D4002745C7 /* Categories+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		EE5F1A3B2A9E3BC1002745C7 /* PopUpViewAtDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewAtDetail.swift; sourceTree = "<group>"; };
 		EE63FDAE2A94395E005DD117 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Users+CoreDataClass.swift"; path = "INUPhoneBook/Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Users+CoreDataProperties.swift"; path = "INUPhoneBook/Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -197,6 +199,7 @@
 				EE752AF52A67E2AA002B6AE2 /* DetailViewController.swift */,
 				EE73FD0D2A90EFEC00719D26 /* PopUpViewController.swift */,
 				EE73FD0F2A90F05E00719D26 /* MyPopUpView.swift */,
+				EE5F1A3B2A9E3BC1002745C7 /* PopUpViewAtDetail.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EE73FD102A90F05E00719D26 /* MyPopUpView.swift in Sources */,
+				EE5F1A3C2A9E3BC1002745C7 /* PopUpViewAtDetail.swift in Sources */,
 				EE63FDB52A94A859005DD117 /* Users+CoreDataClass.swift in Sources */,
 				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
 				EE5F1A352A96D9D4002745C7 /* Categories+CoreDataClass.swift in Sources */,
