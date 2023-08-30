@@ -184,8 +184,9 @@ class DetailViewController: NaviHelper {
         setupLayoutToCore()
         makeUIToCore()
       } else {
-        setupLayout()
-        makeUI()
+        setupLayoutToCore()
+        makeUIToCore()
+        deleteUI()
       }
     }
   }
@@ -357,19 +358,33 @@ class DetailViewController: NaviHelper {
             self.userManager.deleteUserFromCoreData(with: existingUser) {
               userToCore?.isSaved = false
               print("저장된 것 삭제")
-
+              self.deleteUI()
             }
           } else {
             print("저장된 것 삭제하기 취소됨")
           }
         }
       } else {
-        // 즐겨찾기에 없는 경우 - 추가 로직 구현
+        // 즐겨찾기에 없는 경우 - 추가 로직 구현, 처음부터 코어데이터에 있는 경우만 생각해서 ui구성하고 api에서 데이터
+        // 가져온거면 ishidden = false처리 , +버튼 누르고 addui타이밍을 언제?
         didTapButton()
+        
       }
     }
   }
 
+  func deleteUI(){
+    self.selectButton.isHidden = true
+    self.selectLabel.isHidden = true
+    self.selectBtnImage.isHidden = true
+  }
+  
+  func addUI(){
+    self.selectButton.isHidden = false
+    self.selectLabel.isHidden = false
+    self.selectBtnImage.isHidden = false
+  }
+  
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
                                   message: "정말 저장된거 지우시겠습니까?",
@@ -423,6 +438,7 @@ extension DetailViewController {
                                 desc: "즐겨찾기목록에 추가하시겠습니까?",
                                 user: userToLike)
     pop.modalPresentationStyle = .overFullScreen
+    
     self.present(pop, animated: false)
   }
 }
