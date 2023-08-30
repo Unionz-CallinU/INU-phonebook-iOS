@@ -120,6 +120,7 @@ class DetailViewController: NaviHelper {
     setNavigationbar()
   }
   
+  
   func setNavigationbar() {
     if ((userToCore?.isSaved) != nil) {
       navigationItem.rightBarButtonItem = UIBarButtonItem (
@@ -356,6 +357,7 @@ class DetailViewController: NaviHelper {
             self.userManager.deleteUserFromCoreData(with: existingUser) {
               userToCore?.isSaved = false
               print("저장된 것 삭제")
+
             }
           } else {
             print("저장된 것 삭제하기 취소됨")
@@ -368,28 +370,6 @@ class DetailViewController: NaviHelper {
     }
   }
 
-  
-  
-  func makeMessageAlert(completion: @escaping (Bool) -> Void) {
-    let alert = UIAlertController(title: "저장?",
-                                  message: "정말 저장하시겠습니까?",
-                                  preferredStyle: .alert)
-    
-    let ok = UIAlertAction(title: "확인",
-                           style: .default) { okAction in
-      completion(true)
-    }
-    let cancel = UIAlertAction(title: "취소",
-                               style: .cancel) { cancelAction in
-      completion(false)
-    }
-    
-    alert.addAction(cancel)
-    alert.addAction(ok)
-    
-    self.present(alert, animated: true, completion: nil)
-  }
-  
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
                                   message: "정말 저장된거 지우시겠습니까?",
