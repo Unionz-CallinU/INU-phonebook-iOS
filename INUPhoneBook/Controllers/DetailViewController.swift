@@ -22,6 +22,7 @@ class DetailViewController: NaviHelper {
   var userToLike: User?
   var cell: CustomCell?
   var makeStatus: Bool?
+  var senderLikeVC: LikeViewController?
   
   private let circleImage: UIImageView = {
     let view = UIImageView()
@@ -125,10 +126,13 @@ class DetailViewController: NaviHelper {
     let buttonImage: UIImage?
     let action: Selector
     
+    print(userToCore?.isSaved)
+    print(makeStatus)
     if userToCore?.isSaved == true || makeStatus == true {
       buttonImage = UIImage(named: "Minus")
       action = #selector(addToLike)
     } else {
+      print("@2")
       buttonImage = UIImage(named: "Plus")
       action = #selector(addToLike)
     }
@@ -312,6 +316,7 @@ class DetailViewController: NaviHelper {
               self.deleteUI()
               self.makeStatus = false
               self.setNavigationbar()
+              self.senderLikeVC?.reloadTalbeView()
             }
           } else {
             print("저장된 것 삭제하기 취소됨")
@@ -344,6 +349,7 @@ class DetailViewController: NaviHelper {
       if let userToCore = self.userToCore {
         self.coreDataManager.updateCategory(for: userToCore, with: item) {
           self.selectLabel.text = item
+          self.senderLikeVC?.reloadTalbeView()
           print("Category updated.")
         }
       }

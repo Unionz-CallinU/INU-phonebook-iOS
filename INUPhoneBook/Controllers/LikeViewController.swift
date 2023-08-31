@@ -124,7 +124,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   }
   
   func setupLayout(){
-    if userManager.getUsersFromCoreData().count == 0 {
+    let countSections: Int
+    countSections = categoryManager.fetchCategories().count
+    if countSections == 0 {
       [
         mainTitle,
         mainImage,
@@ -144,10 +146,13 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   }
   
   func makeUI(){
+    let countSections: Int
+    countSections = categoryManager.fetchCategories().count
+    
     resultTableView.dataSource = self
     resultTableView.delegate = self
     
-    if userManager.getUsersFromCoreData().count == 0 {
+    if countSections == 0 {
       mainTitle.snp.makeConstraints { make in
         make.top.equalToSuperview().offset(10)
         make.bottom.equalTo(mainImage.snp.top).offset(30)
@@ -241,10 +246,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   @objc private func minusButtonTapped() {
     for section in deleteSections {
-      // Remove the section from Core Data (if needed)
       categoryManager.deleteCategory(category: section)
       
-      // Remove the section from the sections array
       if let index = sections.firstIndex(of: section) {
         sections.remove(at: index)
       }
@@ -252,11 +255,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     resultTableView.reloadData()
   }
   
-  
-  func showDeleteSectionAlert() {
-
+  func reloadTalbeView(){
+    print("11")
+    self.resultTableView.reloadData()
   }
-
 }
 
 extension LikeViewController: UITableViewDataSource {
@@ -269,7 +271,6 @@ extension LikeViewController: UITableViewDataSource {
     let filteredUsers = users.filter { $0.category == sections[section] }
     return filteredUsers.count
   }
-  
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId,
@@ -331,8 +332,9 @@ extension LikeViewController: UITableViewDataSource {
     let detailVC = DetailViewController()
     
     detailVC.userToCore = selectedUser
+    detailVC.userToCore?.isSaved = true
+    detailVC.senderLikeVC = self
     self.navigationController?.pushViewController(detailVC, animated: true)
-    
   }
 }
 
@@ -394,14 +396,11 @@ extension LikeViewController {
       let btnImage = checkButtonStatus ? UIImage(named: "checked") : UIImage(named: "emptycheck")
       minusButton.setImage(btnImage, for: .normal)
       
-      
       if !checkButtonStatus {
-        // If checkButtonStatus is true, remove the section from deleteSections
         if let index = deleteSections.firstIndex(of: titleLabel.text!) {
           deleteSections.remove(at: index)
         }
       } else {
-        // If checkButtonStatus is false, add the section to deleteSections
         if !deleteSections.contains(titleLabel.text!) {
           deleteSections.append(titleLabel.text ?? "기본")
         }
