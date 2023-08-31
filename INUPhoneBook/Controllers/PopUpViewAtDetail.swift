@@ -18,7 +18,7 @@ class PopUpViewAtDetail: UIViewController {
   
   private let sections: [String] = ["기본"]
 
-  init(title: String, desc: String, user: User?) {
+  init(title: String, desc: String, user: User? , senderVC: DetailViewController) {
     self.popupView = MyPopupView(title: title, desc: desc)
     super.init(nibName: nil, bundle: nil)
     
@@ -40,6 +40,9 @@ class PopUpViewAtDetail: UIViewController {
         self?.user?.isSaved = true
         
         self?.dismiss(animated: true, completion: nil)
+        senderVC.self.addUI()
+        senderVC.self.makeStatus = true
+        senderVC.self.setNavigationbar()
       }
     }
     

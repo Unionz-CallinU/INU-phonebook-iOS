@@ -21,6 +21,7 @@ class DetailViewController: NaviHelper {
   var userToCore: Users?
   var userToLike: User?
   var cell: CustomCell?
+  var makeStatus: Bool?
   
   private let circleImage: UIImageView = {
     let view = UIImageView()
@@ -120,24 +121,26 @@ class DetailViewController: NaviHelper {
     setNavigationbar()
   }
   
-  
   func setNavigationbar() {
-    if ((userToCore?.isSaved) != nil) {
-      navigationItem.rightBarButtonItem = UIBarButtonItem (
-        image: UIImage(named: "Minus"),
-        style: .plain,
-        target: self,
-        action: #selector(addToLike)
-      )
+    let buttonImage: UIImage?
+    let action: Selector
+    
+    if userToCore?.isSaved == true || makeStatus == true {
+      buttonImage = UIImage(named: "Minus")
+      action = #selector(addToLike)
     } else {
-      navigationItem.rightBarButtonItem = UIBarButtonItem (
-        image: UIImage(named: "Plus"),
-        style: .plain,
-        target: self,
-        action: #selector(addToLike)
-      )
+      buttonImage = UIImage(named: "Plus")
+      action = #selector(addToLike)
     }
+    
+    navigationItem.rightBarButtonItem = UIBarButtonItem(
+      image: buttonImage,
+      style: .plain,
+      target: self,
+      action: action
+    )
   }
+
   
   func cellToDetail() {
     guard let data = userData?.first else { return }
@@ -169,7 +172,6 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = dataToCore.phoneNumber?.withHypen
     roleLabel.text = dataToCore.role
     emailLabel.text = dataToCore.email
-    
   }
   
   // MARK: - view 계층 구성
@@ -181,17 +183,17 @@ class DetailViewController: NaviHelper {
     if let userId = user?.id ?? userToCore?.id {
       if let _ = checkDataCore.first(where: { $0.id == userId }) {
         print("없음")
-        setupLayoutToCore()
-        makeUIToCore()
+        setupLayout()
+        makeUI()
       } else {
-        setupLayoutToCore()
-        makeUIToCore()
+        setupLayout()
+        makeUI()
         deleteUI()
       }
     }
   }
   
-  func setupLayoutToCore() {
+  func setupLayout() {
     [
       selectButton,
       selectBtnImage,
@@ -209,74 +211,9 @@ class DetailViewController: NaviHelper {
       view.addSubview($0)
     }
   }
-  
-  func setupLayout() {
-    [
-      circleImage,
-      professorImage,
-      phoneNumLabel,
-      emailLabel,
-      nameTextLabel,
-      collegeLabel,
-      departmentLabel,
-      roleLabel,
-      dividerView
-    ].forEach {
-      view.addSubview($0)
-    }
-  }
-  
+
   // MARK: - UI세팅
   func makeUI() {
-    professorImage.snp.makeConstraints { make in
-      make.leading.equalToSuperview().offset(163)
-      make.top.equalToSuperview().offset(171)
-    }
-    
-    circleImage.snp.makeConstraints { make in
-      make.leading.equalToSuperview().offset(138)
-      make.top.equalToSuperview().offset(155)
-    }
-    
-    nameTextLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.top.equalTo(circleImage.snp.bottom).offset(50)
-    }
-    
-    collegeLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.top.equalTo(nameTextLabel.snp.bottom).offset(10)
-    }
-    
-    departmentLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview().offset(-20)
-      make.top.equalTo(collegeLabel.snp.bottom).offset(10)
-    }
-    
-    dividerView.snp.makeConstraints { make in
-      make.leading.equalTo(departmentLabel.snp.trailing).offset(5)
-      make.width.equalTo(1)
-      make.height.equalTo(departmentLabel)
-      make.top.equalTo(departmentLabel)
-    }
-    
-    roleLabel.snp.makeConstraints { make in
-      make.leading.equalTo(dividerView.snp.trailing).offset(5)
-      make.top.equalTo(departmentLabel)
-    }
-    
-    phoneNumLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.top.equalTo(departmentLabel.snp.bottom).offset(30)
-    }
-    
-    emailLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview()
-      make.top.equalTo(phoneNumLabel.snp.bottom).offset(10)
-    }
-  }
-  
-  func makeUIToCore() {
     selectButton.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(118)
       make.width.equalToSuperview()
@@ -341,6 +278,20 @@ class DetailViewController: NaviHelper {
     }
   }
   
+  // 즐겨찾기에 저장 여부에 따라 UI변경
+  func deleteUI(){
+    self.selectButton.isHidden = true
+    self.selectLabel.isHidden = true
+    self.selectBtnImage.isHidden = true
+  }
+  
+  func addUI(){
+    self.selectButton.isHidden = false
+    self.selectLabel.isHidden = false
+    self.selectBtnImage.isHidden = false
+  }
+  
+  // MARK: - DetailView에서 즐겨찾기 추가/삭제
   // userdata - api, usertocore,
   // 메인에서 바로 즐겨찾기가서 상세조회 누르고 버튼누르는 경우 - 코어데이터에서 가져와야함
   // 검색 후 상세조회누르고 버튼 누르는 경우 - api에서 가져오기
@@ -359,49 +310,20 @@ class DetailViewController: NaviHelper {
               userToCore?.isSaved = false
               print("저장된 것 삭제")
               self.deleteUI()
+              self.makeStatus = false
+              self.setNavigationbar()
             }
           } else {
             print("저장된 것 삭제하기 취소됨")
           }
         }
       } else {
-        // 즐겨찾기에 없는 경우 - 추가 로직 구현, 처음부터 코어데이터에 있는 경우만 생각해서 ui구성하고 api에서 데이터
-        // 가져온거면 ishidden = false처리 , +버튼 누르고 addui타이밍을 언제?
         didTapButton()
-        
       }
     }
   }
-
-  func deleteUI(){
-    self.selectButton.isHidden = true
-    self.selectLabel.isHidden = true
-    self.selectBtnImage.isHidden = true
-  }
   
-  func addUI(){
-    self.selectButton.isHidden = false
-    self.selectLabel.isHidden = false
-    self.selectBtnImage.isHidden = false
-  }
-  
-  func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
-    let alert = UIAlertController(title: "삭제?",
-                                  message: "정말 저장된거 지우시겠습니까?",
-                                  preferredStyle: .alert)
-    let ok = UIAlertAction(title: "확인",
-                           style: .default) { okAction in
-      completion(true)
-    }
-    let cancel = UIAlertAction(title: "취소",
-                               style: .cancel) { cancelAction in
-      completion(false)
-    }
-    alert.addAction(ok)
-    alert.addAction(cancel)
-    self.present(alert, animated: true, completion: nil)
-  }
-  
+  // 카테고리 관련 함수
   @objc func selectButtonTapped(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()
     var categoryNames: [String] = []
@@ -431,14 +353,33 @@ class DetailViewController: NaviHelper {
   }
 }
 
+// MARK: - 즐겨찾기에 저장,삭제 시 Alert 함수
 extension DetailViewController {
   // User로 받음
   @objc private func didTapButton() {
     let pop = PopUpViewAtDetail(title: "즐겨찾기",
                                 desc: "즐겨찾기목록에 추가하시겠습니까?",
-                                user: userToLike)
+                                user: userToLike,
+                                senderVC: self)
     pop.modalPresentationStyle = .overFullScreen
     
     self.present(pop, animated: false)
+  }
+  
+  func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
+    let alert = UIAlertController(title: "삭제?",
+                                  message: "정말 저장된거 지우시겠습니까?",
+                                  preferredStyle: .alert)
+    let ok = UIAlertAction(title: "확인",
+                           style: .default) { okAction in
+      completion(true)
+    }
+    let cancel = UIAlertAction(title: "취소",
+                               style: .cancel) { cancelAction in
+      completion(false)
+    }
+    alert.addAction(ok)
+    alert.addAction(cancel)
+    self.present(alert, animated: true, completion: nil)
   }
 }

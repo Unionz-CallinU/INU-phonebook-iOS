@@ -17,6 +17,7 @@ class MyPopupViewController: UIViewController {
   private var senderCell: CustomCell?
   
   private let sections: [String] = ["기본"]
+  
 
   init(title: String, desc: String, user: User?, senderCell: CustomCell?) {
     self.popupView = MyPopupView(title: title, desc: desc)
@@ -41,8 +42,9 @@ class MyPopupViewController: UIViewController {
       self.userManager.saveUserData(with: user) {
         self.user?.isSaved = true
         self.senderCell?.setButtonStatus()
-        
+     
         self.dismiss(animated: true, completion: nil)
+        
       }
     }
     
