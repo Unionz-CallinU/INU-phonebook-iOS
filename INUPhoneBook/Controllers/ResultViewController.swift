@@ -14,7 +14,8 @@ final class ResultViewController: NaviHelper {
   
   let userManager = UserManager.shared
   var searchKeyword: String?
-    
+  var starStatus: Bool?
+  
   init(searchKeyword: String) {
     self.searchKeyword = searchKeyword
     
@@ -39,7 +40,7 @@ final class ResultViewController: NaviHelper {
     return bar
   }()
   
-  private let resultTableView: UITableView = {
+  lazy var resultTableView: UITableView = {
     let tableView = UITableView()
     tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.cellId)
     return tableView
@@ -103,7 +104,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     
     let user = userManager.getUsersFromAPI()[indexPath.row]
     let starImage = user.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
-    
+
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
@@ -117,6 +118,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
       guard let self = self else { return }
       if !isSaved {
         self.didTapButton(senderCell: cell)
+        
       } else {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
@@ -142,16 +144,25 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     if let existingUser = userManager.getUsersFromCoreData().first(where: { $0.id == selectedItem.id }) {
       let detailVC = DetailViewController()
       detailVC.userToCore = existingUser
+      detailVC.makeStatus = true
+      detailVC.resultVC = self
       self.navigationController?.pushViewController(detailVC, animated: true)
     } else {
       let detailVC = DetailViewController()
       detailVC.userData = [selectedItem]
+      detailVC.resultVC = self
       self.navigationController?.pushViewController(detailVC, animated: true)
     }
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 70
+  }
+  
+  func reloadTalbeView(){
+    print("22")
+    resultTableView.reloadData()
+    
   }
 }
 

@@ -23,7 +23,19 @@ class DetailViewController: NaviHelper {
   var cell: CustomCell?
   var makeStatus: Bool?
   var senderLikeVC: LikeViewController?
+  var resultVC: ResultViewController?
   
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    
+    if self.isMovingFromParent {
+      // 이전 화면으로 뒤로가기 버튼을 통해 이동하는 경우에만 실행됩니다.
+      // 여기서 함수를 호출하거나 원하는 동작을 수행할 수 있습니다.
+      // 예를 들어, 함수를 호출합니다. 삭제하는건 반영이안됌
+      resultVC?.reloadTalbeView()
+    }
+  }
+
   private let circleImage: UIImageView = {
     let view = UIImageView()
     view.image = UIImage(named: "backGround")
@@ -112,8 +124,6 @@ class DetailViewController: NaviHelper {
     super.viewDidLoad()
     
     self.view.backgroundColor = .white
-    self.navigationController?.navigationBar.topItem?.title = ""
-    self.navigationController?.navigationBar.tintColor = .black
     
     isSavedCheck()
     
@@ -122,17 +132,21 @@ class DetailViewController: NaviHelper {
     setNavigationbar()
   }
   
+  func backBtnTapped(){
+      print("11111")
+  }
+  
   func setNavigationbar() {
     let buttonImage: UIImage?
     let action: Selector
+   
+    self.navigationController?.navigationBar.topItem?.title = ""
+    self.navigationController?.navigationBar.tintColor = .black
     
-    print(userToCore?.isSaved)
-    print(makeStatus)
     if userToCore?.isSaved == true || makeStatus == true {
       buttonImage = UIImage(named: "Minus")
       action = #selector(addToLike)
     } else {
-      print("@2")
       buttonImage = UIImage(named: "Plus")
       action = #selector(addToLike)
     }
