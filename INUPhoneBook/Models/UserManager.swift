@@ -17,9 +17,7 @@ final class UserManager {
   
   // 초기화할때 저장된 데이터 셋팅
   private init() {
-    fetchUsersFromCoreData {
-      print("저장된 데이터셋팅완료")
-    }
+    fetchUsersFromCoreData {}
   }
   
   // 네트워크 매니저 (싱글톤)
@@ -86,10 +84,8 @@ final class UserManager {
   }
   
   func deleteUser(with user: User, completion: @escaping () -> Void) {
-    // 동일한 데이터(제목&가수이름)를 가진 것들을 찾아내서 (배열로 리턴)
     let usersSaved = userSavedDatas.filter { $0.id == user.id }
     
-    // 전달
     if let targetUserSaved = usersSaved.first {
       self.deleteUserFromCoreData(with: targetUserSaved) {
         print("지우기 완료")

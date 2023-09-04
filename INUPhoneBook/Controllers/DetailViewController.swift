@@ -20,7 +20,6 @@ class DetailViewController: NaviHelper {
   var userData: [User]?
   var userToCore: Users?
   var userToLike: User?
-  var cell: CustomCell?
   var makeStatus: Bool?
   var senderLikeVC: LikeViewController?
   var resultVC: ResultViewController?
@@ -28,12 +27,7 @@ class DetailViewController: NaviHelper {
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
     
-    if self.isMovingFromParent {
-      // 이전 화면으로 뒤로가기 버튼을 통해 이동하는 경우에만 실행됩니다.
-      // 여기서 함수를 호출하거나 원하는 동작을 수행할 수 있습니다.
-      // 예를 들어, 함수를 호출합니다. 삭제하는건 반영이안됌
-      resultVC?.reloadTalbeView()
-    }
+    if self.isMovingFromParent { resultVC?.reloadTalbeView() }
   }
 
   private let circleImage: UIImageView = {
@@ -132,10 +126,6 @@ class DetailViewController: NaviHelper {
     setNavigationbar()
   }
   
-  func backBtnTapped(){
-      print("11111")
-  }
-  
   func setNavigationbar() {
     let buttonImage: UIImage?
     let action: Selector
@@ -200,7 +190,6 @@ class DetailViewController: NaviHelper {
     
     if let userId = user?.id ?? userToCore?.id {
       if let _ = checkDataCore.first(where: { $0.id == userId }) {
-        print("없음")
         setupLayout()
         makeUI()
       } else {
@@ -313,7 +302,7 @@ class DetailViewController: NaviHelper {
   // userdata - api, usertocore,
   // 메인에서 바로 즐겨찾기가서 상세조회 누르고 버튼누르는 경우 - 코어데이터에서 가져와야함
   // 검색 후 상세조회누르고 버튼 누르는 경우 - api에서 가져오기
-  // 데이터의 id 혹은 이름이 코어데이터에 이미 있으면 삭제하시겠습니까 없으면 추가하시겠습니까 여기서 지우면 문제발생
+  // resultview에서 저장하고 detailview에서 삭제 후 바로 추가하면 작동을 안함
   
   @objc func addToLike() {
     let user = userData?.first
@@ -324,24 +313,26 @@ class DetailViewController: NaviHelper {
       if let existingUser = checkDataCore.first(where: { $0.id == userId }) {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
+            existingUser.isSaved = false
+            self.makeStatus = false
             self.userManager.deleteUserFromCoreData(with: existingUser) {
-              userToCore?.isSaved = false
-              print("저장된 것 삭제")
-              self.deleteUI()
-              self.makeStatus = false
-              self.setNavigationbar()
-              self.senderLikeVC?.reloadTalbeView()
+              // 데이터 업데이트 및 삭제 작업 완료 후 UI 업데이트
+              DispatchQueue.main.async {
+                self.deleteUI()
+                self.setNavigationbar()
+                self.senderLikeVC?.reloadTalbeView()
+              }
             }
           } else {
             print("저장된 것 삭제하기 취소됨")
           }
         }
       } else {
-        didTapButton()
+        addBtnTapped()
       }
     }
   }
-  
+
   // 카테고리 관련 함수
   @objc func selectButtonTapped(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()
@@ -376,7 +367,7 @@ class DetailViewController: NaviHelper {
 // MARK: - 즐겨찾기에 저장,삭제 시 Alert 함수
 extension DetailViewController {
   // User로 받음
-  @objc private func didTapButton() {
+  @objc private func addBtnTapped() {
     let pop = PopUpViewAtDetail(title: "즐겨찾기",
                                 desc: "즐겨찾기목록에 추가하시겠습니까?",
                                 user: userToLike,

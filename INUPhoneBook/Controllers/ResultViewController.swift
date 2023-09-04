@@ -103,7 +103,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
                                                    for: indexPath) as! CustomCell
     
     let user = userManager.getUsersFromAPI()[indexPath.row]
-    let starImage = user.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
+    let starImage = user.isSaved ? UIImage(named: "StarChecked") : UIImage(named: "Star")
 
     cell.name.text = user.name
     cell.email.text = user.email
@@ -142,6 +142,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
     
     if let existingUser = userManager.getUsersFromCoreData().first(where: { $0.id == selectedItem.id }) {
+      // 여기서 전달할 때 문제
       let detailVC = DetailViewController()
       detailVC.userToCore = existingUser
       detailVC.makeStatus = true
@@ -160,7 +161,13 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func reloadTalbeView(){
-    print("22")
+    // 가져온 데이터 중 첫 번째 아이템의 isSaved를 확인합니다.
+    let coreUser = userManager.getUsersFromCoreData().first
+    if let firstUser = userManager.getUsersFromAPI().first {
+      if firstUser.isSaved && firstUser.id != coreUser?.id {
+        firstUser.isSaved = false
+      }
+    }
     resultTableView.reloadData()
     
   }
