@@ -180,6 +180,8 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = dataToCore.phoneNumber?.withHypen
     roleLabel.text = dataToCore.role
     emailLabel.text = dataToCore.email
+    
+    // api에서 받아서 detail넘어갈때는 usertolike가 채워져 있는데 코어에서 넘어갈때는 비워져있음
   }
   
   // MARK: - view 계층 구성

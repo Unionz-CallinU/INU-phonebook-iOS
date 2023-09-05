@@ -141,10 +141,9 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
     
-    if let existingUser = userManager.getUsersFromCoreData().first(where: { $0.id == selectedItem.id }) {
-      // 여기서 전달할 때 문제
+    if userManager.getUsersFromCoreData().first(where: { $0.id == selectedItem.id }) != nil {
       let detailVC = DetailViewController()
-      detailVC.userToCore = existingUser
+      detailVC.userData = [selectedItem]
       detailVC.makeStatus = true
       detailVC.resultVC = self
       self.navigationController?.pushViewController(detailVC, animated: true)

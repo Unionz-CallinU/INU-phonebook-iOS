@@ -70,7 +70,6 @@ extension MainViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let keyword = searchBar.text else { return }
     let searchResultController = ResultViewController(searchKeyword: keyword)
-
     userManager.fetchUsersFromAPI(with: keyword) { [self] in
       DispatchQueue.main.async { [self] in
         navigationController?.pushViewController(searchResultController, animated: true)
