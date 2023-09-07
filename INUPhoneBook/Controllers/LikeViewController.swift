@@ -96,14 +96,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     super.viewDidLoad()
     
     self.view.backgroundColor = .white
-    
+    setSections()
+
     setupLayout()
     makeUI()
     
     navigationItemSetting()
     setNavigationbar()
     
-    setSections()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -126,6 +126,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   func setupLayout(){
     let countSections: Int
     countSections = categoryManager.fetchCategories().count
+    let test = userManager.getUsersFromCoreData().count
     if countSections == 0 {
       [
         mainTitle,
@@ -148,7 +149,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   func makeUI(){
     let countSections: Int
     countSections = categoryManager.fetchCategories().count
-    
+    let test = userManager.getUsersFromCoreData().count
+
     resultTableView.dataSource = self
     resultTableView.delegate = self
     

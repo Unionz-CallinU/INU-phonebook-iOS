@@ -58,9 +58,6 @@ class CategoryManager {
       }
   }
 
-
-
-  
   func fetchCategories() -> [Categories] {
     let fetchRequest: NSFetchRequest<Categories> = Categories.fetchRequest()
     

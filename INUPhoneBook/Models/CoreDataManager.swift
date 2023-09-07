@@ -41,9 +41,10 @@ final class CoreDataManager {
     return savedUserList
   }
   
-  // MARK: - [Create] 코어데이터에 데이터 생성하기 (Music ===> MusicSaved)
+  // MARK: - [Create] 코어데이터에 데이터 생성하기
   func saveUser(with user: User, completion: @escaping () -> Void) {
-    if let context = context, let entity = NSEntityDescription.entity(forEntityName: self.modelName, in: context) {
+    if let context = context,
+        let entity = NSEntityDescription.entity(forEntityName: self.modelName, in: context) {
       let userSaved = Users(entity: entity, insertInto: context)
       
       userSaved.phoneNumber = user.phoneNumber
@@ -52,10 +53,9 @@ final class CoreDataManager {
       userSaved.email = user.email
       userSaved.department = user.department
       userSaved.role = user.role
-      userSaved.id = Int16(user.id)
+      userSaved.id = String(user.id)
       userSaved.category = user.category
       userSaved.isSaved = user.isSaved!
-      
       do {
         try context.save()
         completion()

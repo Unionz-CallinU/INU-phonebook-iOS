@@ -34,17 +34,17 @@ class MyPopupViewController: UIViewController {
       self.dismiss(animated: true, completion: nil)
     }
     
-    self.popupView.rightButtonAction = { [weak self] in
-      guard let self = self, let user = self.user else { return }
-      
-      self.userManager.saveUserData(with: user) {
-        self.user?.isSaved = true
-        self.senderCell?.setButtonStatus()
-     
-        self.dismiss(animated: true, completion: nil)
-        
-      }
+    self.popupView.rightButtonAction = { [unowned self] in
+        guard let user = self.user else { return }
+        self.userManager.saveUserData(with: user) {
+            self.user?.isSaved = true
+            DispatchQueue.main.async { [weak senderCell] in
+                senderCell?.setButtonStatus()
+            }
+            self.dismiss(animated: true, completion: nil)
+        }
     }
+
     
     self.popupView.selectButtonAction = { [weak self] in
       self?.showCategoryList(sender: self?.popupView.selectButton ?? UIButton())
@@ -63,14 +63,14 @@ class MyPopupViewController: UIViewController {
   
   @objc func showCategoryList(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()
-    var categoryNames: [String] = []
+    var categoryNames: [String] = ["기본"]
     
     for category in categories {
       if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
         categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
       }
     }
-
+    
     let dropDown = DropDown()
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
@@ -82,5 +82,6 @@ class MyPopupViewController: UIViewController {
       self.user?.category = item
     }
     dropDown.show()
+    
   }
 }

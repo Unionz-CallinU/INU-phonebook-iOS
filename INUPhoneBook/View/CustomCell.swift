@@ -104,12 +104,11 @@ final class CustomCell: UITableViewCell {
   
   @objc func requestTapped() {
     guard let user = user else { return }
-    saveButtonPressed(self, user.isSaved ?? false)
+    saveButtonPressed(self, user.isSaved!)
   }
   
   func setButtonStatus() {
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
-    
     guard let isSaved = self.user?.isSaved else { return }
     if !isSaved {
       star.setImage(starImage, for: .normal)

@@ -101,17 +101,16 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
                                                    for: indexPath) as! CustomCell
-    
     let user = userManager.getUsersFromAPI()[indexPath.row]
     let starImage = user.isSaved! ? UIImage(named: "StarChecked") : UIImage(named: "Star")
-
+  
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.profile.image = UIImage(named: "INU1")!
     cell.star.setImage(starImage, for: .normal)
-    
+  
     cell.user = user
     
     cell.saveButtonPressed = { [weak self] (senderCell, isSaved) in
@@ -141,7 +140,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
     
-    if userManager.getUsersFromCoreData().first(where: { $0.name == selectedItem.name }) != nil {
+    if userManager.getUsersFromCoreData().first(where: { $0.id == String(selectedItem.id) }) != nil {
       let detailVC = DetailViewController()
       detailVC.userData = [selectedItem]
       detailVC.makeStatus = true
@@ -163,7 +162,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     // 가져온 데이터 중 첫 번째 아이템의 isSaved를 확인합니다.
     let coreUser = userManager.getUsersFromCoreData().first
     if var firstUser = userManager.getUsersFromAPI().first {
-      if firstUser.isSaved! && firstUser.name != coreUser?.name {
+      if firstUser.isSaved! && String(firstUser.id) != coreUser?.id {
         firstUser.isSaved = false
       }
     }

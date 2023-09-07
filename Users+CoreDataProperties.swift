@@ -20,7 +20,7 @@ extension Users {
     @NSManaged public var college: String?
     @NSManaged public var department: String?
     @NSManaged public var email: String?
-    @NSManaged public var id: Int16
+    @NSManaged public var id: String?
     @NSManaged public var isSaved: Bool
     @NSManaged public var name: String?
     @NSManaged public var phoneNumber: String?

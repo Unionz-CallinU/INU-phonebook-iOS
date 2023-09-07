@@ -122,6 +122,7 @@ class DetailViewController: NaviHelper {
     isSavedCheck()
     
     cellToDetail()
+    cellToDetailCore()
     setNavigationbar()
   }
   
@@ -170,7 +171,17 @@ class DetailViewController: NaviHelper {
     
     userToLike = data
   }
-    
+  
+  func cellToDetailCore(){
+    guard let dataToCore = userToCore else { return }
+    nameTextLabel.text = dataToCore.name
+    collegeLabel.text = dataToCore.college
+    departmentLabel.text = dataToCore.department
+    phoneNumLabel.text = dataToCore.phoneNumber
+    roleLabel.text = dataToCore.role
+    emailLabel.text = dataToCore.email
+  }
+  
   // MARK: - view 계층 구성
   func isSavedCheck() {
     let user = userData?.first
@@ -339,7 +350,6 @@ class DetailViewController: NaviHelper {
     dropDown.dataSource = categoryNames
     dropDown.selectionAction = { [weak self] (index, item) in
       guard let self = self else { return }
-      
       if let userToCore = self.userToCore {
         self.coreDataManager.updateCategory(for: userToCore, with: item) {
           self.selectLabel.text = item

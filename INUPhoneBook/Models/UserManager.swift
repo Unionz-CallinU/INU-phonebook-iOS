@@ -51,6 +51,7 @@ final class UserManager {
   
   // 네트워크 매니저한테 요청해서 (서버에서) 데이터 가져오기
   private func getUsersFromAPI(with searchTerm: String, completion: @escaping () -> Void) {
+   
     networkManager.fetchUser(searchTerm: searchTerm) { result in
       switch result {
       case .success(let userDatas):
@@ -64,10 +65,12 @@ final class UserManager {
             imageUrl: dto.imageUrl,
             isSaved: false
           )
+          self.checkWhetherSaved()
+          print(employee.isSaved)
+          
           return employee
         }
         self.userApiDatas = employees
-        self.checkWhetherSaved()
         completion()
       case .failure(let error):
         print(error.localizedDescription)
@@ -95,7 +98,7 @@ final class UserManager {
   }
   
   func deleteUser(with user: User, completion: @escaping () -> Void) {
-    let usersSaved = userSavedDatas.filter { $0.id == user.id }
+    let usersSaved = userSavedDatas.filter { $0.id == String(user.id) }
     
     if let targetUserSaved = usersSaved.first {
       self.deleteUserFromCoreData(with: targetUserSaved) {
@@ -137,12 +140,13 @@ final class UserManager {
   
   // 이미 저장된 데이터인지 확인하기 (다른 화면에서 저장 여부 표시하기 위해)
   func checkWhetherSaved() {
-    userApiDatas.forEach { user in
-      if userSavedDatas.contains(where: {
-        $0.id == user.id && $0.name == user.name
-      }) {
-        var mutableUser = user
-        mutableUser.isSaved = true
+
+    print("동작")
+    userApiDatas.forEach { [weak self] user in
+      print(user.name)
+      if let foundUserIndex = userSavedDatas.firstIndex(where: { $0.name == user.name }) {
+        self?.userApiDatas[userApiDatas.index(userApiDatas.startIndex, offsetBy: foundUserIndex)].isSaved = true
+        print("change")
       }
     }
   }
