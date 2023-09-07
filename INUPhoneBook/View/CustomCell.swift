@@ -98,18 +98,18 @@ final class CustomCell: UITableViewCell {
     
     name.text = user.name
     college.text = user.college
-    phoneNum.text = user.phoneNumber?.withHypen
+    phoneNum.text = user.phoneNumber
     email.text = user.email
   }
   
   @objc func requestTapped() {
     guard let user = user else { return }
-    saveButtonPressed(self, user.isSaved)
+    saveButtonPressed(self, user.isSaved ?? false)
   }
   
   func setButtonStatus() {
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
-
+    
     guard let isSaved = self.user?.isSaved else { return }
     if !isSaved {
       star.setImage(starImage, for: .normal)

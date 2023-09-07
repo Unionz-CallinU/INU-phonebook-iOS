@@ -2,7 +2,7 @@
 //  Categories+CoreDataProperties.swift
 //  INUPhoneBook
 //
-//  Created by 최용헌 on 2023/08/24.
+//  Created by 최용헌 on 2023/09/07.
 //
 //
 

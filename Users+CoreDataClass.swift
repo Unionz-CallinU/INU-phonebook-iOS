@@ -2,7 +2,7 @@
 //  Users+CoreDataClass.swift
 //  INUPhoneBook
 //
-//  Created by 최용헌 on 2023/08/22.
+//  Created by 최용헌 on 2023/09/07.
 //
 //
 
@@ -13,4 +13,3 @@ import CoreData
 public class Users: NSManagedObject {
 
 }
-

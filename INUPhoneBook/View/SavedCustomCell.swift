@@ -104,7 +104,7 @@ final class SavedCustomCell: UITableViewCell {
     
     name.text = user.name
     college.text = user.college
-    phoneNum.text = user.phoneNumber?.withHypen
+    phoneNum.text = user.phoneNumber
     email.text = user.email
     
   }

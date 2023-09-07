@@ -122,7 +122,6 @@ class DetailViewController: NaviHelper {
     isSavedCheck()
     
     cellToDetail()
-    cellToDetailCore()
     setNavigationbar()
   }
   
@@ -155,7 +154,7 @@ class DetailViewController: NaviHelper {
     nameTextLabel.text = data.name
     collegeLabel.text = data.college
     departmentLabel.text = data.department
-    phoneNumLabel.text = data.phoneNumber?.withHypen
+    phoneNumLabel.text = data.phoneNumber
     roleLabel.text = data.role
     emailLabel.text = data.email
     
@@ -171,27 +170,15 @@ class DetailViewController: NaviHelper {
     
     userToLike = data
   }
-  
-  func cellToDetailCore(){
-    guard let dataToCore = userToCore else { return }
-    nameTextLabel.text = dataToCore.name
-    collegeLabel.text = dataToCore.college
-    departmentLabel.text = dataToCore.department
-    phoneNumLabel.text = dataToCore.phoneNumber?.withHypen
-    roleLabel.text = dataToCore.role
-    emailLabel.text = dataToCore.email
     
-    // api에서 받아서 detail넘어갈때는 usertolike가 채워져 있는데 코어에서 넘어갈때는 비워져있음
-  }
-  
   // MARK: - view 계층 구성
   func isSavedCheck() {
     let user = userData?.first
     let userToCore = userToCore
     let checkDataCore = userManager.getUsersFromCoreData()
     
-    if let userId = user?.id ?? userToCore?.id {
-      if let _ = checkDataCore.first(where: { $0.id == userId }) {
+    if let userId = user?.name ?? userToCore?.name {
+      if let _ = checkDataCore.first(where: { $0.name == userId }) {
         setupLayout()
         makeUI()
       } else {
@@ -311,8 +298,8 @@ class DetailViewController: NaviHelper {
     let userToCore = userToCore
     let checkDataCore = userManager.getUsersFromCoreData()
     
-    if let userId = user?.id ?? userToCore?.id {
-      if let existingUser = checkDataCore.first(where: { $0.id == userId }) {
+    if let userId = user?.name ?? userToCore?.name {
+      if let existingUser = checkDataCore.first(where: { $0.name == userId }) {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
             existingUser.isSaved = false

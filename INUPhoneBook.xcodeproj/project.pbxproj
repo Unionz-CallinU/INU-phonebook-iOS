@@ -14,12 +14,12 @@
 		EE17F0A92A8338B100BA7EF0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0A82A8338B100BA7EF0 /* NetworkManager.swift */; };
 		EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AA2A83395F00BA7EF0 /* User.swift */; };
 		EE17F0AD2A83574F00BA7EF0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */; };
-		EE5F1A352A96D9D4002745C7 /* Categories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F1A332A96D9D4002745C7 /* Categories+CoreDataClass.swift */; };
-		EE5F1A362A96D9D4002745C7 /* Categories+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F1A342A96D9D4002745C7 /* Categories+CoreDataProperties.swift */; };
+		EE4C55B22AA8CB7000308807 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55AE2AA8CB7000308807 /* Users+CoreDataClass.swift */; };
+		EE4C55B32AA8CB7000308807 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55AF2AA8CB7000308807 /* Users+CoreDataProperties.swift */; };
+		EE4C55B42AA8CB7000308807 /* Categories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55B02AA8CB7000308807 /* Categories+CoreDataClass.swift */; };
+		EE4C55B52AA8CB7000308807 /* Categories+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55B12AA8CB7000308807 /* Categories+CoreDataProperties.swift */; };
 		EE5F1A3C2A9E3BC1002745C7 /* PopUpViewAtDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE5F1A3B2A9E3BC1002745C7 /* PopUpViewAtDetail.swift */; };
 		EE63FDAF2A94395E005DD117 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDAE2A94395E005DD117 /* StringExtension.swift */; };
-		EE63FDB52A94A859005DD117 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */; };
-		EE63FDB62A94A859005DD117 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */; };
 		EE63FDBC2A9650BD005DD117 /* CategoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE63FDBB2A9650BD005DD117 /* CategoryManager.swift */; };
 		EE73FD0E2A90EFEC00719D26 /* PopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73FD0D2A90EFEC00719D26 /* PopUpViewController.swift */; };
 		EE73FD102A90F05E00719D26 /* MyPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE73FD0F2A90F05E00719D26 /* MyPopUpView.swift */; };
@@ -48,12 +48,12 @@
 		EE17F0A82A8338B100BA7EF0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EE17F0AA2A83395F00BA7EF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		EE5F1A332A96D9D4002745C7 /* Categories+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		EE5F1A342A96D9D4002745C7 /* Categories+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		EE4C55AE2AA8CB7000308807 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		EE4C55AF2AA8CB7000308807 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		EE4C55B02AA8CB7000308807 /* Categories+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		EE4C55B12AA8CB7000308807 /* Categories+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		EE5F1A3B2A9E3BC1002745C7 /* PopUpViewAtDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewAtDetail.swift; sourceTree = "<group>"; };
 		EE63FDAE2A94395E005DD117 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
-		EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Users+CoreDataClass.swift"; path = "INUPhoneBook/Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Users+CoreDataProperties.swift"; path = "INUPhoneBook/Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		EE63FDBB2A9650BD005DD117 /* CategoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryManager.swift; sourceTree = "<group>"; };
 		EE73FD0D2A90EFEC00719D26 /* PopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpViewController.swift; sourceTree = "<group>"; };
 		EE73FD0F2A90F05E00719D26 /* MyPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPopUpView.swift; sourceTree = "<group>"; };
@@ -177,10 +177,10 @@
 		EEC2D6C12A60F8210015C715 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				EE5F1A332A96D9D4002745C7 /* Categories+CoreDataClass.swift */,
-				EE5F1A342A96D9D4002745C7 /* Categories+CoreDataProperties.swift */,
-				EE63FDB32A94A859005DD117 /* Users+CoreDataClass.swift */,
-				EE63FDB42A94A859005DD117 /* Users+CoreDataProperties.swift */,
+				EE4C55AE2AA8CB7000308807 /* Users+CoreDataClass.swift */,
+				EE4C55AF2AA8CB7000308807 /* Users+CoreDataProperties.swift */,
+				EE4C55B02AA8CB7000308807 /* Categories+CoreDataClass.swift */,
+				EE4C55B12AA8CB7000308807 /* Categories+CoreDataProperties.swift */,
 				EE17F0AA2A83395F00BA7EF0 /* User.swift */,
 				EE17F0A52A83385A00BA7EF0 /* UserManager.swift */,
 				EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */,
@@ -335,23 +335,23 @@
 			files = (
 				EE73FD102A90F05E00719D26 /* MyPopUpView.swift in Sources */,
 				EE5F1A3C2A9E3BC1002745C7 /* PopUpViewAtDetail.swift in Sources */,
-				EE63FDB52A94A859005DD117 /* Users+CoreDataClass.swift in Sources */,
 				EEC2D6AE2A60EC630015C715 /* MainViewController.swift in Sources */,
-				EE5F1A352A96D9D4002745C7 /* Categories+CoreDataClass.swift in Sources */,
 				EE752AFD2A7A3D7A002B6AE2 /* NaviHelper.swift in Sources */,
 				EEC2D6AA2A60EC630015C715 /* AppDelegate.swift in Sources */,
+				EE4C55B42AA8CB7000308807 /* Categories+CoreDataClass.swift in Sources */,
 				EE17F0A62A83385A00BA7EF0 /* UserManager.swift in Sources */,
+				EE4C55B52AA8CB7000308807 /* Categories+CoreDataProperties.swift in Sources */,
 				EEC2D6B42A60EC630015C715 /* INUPhoneBook.xcdatamodeld in Sources */,
 				EE17F0932A825A9000BA7EF0 /* SplashScreenController.swift in Sources */,
 				EEC732492A8BB3A60059A709 /* SavedCustomCell.swift in Sources */,
 				EE73FD0E2A90EFEC00719D26 /* PopUpViewController.swift in Sources */,
 				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
-				EE5F1A362A96D9D4002745C7 /* Categories+CoreDataProperties.swift in Sources */,
 				EE63FDBC2A9650BD005DD117 /* CategoryManager.swift in Sources */,
 				EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */,
 				EE63FDAF2A94395E005DD117 /* StringExtension.swift in Sources */,
+				EE4C55B22AA8CB7000308807 /* Users+CoreDataClass.swift in Sources */,
 				EE752AF62A67E2AA002B6AE2 /* DetailViewController.swift in Sources */,
-				EE63FDB62A94A859005DD117 /* Users+CoreDataProperties.swift in Sources */,
+				EE4C55B32AA8CB7000308807 /* Users+CoreDataProperties.swift in Sources */,
 				EEC2D6AC2A60EC630015C715 /* SceneDelegate.swift in Sources */,
 				EE17F0A92A8338B100BA7EF0 /* NetworkManager.swift in Sources */,
 				EE752AF82A6833F1002B6AE2 /* CustomCell.swift in Sources */,

@@ -54,8 +54,19 @@ final class UserManager {
     networkManager.fetchUser(searchTerm: searchTerm) { result in
       switch result {
       case .success(let userDatas):
-        dump(userDatas)
-        self.userApiDatas = [userDatas.data]
+        let employees: [User] = userDatas.data.employeeDtoList.map { dto in
+          var employee = User (
+            id: dto.id,
+            name: dto.name,
+            college: dto.college,
+            phoneNumber: dto.phoneNumber,
+            department: dto.department,
+            imageUrl: dto.imageUrl,
+            isSaved: false
+          )
+          return employee
+        }
+        self.userApiDatas = employees
         self.checkWhetherSaved()
         completion()
       case .failure(let error):
@@ -130,7 +141,8 @@ final class UserManager {
       if userSavedDatas.contains(where: {
         $0.id == user.id && $0.name == user.name
       }) {
-        user.isSaved = true        
+        var mutableUser = user
+        mutableUser.isSaved = true
       }
     }
   }

@@ -14,27 +14,22 @@ import UIKit
 struct UserData: Codable {
   let code: Int
   let msg: String
-  let data: User
+  let data: EmployeeData
 }
 
-class User: Codable {
-  var id: String?
+struct EmployeeData: Codable {
+  let employeeDtoList: [User]
+}
+
+struct User: Codable {
+  var id: Int
   var name: String?
   var college: String?
   var phoneNumber: String?
   var department: String?
-  var role: String?
-  var email: String?
-  var isSaved: Bool = false
+  var role: String? = "없음"
+  var email: String? = "없음"
+  var imageUrl: String? = nil
+  var isSaved: Bool? = false
   var category: String? = "기본"
-  
-  enum CodingKeys: String, CodingKey {
-    case id
-    case name
-    case college
-    case phoneNumber
-    case department
-    case role
-    case email
-  }
 }
