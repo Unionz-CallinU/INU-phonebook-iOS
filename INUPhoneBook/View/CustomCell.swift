@@ -108,8 +108,6 @@ final class CustomCell: UITableViewCell {
   }
   
   func setButtonStatus() {
-    print("등장")
-    print(user?.isSaved)
     let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
     guard let isSaved = self.user?.isSaved else { return }
     if !isSaved {

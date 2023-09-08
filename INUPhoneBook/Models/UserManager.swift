@@ -51,23 +51,23 @@ final class UserManager {
   
   // 네트워크 매니저한테 요청해서 (서버에서) 데이터 가져오기
   private func getUsersFromAPI(with searchTerm: String, completion: @escaping () -> Void) {
-   
     networkManager.fetchUser(searchTerm: searchTerm) { result in
       switch result {
       case .success(let userDatas):
+        // Fetch users from Core Data
+        let coreDataUsers = self.getUsersFromCoreData()
+        
+        // Map the server data to create users with isSaved correctly set
         let employees: [User] = userDatas.data.employeeDtoList.map { dto in
-          var employee = User (
+          var employee = User(
             id: dto.id,
             name: dto.name,
             college: dto.college,
             phoneNumber: dto.phoneNumber,
             department: dto.department,
             imageUrl: dto.imageUrl,
-            isSaved: false
+            isSaved: coreDataUsers.contains { $0.id == String(dto.id) } // Set isSaved based on Core Data
           )
-          self.getUsersFromCoreData().forEach { if $0.id == String(employee.id)
-            { employee.isSaved = true }
-          }
           return employee
         }
         self.userApiDatas = employees
@@ -78,6 +78,8 @@ final class UserManager {
       }
     }
   }
+
+
   
   //MARK: - 코어데이터와 커뮤니케이션하는 메서드
   // 처음 셋팅하는 메서드

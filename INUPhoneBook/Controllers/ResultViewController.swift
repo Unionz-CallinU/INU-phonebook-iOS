@@ -16,6 +16,7 @@ final class ResultViewController: NaviHelper {
   var searchKeyword: String?
   var starStatus: Bool?
   
+  
   init(searchKeyword: String) {
     self.searchKeyword = searchKeyword
     
@@ -101,10 +102,16 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
                                                    for: indexPath) as! CustomCell
-    let user = userManager.getUsersFromAPI()[indexPath.row]
+    var user = userManager.getUsersFromAPI()[indexPath.row]
+    var isSaved = false
+    
+    userManager.getUsersFromCoreData().forEach { userToCore in
+      if userToCore.id == String(user.id) { isSaved = true}
+    }
+    user.isSaved = isSaved
     
     let starImage = user.isSaved! ? UIImage(named: "StarChecked") : UIImage(named: "Star")
-  
+    
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
@@ -159,15 +166,6 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   }
   
   func reloadTalbeView(){
-    // 가져온 데이터 중 첫 번째 아이템의 isSaved를 확인합니다.
-    // 작동안함 detail to result 
-    var firstUser = userManager.getUsersFromAPI().first
-    dump(firstUser)
-    userManager.getUsersFromCoreData().forEach { user in
-      print(user.id)
-      if user.id == String(firstUser!.id) { firstUser?.isSaved = true }
-      else { firstUser?.isSaved = false }
-    }
     resultTableView.reloadData()
   }
 }
