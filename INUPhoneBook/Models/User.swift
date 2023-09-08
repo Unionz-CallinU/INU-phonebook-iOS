@@ -30,6 +30,6 @@ struct User: Codable {
   var role: String? = "없음"
   var email: String? = "없음"
   var imageUrl: String? = nil
-  var isSaved: Bool? = false
+  var isSaved: Bool?
   var category: String? = "기본"
 }

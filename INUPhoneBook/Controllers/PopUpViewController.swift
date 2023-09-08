@@ -15,8 +15,7 @@ class MyPopupViewController: UIViewController {
   private let popupView: MyPopupView
   private var user: User?
   private var senderCell: CustomCell?
-    
-
+  
   init(title: String, desc: String, user: User?, senderCell: CustomCell?) {
     self.popupView = MyPopupView(title: title, desc: desc)
     super.init(nibName: nil, bundle: nil)
@@ -35,16 +34,19 @@ class MyPopupViewController: UIViewController {
     }
     
     self.popupView.rightButtonAction = { [unowned self] in
-        guard let user = self.user else { return }
-        self.userManager.saveUserData(with: user) {
-            self.user?.isSaved = true
-            DispatchQueue.main.async { [weak senderCell] in
-                senderCell?.setButtonStatus()
-            }
-            self.dismiss(animated: true, completion: nil)
+      guard let user = self.user else { return }
+      self.userManager.saveUserData(with: user) {
+        DispatchQueue.main.async { [weak self] in
+          guard let self = self, let senderCell = self.senderCell else { return }
+          senderCell.user?.isSaved = true // isSaved 값을 true로 설정
+          senderCell.setButtonStatus()
+          
         }
+        self.dismiss(animated: true, completion: nil)
+      }
     }
 
+    
     
     self.popupView.selectButtonAction = { [weak self] in
       self?.showCategoryList(sender: self?.popupView.selectButton ?? UIButton())

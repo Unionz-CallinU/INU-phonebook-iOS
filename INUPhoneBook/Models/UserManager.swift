@@ -65,16 +65,15 @@ final class UserManager {
             imageUrl: dto.imageUrl,
             isSaved: false
           )
-          self.checkWhetherSaved()
-          print(employee.isSaved)
-          
+          self.getUsersFromCoreData().forEach { if $0.id == String(employee.id)
+            { employee.isSaved = true }
+          }
           return employee
         }
         self.userApiDatas = employees
         completion()
       case .failure(let error):
         print(error.localizedDescription)
-        self.checkWhetherSaved()
         completion()
       }
     }
@@ -136,18 +135,5 @@ final class UserManager {
   private func fetchUsersFromCoreData(completion: () -> Void) {
     userSavedDatas = coredataManager.getUserArrayFromCoreData()
     completion()
-  }
-  
-  // 이미 저장된 데이터인지 확인하기 (다른 화면에서 저장 여부 표시하기 위해)
-  func checkWhetherSaved() {
-
-    print("동작")
-    userApiDatas.forEach { [weak self] user in
-      print(user.name)
-      if let foundUserIndex = userSavedDatas.firstIndex(where: { $0.name == user.name }) {
-        self?.userApiDatas[userApiDatas.index(userApiDatas.startIndex, offsetBy: foundUserIndex)].isSaved = true
-        print("change")
-      }
-    }
   }
 }

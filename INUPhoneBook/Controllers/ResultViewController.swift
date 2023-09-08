@@ -102,6 +102,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     let cell = resultTableView.dequeueReusableCell(withIdentifier: CustomCell.cellId,
                                                    for: indexPath) as! CustomCell
     let user = userManager.getUsersFromAPI()[indexPath.row]
+    
     let starImage = user.isSaved! ? UIImage(named: "StarChecked") : UIImage(named: "Star")
   
     cell.name.text = user.name
@@ -117,7 +118,6 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
       guard let self = self else { return }
       if !isSaved {
         self.didTapButton(senderCell: cell)
-        
       } else {
         self.makeRemoveCheckAlert { removeAction in
           if removeAction {
@@ -160,14 +160,15 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   
   func reloadTalbeView(){
     // 가져온 데이터 중 첫 번째 아이템의 isSaved를 확인합니다.
-    let coreUser = userManager.getUsersFromCoreData().first
-    if var firstUser = userManager.getUsersFromAPI().first {
-      if firstUser.isSaved! && String(firstUser.id) != coreUser?.id {
-        firstUser.isSaved = false
-      }
+    // 작동안함 detail to result 
+    var firstUser = userManager.getUsersFromAPI().first
+    dump(firstUser)
+    userManager.getUsersFromCoreData().forEach { user in
+      print(user.id)
+      if user.id == String(firstUser!.id) { firstUser?.isSaved = true }
+      else { firstUser?.isSaved = false }
     }
     resultTableView.reloadData()
-    
   }
 }
 
