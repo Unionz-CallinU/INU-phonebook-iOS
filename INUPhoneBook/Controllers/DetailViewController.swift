@@ -48,20 +48,21 @@ class DetailViewController: NaviHelper {
   // MARK: - 바뀌는 label
   private let nameTextLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 40)
+    label.font = UIFont(name: "Pretendard", size: 24)
+    label.textAlignment = .center
     return label
   }()
   
   private let collegeLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 25)
+    label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = .lightGray
     return label
   }()
   
   private let departmentLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 25)
+    label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = .lightGray
     return label
   }()
@@ -74,20 +75,20 @@ class DetailViewController: NaviHelper {
   
   private let roleLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 25)
+    label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = .lightGray
     return label
   }()
   
   private let phoneNumLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 25)
+    label.font = UIFont(name: "Pretendard", size: 18)
     return label
   }()
   
   private let emailLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 25)
+    label.font = UIFont(name: "Pretendard", size: 18)
     return label
   }()
   
@@ -250,11 +251,13 @@ class DetailViewController: NaviHelper {
     nameTextLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalTo(circleImage.snp.bottom).offset(50)
+      make.width.equalTo(293.71)
+      make.height.equalTo(22)
     }
     
     collegeLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.top.equalTo(nameTextLabel.snp.bottom).offset(10)
+      make.top.equalTo(nameTextLabel.snp.bottom).offset(20)
     }
     
     departmentLabel.snp.makeConstraints { make in
@@ -393,3 +396,32 @@ extension DetailViewController {
     self.present(alert, animated: true, completion: nil)
   }
 }
+// MARK: - Preview
+#if DEBUG
+import SwiftUI
+struct ViewControllerRepresentable: UIViewControllerRepresentable {
+  
+  func updateUIViewController(_ uiView: UIViewController,context: Context) {
+    // leave this empty
+  }
+  @available(iOS 13.0.0, *)
+  func makeUIViewController(context: Context) -> UIViewController{
+    DetailViewController()
+  }
+}
+@available(iOS 13.0, *)
+struct ViewControllerRepresentable_PreviewProvider: PreviewProvider {
+  static var previews: some View {
+    Group {
+      if #available(iOS 14.0, *) {
+        ViewControllerRepresentable()
+          .ignoresSafeArea()
+          .previewDisplayName(/*@START_MENU_TOKEN@*/"Preview"/*@END_MENU_TOKEN@*/)
+          .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
+      } else {
+        // Fallback on earlier versions
+      }
+    }
+    
+  }
+} #endif

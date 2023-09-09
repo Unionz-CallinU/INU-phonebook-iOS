@@ -75,18 +75,18 @@ final class ResultViewController: NaviHelper {
   func makeUI() {
     mainTitle.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.bottom.equalTo(searchController.snp.top).offset(-20)
+      make.top.equalTo(119.72)
     }
     
     searchController.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
+      make.top.equalTo(mainTitle).offset(40)
       make.width.equalToSuperview().multipliedBy(0.9)
       make.height.equalTo(60)
     }
     
     resultTableView.snp.makeConstraints { (make) in
-      make.top.equalTo(searchController.snp.bottom).offset(70)
+      make.top.equalTo(searchController.snp.bottom).offset(60)
       make.left.right.bottom.equalToSuperview()
     }
   }

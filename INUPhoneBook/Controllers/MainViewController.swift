@@ -23,10 +23,15 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
     bar.placeholder = "상세정보를 입력하세요"
     bar.backgroundImage = UIImage()   // 빈 이미지를 넣어서 주변 사각형 제거
     bar.setImage(UIImage(), for: UISearchBar.Icon.search, state: .normal)
-    bar.setImage(UIImage(named: "icCancel"), for: .search, state: .normal)
-    bar.layer.cornerRadius = 30
+//    bar.setImage(UIImage(named: "icCancel"), for: .search, state: .normal)
+//    bar.layer.cornerRadius = 120
+    bar.barTintColor = UIColor(red: 0.93, green: 0.95, blue: 0.96, alpha: 1.00)
+    bar.frame.size.height = 120
+    bar.showsSearchResultsButton = true
+    
     return bar
   }()
+  
   
   override func viewDidLoad() {
     
@@ -53,14 +58,13 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
   func makeUI() {
     titleImage.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.bottom.equalTo(searchController.snp.top).offset(-20)
+      make.bottom.equalTo(searchController.snp.top).offset(-40)
     }
-    
+
     searchController.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.centerY.equalToSuperview().offset(-50)
+      make.top.equalToSuperview().offset(358)
       make.width.equalToSuperview().multipliedBy(0.8)
-      make.height.equalTo(60)
     }
   }
 }
@@ -78,3 +82,4 @@ extension MainViewController: UISearchBarDelegate {
   }
 
 }
+

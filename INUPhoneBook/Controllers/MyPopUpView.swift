@@ -85,18 +85,16 @@ class MyPopupView: UIView {
   
   private let leftButton: UIButton = {
     let button = UIButton()
-    button.setTitleColor(.white, for: .normal)
-    button.setBackgroundImage(UIColor.systemBlue.withAlphaComponent(0.5).asImage(), for: .normal)
-    button.setBackgroundImage(UIColor.systemBlue.asImage(), for: .highlighted)
+    button.setTitleColor(.black, for: .normal)
+    button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).asImage(), for: .normal)
     button.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
     return button
   }()
   
   private let rightButton: UIButton = {
     let button = UIButton()
-    button.setTitleColor(.white, for: .normal)
-    button.setBackgroundImage(UIColor.systemBlue.asImage(), for: .normal)
-    button.setBackgroundImage(UIColor.blue.asImage(), for: .highlighted)
+    button.setTitleColor(.black, for: .normal)
+    button.setBackgroundImage(UIColor.white.asImage(), for: .normal)
     button.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
     
     return button
@@ -171,7 +169,7 @@ class MyPopupView: UIView {
     self.separatorLineView.snp.makeConstraints { make in
       make.left.right.equalToSuperview()
       make.bottom.equalTo(self.leftButton.snp.top)
-      make.height.equalTo(1)
+      make.height.equalTo(0)
     }
     
     self.leftButton.snp.makeConstraints { make in
