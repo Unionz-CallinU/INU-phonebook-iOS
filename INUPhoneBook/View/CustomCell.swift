@@ -26,11 +26,6 @@ final class CustomCell: UITableViewCell {
     }
   }
   
-  lazy var profile: UIImageView = {
-    let img = UIImageView()
-    return img
-  }()
-  
   lazy var name: UILabel = {
     let label = UILabel()
     return label
@@ -78,7 +73,7 @@ final class CustomCell: UITableViewCell {
       make.leading.equalToSuperview().offset(20)
     }
     college.snp.makeConstraints { make in
-      make.leading.equalTo(name.snp.leading).offset(50)
+      make.leading.equalTo(name.snp.trailing).offset(10)
       make.top.equalToSuperview().offset(12)
     }
     phoneNum.snp.makeConstraints { make in

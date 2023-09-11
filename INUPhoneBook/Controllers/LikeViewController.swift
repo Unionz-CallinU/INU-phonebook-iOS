@@ -124,9 +124,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   }
   
   func setupLayout(){
-    let countSections: Int
-    countSections = categoryManager.fetchCategories().count
-    let test = userManager.getUsersFromCoreData().count
+    let countSections = categoryManager.fetchCategories().count
     if countSections == 0 {
       [
         mainTitle,
@@ -147,9 +145,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   }
   
   func makeUI(){
-    let countSections: Int
-    countSections = categoryManager.fetchCategories().count
-    let test = userManager.getUsersFromCoreData().count
+    let countSections = categoryManager.fetchCategories().count
 
     resultTableView.dataSource = self
     resultTableView.delegate = self
@@ -278,16 +274,16 @@ extension LikeViewController: UITableViewDataSource {
                                              for: indexPath) as! SavedCustomCell
     
     let users = userManager.getUsersFromCoreData()
+    
     let filteredUsers = users.filter { $0.category == sections[indexPath.section] }
     
     let userTest = filteredUsers[indexPath.row]
     let img = UIImage(named: "StarChecked")
-    
+
     cell.name.text = userTest.name
     cell.email.text = userTest.email
     cell.college.text = userTest.college
     cell.phoneNum.text = userTest.phoneNumber
-    cell.profile.image = UIImage(named: "INU1")!
     cell.star.setImage(img, for: .normal)
     
     cell.user = userTest
@@ -331,11 +327,13 @@ extension LikeViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedUser = userManager.getUsersFromCoreData()[indexPath.row]
     let detailVC = DetailViewController()
-    
+    print(selectedUser)
     detailVC.userToCore = selectedUser
-    detailVC.userToCore?.isSaved = true
     detailVC.senderLikeVC = self
     self.navigationController?.pushViewController(detailVC, animated: true)
+    
+    // 코어데이터에 저장되어 있는 애들은 안바뀌는데 선택한 데이터들이 바뀜..?
+    // 카테고리 이동 시 코어데이터 처음에 저장되어 있는 순서대로 다시 출력?
   }
 }
 

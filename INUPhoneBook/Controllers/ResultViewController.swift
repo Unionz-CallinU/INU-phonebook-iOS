@@ -116,7 +116,6 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     cell.email.text = user.email
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
-    cell.profile.image = UIImage(named: "INU1")!
     cell.star.setImage(starImage, for: .normal)
   
     cell.user = user

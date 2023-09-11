@@ -29,7 +29,7 @@ struct User: Codable {
   var department: String?
   var role: String? = "없음"
   var email: String? = "없음"
-  var imageUrl: String? = nil
+  var imageUrl: String? = "없음"
   var isSaved: Bool?
   var category: String? = "기본"
 }

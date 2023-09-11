@@ -66,7 +66,8 @@ final class UserManager {
             phoneNumber: dto.phoneNumber,
             department: dto.department,
             imageUrl: dto.imageUrl,
-            isSaved: coreDataUsers.contains { $0.id == String(dto.id) } // Set isSaved based on Core Data
+            isSaved: coreDataUsers.contains { $0.id == String(dto.id) },
+            category: "기본"
           )
           return employee
         }
@@ -131,7 +132,6 @@ final class UserManager {
       completion()
     }
   }
-  
   
   // Read (모든 Users(entity) 불러오기) (코어데이터에서 가져와서)
   private func fetchUsersFromCoreData(completion: () -> Void) {

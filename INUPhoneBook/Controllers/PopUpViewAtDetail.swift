@@ -16,7 +16,7 @@ class PopUpViewAtDetail: UIViewController {
   private let popupView: MyPopupView
   private var user: User?
   
-  private let sections: [String] = ["기본"]
+  private let sections: [String] = []
 
   init(title: String, desc: String, user: User? , senderVC: DetailViewController) {
     self.popupView = MyPopupView(title: title, desc: desc)
@@ -80,6 +80,7 @@ class PopUpViewAtDetail: UIViewController {
       guard let self = self else { return }
       // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
       self.user?.category = item
+    
     }
     dropDown.show()
   }

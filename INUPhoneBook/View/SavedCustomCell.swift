@@ -18,6 +18,7 @@ final class SavedCustomCell: UITableViewCell {
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
+    
     setupLayout()
     makeUI()
   }
@@ -31,11 +32,6 @@ final class SavedCustomCell: UITableViewCell {
       configureUIwithData()
     }
   }
-  
-  lazy var profile: UIImageView = {
-    let img = UIImageView()
-    return img
-  }()
   
   lazy var name: UILabel = {
     let label = UILabel()
@@ -111,7 +107,6 @@ final class SavedCustomCell: UITableViewCell {
   
   @objc func requestTapped() {
     saveButtonPressed(self)
-
   }
   
   func setButtonStatus() {

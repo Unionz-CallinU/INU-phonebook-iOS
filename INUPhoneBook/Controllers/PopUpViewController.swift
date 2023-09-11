@@ -65,7 +65,7 @@ class MyPopupViewController: UIViewController {
   
   @objc func showCategoryList(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()
-    var categoryNames: [String] = ["기본"]
+    var categoryNames: [String] = []
     
     for category in categories {
       if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우

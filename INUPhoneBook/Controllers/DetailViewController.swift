@@ -159,6 +159,14 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = data.phoneNumber
     roleLabel.text = data.role
     emailLabel.text = data.email
+
+    
+    guard let img = data.imageUrl else { return }
+    if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
+      professorImage.image = img
+    } else{
+      professorImage.image = UIImage(named: "mainimage")
+    }
     
     userToLike?.id = data.id
     userToLike?.name = data.name
@@ -335,7 +343,6 @@ class DetailViewController: NaviHelper {
       }
     }
   }
-
   // 카테고리 관련 함수
   @objc func selectButtonTapped(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()

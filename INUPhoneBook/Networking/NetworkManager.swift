@@ -9,7 +9,6 @@ enum NetworkError: Error {
 }
 
 //MARK: - Networking (서버와 통신하는) 클래스 모델
-
 final class NetworkManager {
   
   // 여러 화면에서 통신을 한다면, 일반적으로 싱글톤으로 만듦
@@ -21,34 +20,34 @@ final class NetworkManager {
   
   // 네트워킹 요청하는 함수
   func fetchUser(searchTerm: String, completion: @escaping NetworkCompletion) {
-    let urlString = "https://em-todo.inuappcenter.kr/api/v1/employee"
-    getMethod(with: urlString, searchTerm: searchTerm) { result in
-      switch result {
-      case .success(let userData):
-        completion(.success(userData))
-      case .failure(let error):
-        completion(.failure(error))
-      }
+    var urlComponents = URLComponents()
+    urlComponents.scheme = "https"
+    urlComponents.host = "callinu.inuappcenter.kr"
+    urlComponents.path = "/api/v1/employee"
+    
+    let searchQueryItem = URLQueryItem(name: "employeeSearchReqDto", value: searchTerm)
+    urlComponents.queryItems = [searchQueryItem]
+    
+    guard let urlString = urlComponents.url?.absoluteString else {
+      print("Invalid URL")
+      completion(.failure(.networkingError))
+      return
     }
+    
+    getMethod(with: urlString, completion: completion)
   }
   
-  private func getMethod(with urlString: String, searchTerm: String, completion: @escaping NetworkCompletion) {
+  private func getMethod(with urlString: String, completion: @escaping NetworkCompletion) {
     guard let url = URL(string: urlString) else {
       print("Invalid URL")
       completion(.failure(.networkingError))
       return
     }
+    
     var request = URLRequest(url: url)
-    request.httpMethod = "POST"
+    request.httpMethod = "GET"
     request.setValue("application/json", forHTTPHeaderField: "Content-Type")
     request.setValue("application/json", forHTTPHeaderField: "Accept")
-    let body = ["search": searchTerm]
-    
-    do {
-      request.httpBody = try JSONSerialization.data(withJSONObject: body, options: [])
-    } catch {
-      print("Error creating JSON data")
-    }
     
     URLSession.shared.dataTask(with: request) { data, response, error in
       if let error = error {
