@@ -42,6 +42,7 @@ class DetailViewController: NaviHelper {
     let image = UIImage(named: "mainimage")
     view.image = image
     view.frame = CGRect(x: 0, y: 0, width: 62, height: 81)
+    view.layer.cornerRadius = 15
     return view
   }()
   

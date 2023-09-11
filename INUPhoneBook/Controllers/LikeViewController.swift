@@ -17,7 +17,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   let categoryManager = CategoryManager.shared
   var minusButtonVisible: Bool = false
   var checkButtonStatus: Bool = false
-
+  
   private var sections: [String] = []
   private var deleteSections: [String] = []
   
@@ -97,7 +97,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     
     self.view.backgroundColor = .white
     setSections()
-
+    
     setupLayout()
     makeUI()
     
@@ -146,7 +146,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   func makeUI(){
     let countSections = categoryManager.fetchCategories().count
-
+    
     resultTableView.dataSource = self
     resultTableView.delegate = self
     
@@ -270,10 +270,14 @@ extension LikeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId, for: indexPath) as! SavedCustomCell
-    let user = userManager.getUsersFromCoreData().filter { $0.category == sections[indexPath.section] }[indexPath.row]
+    let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId,
+                                             for: indexPath) as! SavedCustomCell
+    let user = userManager.getUsersFromCoreData().filter {
+      $0.category == sections[indexPath.section] }[indexPath.row]
+    print(user.name)
+    let userTest = userManager.getUsersFromCoreData()
     let img = UIImage(named: "StarChecked")
-    
+
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
@@ -299,7 +303,7 @@ extension LikeViewController: UITableViewDataSource {
     cell.selectionStyle = .none
     return cell
   }
-
+  
   
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
@@ -320,16 +324,18 @@ extension LikeViewController: UITableViewDataSource {
   
   // UITableViewDelegate 함수
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let selectedUser = userManager.getUsersFromCoreData()[indexPath.row]
-    let detailVC = DetailViewController()
+    let category = sections[indexPath.section]
+    let users = userManager.getUsersFromCoreData().filter { $0.category == category }
     
-    print(selectedUser)
-    detailVC.userToCore = selectedUser
-    detailVC.senderLikeVC = self
-    self.navigationController?.pushViewController(detailVC, animated: true)
-    
-    // 코어데이터에 저장되어 있는 애들은 안바뀌는데 선택한 데이터들이 바뀜..?
-    // 카테고리 이동 시 코어데이터 처음에 저장되어 있는 순서대로 다시 출력?
+    if indexPath.row < users.count {
+      let selectedUser = users[indexPath.row]
+      
+      let detailVC = DetailViewController()
+      detailVC.userToCore = selectedUser
+      detailVC.senderLikeVC = self
+      
+      self.navigationController?.pushViewController(detailVC, animated: true)
+    }
   }
 }
 
