@@ -18,7 +18,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   var minusButtonVisible: Bool = false
   var checkButtonStatus: Bool = false
 
-  private var sections: [String] = ["기본"]
+  private var sections: [String] = []
   private var deleteSections: [String] = []
   
   private let mainTitle: UILabel = {
@@ -270,29 +270,23 @@ extension LikeViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId,
-                                             for: indexPath) as! SavedCustomCell
-    
-    let users = userManager.getUsersFromCoreData()
-    
-    let filteredUsers = users.filter { $0.category == sections[indexPath.section] }
-    
-    let userTest = filteredUsers[indexPath.row]
+    let cell = tableView.dequeueReusableCell(withIdentifier: SavedCustomCell.cellId, for: indexPath) as! SavedCustomCell
+    let user = userManager.getUsersFromCoreData().filter { $0.category == sections[indexPath.section] }[indexPath.row]
     let img = UIImage(named: "StarChecked")
-
-    cell.name.text = userTest.name
-    cell.email.text = userTest.email
-    cell.college.text = userTest.college
-    cell.phoneNum.text = userTest.phoneNumber
+    
+    cell.name.text = user.name
+    cell.email.text = user.email
+    cell.college.text = user.college
+    cell.phoneNum.text = user.phoneNumber
     cell.star.setImage(img, for: .normal)
     
-    cell.user = userTest
+    cell.user = user
     
     cell.saveButtonPressed = { [weak self] (senderCell) in
       guard let self = self else { return }
       self.makeRemoveCheckAlert { okAction in
         if okAction {
-          self.userManager.deleteUserFromCoreData(with: userTest) {
+          self.userManager.deleteUserFromCoreData(with: user) {
             self.resultTableView.reloadData()
             print("삭제 및 테이블뷰 리로드 완료")
           }
@@ -305,6 +299,7 @@ extension LikeViewController: UITableViewDataSource {
     cell.selectionStyle = .none
     return cell
   }
+
   
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
@@ -327,6 +322,7 @@ extension LikeViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedUser = userManager.getUsersFromCoreData()[indexPath.row]
     let detailVC = DetailViewController()
+    
     print(selectedUser)
     detailVC.userToCore = selectedUser
     detailVC.senderLikeVC = self

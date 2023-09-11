@@ -56,6 +56,8 @@ final class CoreDataManager {
       userSaved.id = String(user.id)
       userSaved.category = user.category
       userSaved.isSaved = user.isSaved!
+      userSaved.imgUrl = user.imageUrl
+      
       do {
         try context.save()
         completion()

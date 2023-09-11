@@ -159,7 +159,6 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = data.phoneNumber
     roleLabel.text = data.role
     emailLabel.text = data.email
-
     
     guard let img = data.imageUrl else { return }
     if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
@@ -189,6 +188,12 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.text = dataToCore.phoneNumber
     roleLabel.text = dataToCore.role
     emailLabel.text = dataToCore.email
+    
+    if let img = UIImage(base64: dataToCore.imgUrl!, withPrefix: false) {
+      professorImage.image = img
+    } else{
+      professorImage.image = UIImage(named: "mainimage")
+    }
   }
   
   // MARK: - view 계층 구성
@@ -248,7 +253,9 @@ class DetailViewController: NaviHelper {
     
     professorImage.snp.makeConstraints { make in
       make.leading.equalToSuperview().offset(163)
-      make.top.equalTo(circleImage.snp.top).offset(15)
+      make.centerX.centerY.equalTo(circleImage)
+      make.width.equalTo(62)
+      make.height.equalTo(81)
     }
     
     circleImage.snp.makeConstraints { make in

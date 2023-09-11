@@ -2,7 +2,7 @@
 //  Users+CoreDataProperties.swift
 //  INUPhoneBook
 //
-//  Created by 최용헌 on 2023/09/07.
+//  Created by 최용헌 on 2023/09/11.
 //
 //
 
@@ -25,6 +25,7 @@ extension Users {
     @NSManaged public var name: String?
     @NSManaged public var phoneNumber: String?
     @NSManaged public var role: String?
+    @NSManaged public var imgUrl: String?
 
 }
 
