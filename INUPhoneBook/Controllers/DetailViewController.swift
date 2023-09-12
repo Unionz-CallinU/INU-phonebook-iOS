@@ -6,7 +6,6 @@
 //
 
 // 번호 누르면 바로 전화 가능하게, 이메일 누르면 바로 전달 가능하게
-// 결과페이지에서 디테일 누를 때 코어데이터에 있으면 코어데이터, 없으면 api에서 즐겨찾기는 코어데이터에서
 import UIKit
 
 import SnapKit
@@ -318,11 +317,6 @@ class DetailViewController: NaviHelper {
   }
   
   // MARK: - DetailView에서 즐겨찾기 추가/삭제
-  // userdata - api, usertocore,
-  // 메인에서 바로 즐겨찾기가서 상세조회 누르고 버튼누르는 경우 - 코어데이터에서 가져와야함
-  // 검색 후 상세조회누르고 버튼 누르는 경우 - api에서 가져오기
-  // resultview에서 저장하고 detailview에서 삭제 후 바로 추가하면 작동을 안함
-  
   @objc func addToLike() {
     let user = userData?.first
     let userToCore = userToCore
@@ -335,7 +329,6 @@ class DetailViewController: NaviHelper {
             existingUser.isSaved = false
             self.makeStatus = false
             self.userManager.deleteUserFromCoreData(with: existingUser) {
-              // 데이터 업데이트 및 삭제 작업 완료 후 UI 업데이트
               DispatchQueue.main.async {
                 self.deleteUI()
                 self.setNavigationbar()
@@ -411,32 +404,3 @@ extension DetailViewController {
     self.present(alert, animated: true, completion: nil)
   }
 }
-// MARK: - Preview
-#if DEBUG
-import SwiftUI
-struct ViewControllerRepresentable: UIViewControllerRepresentable {
-  
-  func updateUIViewController(_ uiView: UIViewController,context: Context) {
-    // leave this empty
-  }
-  @available(iOS 13.0.0, *)
-  func makeUIViewController(context: Context) -> UIViewController{
-    DetailViewController()
-  }
-}
-@available(iOS 13.0, *)
-struct ViewControllerRepresentable_PreviewProvider: PreviewProvider {
-  static var previews: some View {
-    Group {
-      if #available(iOS 14.0, *) {
-        ViewControllerRepresentable()
-          .ignoresSafeArea()
-          .previewDisplayName(/*@START_MENU_TOKEN@*/"Preview"/*@END_MENU_TOKEN@*/)
-          .previewDevice(PreviewDevice(rawValue: "iPhone 11"))
-      } else {
-        // Fallback on earlier versions
-      }
-    }
-    
-  }
-} #endif

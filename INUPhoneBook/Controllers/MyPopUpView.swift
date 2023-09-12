@@ -62,7 +62,7 @@ class MyPopupView: UIView {
     return view
   }()
   
-  private let selectLabel: UILabel = {
+  lazy var selectLabel: UILabel = {
     let label = UILabel()
     label.textColor = .gray
     label.font = .systemFont(ofSize: 16)

@@ -63,8 +63,8 @@ class PopUpViewAtDetail: UIViewController {
   
   @objc func showCategoryList(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()
-    var categoryNames: [String] = ["기본"]
-    
+    var categoryNames: [String] = []
+  
     for category in categories {
       if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
         categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
@@ -80,7 +80,8 @@ class PopUpViewAtDetail: UIViewController {
       guard let self = self else { return }
       // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
       self.user?.category = item
-    
+      self.popupView.selectLabel.text = item
+  
     }
     dropDown.show()
   }

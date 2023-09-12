@@ -14,15 +14,12 @@ class SplashViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     playVideo()
-  
   }
 
   let playerController = AVPlayerViewController()
   
   private func playVideo() {
-    guard let path = Bundle.main.path(forResource: "SplashScreen", ofType:"mp4") else {
-      return
-    }
+    guard let path = Bundle.main.path(forResource: "SplashScreen", ofType:"mp4") else { return }
     let player = AVPlayer(url: URL(fileURLWithPath: path))
     
     playerController.showsPlaybackControls = false

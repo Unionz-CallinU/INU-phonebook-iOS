@@ -38,7 +38,7 @@ class MyPopupViewController: UIViewController {
       self.userManager.saveUserData(with: user) {
         DispatchQueue.main.async { [weak self] in
           guard let self = self, let senderCell = self.senderCell else { return }
-          senderCell.user?.isSaved = true // isSaved 값을 true로 설정
+          senderCell.user?.isSaved = true
           senderCell.setButtonStatus()
           
         }
@@ -46,8 +46,6 @@ class MyPopupViewController: UIViewController {
       }
     }
 
-    
-    
     self.popupView.selectButtonAction = { [weak self] in
       self?.showCategoryList(sender: self?.popupView.selectButton ?? UIButton())
     }
@@ -68,8 +66,8 @@ class MyPopupViewController: UIViewController {
     var categoryNames: [String] = []
     
     for category in categories {
-      if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
-        categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
+      if let categoryName = category.cellCategory {
+        categoryNames.append(categoryName)
       }
     }
     
@@ -77,12 +75,13 @@ class MyPopupViewController: UIViewController {
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
+    
     dropDown.selectionAction = { [weak self] (index, item) in
-      // DropDown의 항목 선택 시의 동작을 구현합니다.
       guard let self = self else { return }
-      // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
       self.user?.category = item
+      self.popupView.selectLabel.text = item
     }
+    
     dropDown.show()
     
   }

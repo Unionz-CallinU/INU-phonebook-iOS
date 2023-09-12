@@ -211,7 +211,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   func showCategoryInputAlert() {
     let alert = UIAlertController(title: "",
-                                  message: "새로운 카테고리 이름을 입력하세요",
+                                  message: "원하는 이름을 입력하세요",
                                   preferredStyle: .alert)
     
     alert.addTextField { textField in
