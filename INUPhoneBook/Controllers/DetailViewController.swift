@@ -5,7 +5,6 @@
 //  Created by 최용헌 on 2523/07/19.
 //
 
-// 번호 누르면 바로 전화 가능하게, 이메일 누르면 바로 전달 가능하게
 import UIKit
 
 import SnapKit
@@ -28,7 +27,7 @@ class DetailViewController: NaviHelper {
     
     if self.isMovingFromParent { resultVC?.reloadTalbeView() }
   }
-
+  
   private let circleImage: UIImageView = {
     let view = UIImageView()
     view.image = UIImage(named: "backGround")
@@ -80,16 +79,23 @@ class DetailViewController: NaviHelper {
     return label
   }()
   
-  private let phoneNumLabel: UILabel = {
-    let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 18)
-    return label
+  private let phoneNumLabel: UIButton = {
+    let btn = UIButton()
+    btn.titleLabel?.font = UIFont(name: "Pretendard", size: 18)
+    btn.setTitle("Phone", for: .normal)
+    btn.setTitleColor(.black ,for: .normal)
+    btn.addTarget(self, action: #selector(touchUpForCalling), for: .touchUpInside )
+    return btn
   }()
   
-  private let emailLabel: UILabel = {
-    let label = UILabel()
-    label.font = UIFont(name: "Pretendard", size: 18)
-    return label
+  private let emailLabel: UIButton = {
+    let btn = UIButton()
+    btn.titleLabel?.font = UIFont(name: "Pretendard", size: 18)
+    btn.setTitle("Title", for: .normal)
+    btn.setTitleColor(.black ,for: .normal)
+    btn.addTarget(self, action: #selector(touchUpFormailing), for: .touchUpInside )
+
+    return btn
   }()
   
   // MARK: - 즐겨찾기에 등록된 경우 추가되는 UI
@@ -119,18 +125,20 @@ class DetailViewController: NaviHelper {
     super.viewDidLoad()
     
     self.view.backgroundColor = .white
-    
-    isSavedCheck()
+    NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+
     
     cellToDetail()
     cellToDetailCore()
+    isSavedCheck()
+
     setNavigationbar()
   }
   
   func setNavigationbar() {
     let buttonImage: UIImage?
     let action: Selector
-   
+    
     self.navigationController?.navigationBar.topItem?.title = ""
     self.navigationController?.navigationBar.tintColor = .black
     
@@ -149,16 +157,15 @@ class DetailViewController: NaviHelper {
       action: action
     )
   }
-
   
   func cellToDetail() {
     guard let data = userData?.first else { return }
     nameTextLabel.text = data.name
     collegeLabel.text = data.college
     departmentLabel.text = data.department
-    phoneNumLabel.text = data.phoneNumber
+    phoneNumLabel.setTitle(data.phoneNumber, for: .normal)
     roleLabel.text = data.role
-    emailLabel.text = data.email
+    emailLabel.setTitle(data.email, for: .normal)
     
     guard let img = data.imageUrl else { return }
     if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
@@ -185,9 +192,9 @@ class DetailViewController: NaviHelper {
     nameTextLabel.text = dataToCore.name
     collegeLabel.text = dataToCore.college
     departmentLabel.text = dataToCore.department
-    phoneNumLabel.text = dataToCore.phoneNumber
+    phoneNumLabel.setTitle(dataToCore.phoneNumber, for: .normal)
     roleLabel.text = dataToCore.role
-    emailLabel.text = dataToCore.email
+    emailLabel.setTitle(dataToCore.email, for: .normal)
     
     if let img = UIImage(base64: dataToCore.imgUrl!, withPrefix: false) {
       professorImage.image = img
@@ -232,7 +239,7 @@ class DetailViewController: NaviHelper {
       view.addSubview($0)
     }
   }
-
+  
   // MARK: - UI세팅
   func makeUI() {
     selectButton.snp.makeConstraints { make in
@@ -402,5 +409,44 @@ extension DetailViewController {
     alert.addAction(ok)
     alert.addAction(cancel)
     self.present(alert, animated: true, completion: nil)
+  }
+}
+
+// MARK: - 전화, 메일 앱 연결
+extension DetailViewController {
+  @objc func touchUpForCalling(_ sender: UIButton) {
+    guard let number = phoneNumLabel.titleLabel?.text else { return }
+    
+    // URLScheme 문자열을 통해 URL 인스턴스를 만들어 줍니다.
+    if let url = NSURL(string: "tel://" + number),
+       
+        //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+       UIApplication.shared.canOpenURL(url as URL) {
+      
+      //사용가능한 URLScheme이라면 open(_:options:completionHandler:) 메소드를 호출해서
+      //만들어둔 URL 인스턴스를 열어줍니다.
+      UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+    }
+  }
+  
+  @objc func touchUpFormailing(_ sender: UIButton) {
+    guard let mail = emailLabel.titleLabel?.text else { return }
+    
+    // URLScheme 문자열을 통해 URL 인스턴스를 만들어 줍니다.
+    if let url = NSURL(string: "mailto://" + mail),
+       
+        //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
+       UIApplication.shared.canOpenURL(url as URL) {
+      
+      //사용가능한 URLScheme이라면 open(_:options:completionHandler:) 메소드를 호출해서
+      //만들어둔 URL 인스턴스를 열어줍니다.
+      UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+    }
+  }
+  
+  @objc func didEnterBackground() {
+    let AfterCallingVC = self.storyboard?.instantiateViewController(identifier: "AfterCallingVC") as! DetailViewController
+    self.modalPresentationStyle = .fullScreen
+    self.present(AfterCallingVC, animated: true, completion: nil)
   }
 }

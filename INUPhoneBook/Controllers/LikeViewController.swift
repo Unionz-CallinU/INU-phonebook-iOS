@@ -214,9 +214,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
                                   message: "원하는 이름을 입력하세요",
                                   preferredStyle: .alert)
     
-    alert.addTextField { textField in
-      textField.placeholder = "카테고리 이름"
-    }
+    alert.addTextField { $0.placeholder = "카테고리 이름" }
     
     let addAction = UIAlertAction(title: "추가",
                                   style: .default) { [weak self] action in
@@ -229,7 +227,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         self?.categoryManager.save(sectionName: categoryName)
         self?.sections.append(categoryName)
         self?.resultTableView.reloadData()
-      }
+        // 추가완료 alert 추가하기
+      } // else로 이미 카테고리가 존재한다는 alert추가
     }
     
     let cancelAction = UIAlertAction(title: "취소",
@@ -274,10 +273,7 @@ extension LikeViewController: UITableViewDataSource {
                                              for: indexPath) as! SavedCustomCell
     let user = userManager.getUsersFromCoreData().filter {
       $0.category == sections[indexPath.section] }[indexPath.row]
-    print(user.name)
-    let userTest = userManager.getUsersFromCoreData()
     let img = UIImage(named: "StarChecked")
-
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
@@ -331,6 +327,7 @@ extension LikeViewController: UITableViewDataSource {
       let selectedUser = users[indexPath.row]
       
       let detailVC = DetailViewController()
+      selectedUser.isSaved = true
       detailVC.userToCore = selectedUser
       detailVC.senderLikeVC = self
       

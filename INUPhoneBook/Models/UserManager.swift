@@ -70,6 +70,7 @@ final class UserManager {
             category: "기본"
 
           )
+          print(employee)
           return employee
         }
         self.userApiDatas = employees
