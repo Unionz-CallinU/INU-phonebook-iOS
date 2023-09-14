@@ -32,7 +32,7 @@ class MyPopupView: UIView {
   private let titleLabel: UILabel = {
     let label = UILabel()
     label.textColor = .black
-    label.font = .systemFont(ofSize: 24)
+    label.font = UIFont(name: "Pretendard", size: 24)
     label.numberOfLines = 0
     label.textAlignment = .center
     return label
@@ -41,7 +41,7 @@ class MyPopupView: UIView {
   private let descLabel: UILabel = {
     let label = UILabel()
     label.textColor = .gray
-    label.font = .systemFont(ofSize: 16)
+    label.font = UIFont(name: "Pretendard", size: 16)
     label.numberOfLines = 0
     label.textAlignment = .center
     return label
@@ -65,7 +65,7 @@ class MyPopupView: UIView {
   lazy var selectLabel: UILabel = {
     let label = UILabel()
     label.textColor = .gray
-    label.font = .systemFont(ofSize: 16)
+    label.font = UIFont(name: "Pretendard", size: 16)
     label.numberOfLines = 1
     label.text = "기본"
     return label
@@ -148,12 +148,12 @@ class MyPopupView: UIView {
     
     self.selectView.snp.makeConstraints { make in
       make.height.equalTo(36)
-      make.width.equalTo(descLabel.snp.width)
+      make.width.equalTo(bodyStackView.snp.width)
     }
     
     self.selectButton.snp.makeConstraints { make in
       make.centerY.equalToSuperview()
-      make.width.equalTo(descLabel.snp.width)
+      make.width.equalTo(bodyStackView.snp.width)
     }
     
     self.selectBtnImage.snp.makeConstraints { make in
@@ -182,10 +182,9 @@ class MyPopupView: UIView {
       make.bottom.right.equalToSuperview()
       make.width.equalTo(self.popupView.snp.width).multipliedBy(0.5)
       make.height.equalTo(56)
+
     }
   }
-  
-  
   @objc private func leftButtonTapped() {
     leftButtonAction?()
   }

@@ -235,6 +235,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         
         customPopupVC.modalPresentationStyle = .overFullScreen
         self?.present(customPopupVC, animated: false, completion: nil)
+        
       }
     }
     
@@ -247,6 +248,9 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     alert.addAction(addAction)
     alert.addAction(cancelAction)
     
+    if let alert = alert.view.subviews.first?.subviews.first?.subviews.first {
+      alert.backgroundColor = .white
+    }
     present(alert, animated: true, completion: nil)
   }
   
@@ -357,18 +361,19 @@ extension LikeViewController {
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = UIView()
-    headerView.backgroundColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1.00)
+    headerView.backgroundColor = UIColor.grey1
     
     let checkButton = UIButton(type: .custom)
     let btnImage = UIImage(named: "emptycheck")
     
     checkButton.setImage(btnImage, for: .normal)
     checkButton.addTarget(self, action: #selector(checkButtonTapped(_:)), for: .touchUpInside)
+    checkButton.frame.size = CGSize(width: 26, height: 26)
     
     let titleLabel = UILabel()
     titleLabel.text = sections[section]
     titleLabel.font = UIFont(name: "Pretendard", size: 18)
-    titleLabel.textColor = UIColor(red: 0.00, green: 0.37, blue: 0.93, alpha: 1.00)
+    titleLabel.textColor = UIColor.blue
     
     if minusButtonVisible == true {
       mainTitle.text = "즐겨찾기편집"

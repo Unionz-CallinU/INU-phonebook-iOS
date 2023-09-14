@@ -30,7 +30,7 @@ final class ResultViewController: NaviHelper {
   private let mainTitle: UILabel = {
     let label = UILabel()
     label.text = "검색결과"
-    label.font = UIFont.systemFont(ofSize: 24)
+    label.font = UIFont(name: "Pretendard", size: 24)
     return label
   }()
   

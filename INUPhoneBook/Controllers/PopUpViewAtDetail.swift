@@ -75,6 +75,17 @@ class PopUpViewAtDetail: UIViewController {
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
+    dropDown.customCellConfiguration = { (index, item, cell) in
+      let separator = UIView()
+      separator.backgroundColor = .lightGray
+      cell.addSubview(separator)
+      separator.snp.makeConstraints { make in
+        make.leading.trailing.equalToSuperview()
+        make.bottom.equalToSuperview()
+        make.height.equalTo(1)
+      }
+      cell.optionLabel.textAlignment = .center
+    }
     dropDown.selectionAction = { [weak self] (index, item) in
       // DropDown의 항목 선택 시의 동작을 구현합니다.
       guard let self = self else { return }

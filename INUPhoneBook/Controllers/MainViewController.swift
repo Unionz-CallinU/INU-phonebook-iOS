@@ -21,13 +21,20 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
   private let searchController: UISearchBar = {
     let bar = UISearchBar()
     bar.placeholder = "상세정보를 입력하세요"
-    bar.backgroundImage = UIImage()   // 빈 이미지를 넣어서 주변 사각형 제거
+    bar.tintColor = UIColor.grey2
+    bar.barTintColor = UIColor.blueGrey
+    
+    if let searchBarTextField = bar.value(forKey: "searchField") as? UITextField {
+      searchBarTextField.font = UIFont.systemFont(ofSize: 18)
+      searchBarTextField.layer.cornerRadius = 25
+      searchBarTextField.layer.masksToBounds = true
+    }
     bar.setImage(UIImage(), for: UISearchBar.Icon.search, state: .normal)
-//    bar.setImage(UIImage(named: "icCancel"), for: .search, state: .normal)
-//    bar.layer.cornerRadius = 120
-    bar.barTintColor = UIColor(red: 0.93, green: 0.95, blue: 0.96, alpha: 1.00)
-    bar.frame.size.height = 120
-    bar.showsSearchResultsButton = true
+
+    bar.showsBookmarkButton = true
+    bar.setImage(UIImage(named: "Search"), for: .bookmark, state: .normal)
+    
+    bar.backgroundImage = UIImage()
     
     return bar
   }()
@@ -44,7 +51,7 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
     searchController.delegate = self
     navigationItemSetting()
   }
-
+  
   // MARK: - view 계층 구성
   func setupLayout(){
     [
@@ -60,7 +67,7 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
       make.centerX.equalToSuperview()
       make.bottom.equalTo(searchController.snp.top).offset(-40)
     }
-
+    
     searchController.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalToSuperview().offset(358)
@@ -80,6 +87,6 @@ extension MainViewController: UISearchBarDelegate {
       }
     }
   }
-
+  
 }
 

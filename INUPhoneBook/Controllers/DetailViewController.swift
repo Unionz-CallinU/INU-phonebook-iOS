@@ -94,15 +94,15 @@ class DetailViewController: NaviHelper {
     btn.setTitle("Title", for: .normal)
     btn.setTitleColor(.black ,for: .normal)
     btn.addTarget(self, action: #selector(touchUpFormailing), for: .touchUpInside )
-
+    
     return btn
   }()
   
   // MARK: - 즐겨찾기에 등록된 경우 추가되는 UI
   lazy var selectLabel: UILabel = {
     let label = UILabel()
-    label.textColor = .blue
-    label.font = .systemFont(ofSize: 16)
+    label.textColor = UIColor.blue
+    label.font = UIFont(name: "Pretendard", size: 18)
     label.numberOfLines = 1
     label.text = userToCore?.category ?? "기본"
     return label
@@ -111,7 +111,7 @@ class DetailViewController: NaviHelper {
   lazy var selectButton: UIButton = {
     let button = UIButton()
     button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
-    button.backgroundColor = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1.00)
+    button.backgroundColor = UIColor.grey1
     return button
   }()
   
@@ -126,12 +126,12 @@ class DetailViewController: NaviHelper {
     
     self.view.backgroundColor = .white
     NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
-
+    
     
     cellToDetail()
     cellToDetailCore()
     isSavedCheck()
-
+    
     setNavigationbar()
   }
   
@@ -340,7 +340,7 @@ class DetailViewController: NaviHelper {
             
             customPopupVC.titleLabel.text = "\(existingUser.name!) 님이"
             customPopupVC.descriptionLabel.text = "즐겨찾기목록에 삭제되었습니다."
-
+            
             customPopupVC.modalPresentationStyle = .overFullScreen
             
             self.userManager.deleteUserFromCoreData(with: existingUser) {
@@ -349,7 +349,7 @@ class DetailViewController: NaviHelper {
                 self.setNavigationbar()
                 self.senderLikeVC?.reloadTalbeView()
               }
-          
+              
               self.present(customPopupVC, animated: false, completion: nil)
             }
           } else {
@@ -376,6 +376,19 @@ class DetailViewController: NaviHelper {
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
+    dropDown.customCellConfiguration = { (index, item, cell) in
+      let separator = UIView()
+      separator.backgroundColor = .lightGray
+      cell.addSubview(separator)
+      separator.snp.makeConstraints { make in
+        make.leading.trailing.equalToSuperview()
+        make.bottom.equalToSuperview()
+        make.height.equalTo(1)
+      }
+      
+      cell.optionLabel.textAlignment = .center
+    }
+    
     dropDown.selectionAction = { [weak self] (index, item) in
       guard let self = self else { return }
       if let userToCore = self.userToCore {
@@ -427,29 +440,16 @@ extension DetailViewController {
   @objc func touchUpForCalling(_ sender: UIButton) {
     guard let number = phoneNumLabel.titleLabel?.text else { return }
     
-    // URLScheme 문자열을 통해 URL 인스턴스를 만들어 줍니다.
     if let url = NSURL(string: "tel://" + number),
-       
-        //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
-       UIApplication.shared.canOpenURL(url as URL) {
-      
-      //사용가능한 URLScheme이라면 open(_:options:completionHandler:) 메소드를 호출해서
-      //만들어둔 URL 인스턴스를 열어줍니다.
+      UIApplication.shared.canOpenURL(url as URL) {
       UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
     }
   }
   
   @objc func touchUpFormailing(_ sender: UIButton) {
     guard let mail = emailLabel.titleLabel?.text else { return }
-    
-    // URLScheme 문자열을 통해 URL 인스턴스를 만들어 줍니다.
     if let url = NSURL(string: "mailto://" + mail),
-       
-        //canOpenURL(_:) 메소드를 통해서 URL 체계를 처리하는 데 앱을 사용할 수 있는지 여부를 확인
        UIApplication.shared.canOpenURL(url as URL) {
-      
-      //사용가능한 URLScheme이라면 open(_:options:completionHandler:) 메소드를 호출해서
-      //만들어둔 URL 인스턴스를 열어줍니다.
       UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
     }
   }
