@@ -335,12 +335,22 @@ class DetailViewController: NaviHelper {
           if removeAction {
             existingUser.isSaved = false
             self.makeStatus = false
+            
+            let customPopupVC = CustomPopupViewController()
+            
+            customPopupVC.titleLabel.text = "\(existingUser.name!) 님이"
+            customPopupVC.descriptionLabel.text = "즐겨찾기목록에 삭제되었습니다."
+
+            customPopupVC.modalPresentationStyle = .overFullScreen
+            
             self.userManager.deleteUserFromCoreData(with: existingUser) {
               DispatchQueue.main.async {
                 self.deleteUI()
                 self.setNavigationbar()
                 self.senderLikeVC?.reloadTalbeView()
               }
+          
+              self.present(customPopupVC, animated: false, completion: nil)
             }
           } else {
             print("저장된 것 삭제하기 취소됨")

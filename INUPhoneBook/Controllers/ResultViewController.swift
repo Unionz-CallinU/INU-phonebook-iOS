@@ -130,7 +130,14 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
             self.userManager.deleteUser(with: user) {
               senderCell.user?.isSaved = false
               senderCell.setButtonStatus()
-              print("저장된 것 삭제")
+              
+              let customPopupVC = CustomPopupViewController()
+              
+              customPopupVC.titleLabel.text = (senderCell.user?.name)! + "님이"
+              customPopupVC.descriptionLabel.text = "즐겨찾기목록에 삭제되었습니다."
+
+              customPopupVC.modalPresentationStyle = .overFullScreen
+              self.present(customPopupVC, animated: false, completion: nil)
             }
           } else {
             print("저장된 것 삭제하기 취소됨")

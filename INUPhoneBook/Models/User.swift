@@ -25,10 +25,10 @@ struct User: Codable {
   var id: Int
   var name: String?
   var college: String?
-  var phoneNumber: String?
+  var phoneNumber: String? = "전화번호정보 없음"
   var department: String?
   var role: String? = "없음"
-  var email: String? = "없음"
+  var email: String? = "이메일정보 없음"
   var imageUrl: String? = "없음"
   var isSaved: Bool?
   var category: String? = "기본"

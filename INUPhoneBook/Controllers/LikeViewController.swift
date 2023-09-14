@@ -23,7 +23,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   private let mainTitle: UILabel = {
     let label = UILabel()
-    label.text = "즐겨찾기목록"
     label.font = UIFont.systemFont(ofSize: 24)
     return label
   }()
@@ -88,7 +87,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       tableView.sectionHeaderTopPadding = 5
     }
     
-    tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+    tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
     return tableView
   }()
   
@@ -169,14 +168,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     } else {
       mainTitle.snp.makeConstraints { make in
         make.centerX.equalToSuperview()
-        make.top.equalToSuperview().offset(100)
+        make.top.equalToSuperview().offset(123)
       }
       editButton.snp.makeConstraints { make in
         make.trailing.equalToSuperview().offset(-10)
-        make.top.equalTo(mainTitle.snp.bottom).offset(50)
+        make.top.equalTo(mainTitle.snp.bottom).offset(40)
       }
       resultTableView.snp.makeConstraints { make in
-        make.top.equalTo(editButton.snp.bottom)
+        make.top.equalTo(editButton.snp.bottom).offset(10)
         make.leading.trailing.bottom.equalToSuperview()
       }
     }
@@ -227,14 +226,24 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         self?.categoryManager.save(sectionName: categoryName)
         self?.sections.append(categoryName)
         self?.resultTableView.reloadData()
-        // 추가완료 alert 추가하기
-      } // else로 이미 카테고리가 존재한다는 alert추가
+        
+       
+        let customPopupVC = CustomPopupViewController()
+        
+        customPopupVC.titleLabel.text = categoryName
+        customPopupVC.descriptionLabel.text = "카테고리가 추가되었습니다."
+        
+        customPopupVC.modalPresentationStyle = .overFullScreen
+        self?.present(customPopupVC, animated: false, completion: nil)
+      }
     }
     
     let cancelAction = UIAlertAction(title: "취소",
                                      style: .cancel,
                                      handler: nil)
-    
+    addAction.setValue(UIColor.black, forKey: "titleTextColor")
+    cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+
     alert.addAction(addAction)
     alert.addAction(cancelAction)
     
@@ -358,10 +367,11 @@ extension LikeViewController {
     
     let titleLabel = UILabel()
     titleLabel.text = sections[section]
-    titleLabel.font = UIFont.boldSystemFont(ofSize: 16)
-    titleLabel.textColor = .blue
+    titleLabel.font = UIFont(name: "Pretendard", size: 18)
+    titleLabel.textColor = UIColor(red: 0.00, green: 0.37, blue: 0.93, alpha: 1.00)
     
     if minusButtonVisible == true {
+      mainTitle.text = "즐겨찾기편집"
       headerView.addSubview(checkButton)
       checkButton.snp.makeConstraints { make in
         make.leading.equalTo(headerView.snp.leading).offset(10)
@@ -374,6 +384,7 @@ extension LikeViewController {
         make.centerY.equalTo(headerView.snp.centerY)
       }
     } else {
+      mainTitle.text = "즐겨찾기목록"
       headerView.addSubview(titleLabel)
       titleLabel.snp.makeConstraints { make in
         make.leading.equalTo(headerView.snp.leading).offset(20)
