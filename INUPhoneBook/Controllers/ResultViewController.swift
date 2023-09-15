@@ -37,7 +37,29 @@ final class ResultViewController: NaviHelper {
   private let searchController: UISearchBar = {
     let bar = UISearchBar()
     bar.placeholder = "상세정보를 입력하세요"
+    bar.tintColor = UIColor.grey2
+    bar.searchTextField.font = UIFont(name: "Pretendard", size: 20)
+    bar.barTintColor = UIColor.blueGrey
+    
+    if let searchBarTextField = bar.value(forKey: "searchField") as? UITextField {
+      searchBarTextField.font = UIFont.systemFont(ofSize: 18)
+      searchBarTextField.layer.cornerRadius = 25
+      searchBarTextField.layer.masksToBounds = true
+    }
+    
+    bar.setImage(UIImage(), for: UISearchBar.Icon.search, state: .normal)
+
+    bar.showsBookmarkButton = true
+    bar.setImage(UIImage(named: "Search"), for: .bookmark, state: .normal)
+    bar.searchTextField.clearButtonMode = .never
+
     bar.backgroundImage = UIImage()
+    
+    bar.layer.shadowColor = UIColor.blueGrey.cgColor
+    bar.layer.shadowOffset = CGSize(width: 1, height: 1) // 쉐도우의 오프셋 설정
+    bar.layer.shadowOpacity = 0.25 // 쉐도우의 투명도 설정
+    bar.layer.shadowRadius = 4 // 쉐도우의 반경 설정
+        
     return bar
   }()
   
@@ -80,9 +102,9 @@ final class ResultViewController: NaviHelper {
     
     searchController.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.top.equalTo(mainTitle).offset(40)
-      make.width.equalToSuperview().multipliedBy(0.9)
-      make.height.equalTo(60)
+      make.top.equalTo(mainTitle).offset(60)
+      make.width.equalTo(290)
+      make.height.equalTo(45)
     }
     
     resultTableView.snp.makeConstraints { (make) in
@@ -110,7 +132,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     }
     user.isSaved = isSaved
     
-    let starImage = user.isSaved! ? UIImage(named: "StarChecked") : UIImage(named: "Star")
+    let starImage = user.isSaved! ? UIImage(named: "StarChecked") : UIImage(named: "GreyStar")
     
     cell.name.text = user.name
     cell.email.text = user.email

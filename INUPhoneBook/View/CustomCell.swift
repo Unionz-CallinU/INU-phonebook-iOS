@@ -103,7 +103,7 @@ final class CustomCell: UITableViewCell {
   }
   
   func setButtonStatus() {
-    let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "Star")
+    let starImage = user?.isSaved == true ? UIImage(named: "StarChecked") : UIImage(named: "GreyStar")
     guard let isSaved = self.user?.isSaved else { return }
     if !isSaved {
       star.setImage(starImage, for: .normal)

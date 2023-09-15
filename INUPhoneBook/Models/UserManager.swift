@@ -63,12 +63,12 @@ final class UserManager {
             id: dto.id,
             name: dto.name,
             college: dto.college,
-            phoneNumber: dto.phoneNumber,
+            phoneNumber: dto.phoneNumber?.withHypen,
             department: dto.department,
+            email: dto.email,
             imageUrl: dto.imageUrl,
             isSaved: coreDataUsers.contains { $0.id == String(dto.id) },
             category: "기본"
-
           )
           print(employee)
           return employee

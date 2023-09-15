@@ -18,7 +18,7 @@ class CustomPopupViewController: UIViewController {
     let btn = UIButton()
     btn.setTitle("확인", for: .normal)
     btn.setTitleColor(UIColor.white, for: .normal)
-    btn.backgroundColor = UIColor(red: 0.00, green: 0.37, blue: 0.93, alpha: 1.00)
+    btn.backgroundColor = UIColor.blue
     btn.addTarget(self, action: #selector(confirmButtonTapped), for: .touchUpInside)
     btn.roundedButton()
     return btn
