@@ -6,8 +6,8 @@
 //
 
 import UIKit
-
 import SnapKit
+
 class MyPopupView: UIView {
   
   var leftButtonAction: (() -> Void)?
@@ -22,13 +22,6 @@ class MyPopupView: UIView {
     return view
   }()
   
-  private let bodyStackView: UIStackView = {
-    let stackView = UIStackView()
-    stackView.axis = .vertical
-    stackView.spacing = 8
-    return stackView
-  }()
-  
   private let titleLabel: UILabel = {
     let label = UILabel()
     label.textColor = .black
@@ -40,32 +33,17 @@ class MyPopupView: UIView {
   
   private let descLabel: UILabel = {
     let label = UILabel()
-    label.textColor = .gray
+    label.textColor = .black
     label.font = UIFont(name: "Pretendard", size: 16)
     label.numberOfLines = 0
     label.textAlignment = .center
     return label
   }()
   
-  private let separatorLineView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .gray
-    return view
-  }()
-  
-  private let selectView: UIView = {
-    let view = UIView()
-    view.layer.cornerRadius = 4
-    view.layer.borderWidth = 1
-    view.layer.borderColor = UIColor.gray.cgColor
-    view.backgroundColor = .clear
-    return view
-  }()
-  
   lazy var selectLabel: UILabel = {
     let label = UILabel()
     label.textColor = .gray
-    label.font = UIFont(name: "Pretendard", size: 16)
+    label.font = UIFont(name: "Pretendard", size: 20)
     label.numberOfLines = 1
     label.text = "기본"
     return label
@@ -73,6 +51,7 @@ class MyPopupView: UIView {
   
   lazy var selectButton: UIButton = {
     let button = UIButton()
+    button.backgroundColor = UIColor.blueGrey
     button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
     return button
   }()
@@ -96,7 +75,6 @@ class MyPopupView: UIView {
     button.setTitleColor(.black, for: .normal)
     button.setBackgroundImage(UIColor.white.asImage(), for: .normal)
     button.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
-    
     return button
   }()
   
@@ -114,19 +92,14 @@ class MyPopupView: UIView {
     
     self.backgroundColor = .black.withAlphaComponent(0.3)
     self.addSubview(self.popupView)
-    self.popupView.addSubview(self.bodyStackView)
-    self.popupView.addSubview(self.separatorLineView)
+    self.popupView.addSubview(self.titleLabel)
+    self.popupView.addSubview(self.descLabel)
     self.popupView.addSubview(self.leftButton)
     self.popupView.addSubview(self.rightButton)
     
-    self.bodyStackView.addArrangedSubview(self.titleLabel)
-    self.bodyStackView.addArrangedSubview(self.descLabel)
-
-    self.selectView.addSubview(self.selectBtnImage)
-    self.selectView.addSubview(self.selectButton)
-    self.selectView.addSubview(self.selectLabel)
-    
-    self.bodyStackView.addArrangedSubview(self.selectView)
+    self.popupView.addSubview(self.selectButton)
+    self.popupView.addSubview(self.selectLabel)
+    self.popupView.addSubview(self.selectBtnImage)
     
     self.setupConstraints()
   }
@@ -141,50 +114,48 @@ class MyPopupView: UIView {
       make.width.equalToSuperview().multipliedBy(0.8)
     }
     
-    self.bodyStackView.snp.makeConstraints { make in
-      make.top.left.right.equalToSuperview().inset(24)
-      make.bottom.equalTo(self.separatorLineView.snp.top).inset(-24)
+    self.titleLabel.snp.makeConstraints { make in
+      make.top.equalTo(popupView.snp.top).offset(10)
+      make.left.right.equalToSuperview().inset(24)
     }
     
-    self.selectView.snp.makeConstraints { make in
-      make.height.equalTo(36)
-      make.width.equalTo(bodyStackView.snp.width)
+    self.descLabel.snp.makeConstraints { make in
+      make.top.equalTo(titleLabel.snp.bottom).offset(8)
+      make.left.right.equalToSuperview().inset(24)
     }
     
     self.selectButton.snp.makeConstraints { make in
-      make.centerY.equalToSuperview()
-      make.width.equalTo(bodyStackView.snp.width)
-    }
-    
-    self.selectBtnImage.snp.makeConstraints { make in
-      make.trailing.equalTo(selectButton.snp.trailing).offset(-20)
-      make.centerY.equalToSuperview()
+      make.top.equalTo(descLabel.snp.bottom).offset(10)
+      make.width.equalTo(popupView.snp.width).multipliedBy(0.7)
+      make.centerX.equalTo(popupView)
     }
     
     self.selectLabel.snp.makeConstraints { make in
-      make.centerY.equalToSuperview()
       make.centerX.equalTo(selectButton)
+      make.centerY.equalTo(selectButton)
     }
     
-    self.separatorLineView.snp.makeConstraints { make in
-      make.left.right.equalToSuperview()
-      make.bottom.equalTo(self.leftButton.snp.top)
-      make.height.equalTo(0)
+    self.selectBtnImage.snp.makeConstraints { make in
+      make.trailing.equalTo(selectButton.snp.trailing).offset(-10)
+      make.centerY.equalTo(selectButton)
     }
     
     self.leftButton.snp.makeConstraints { make in
+      make.top.equalTo(selectLabel.snp.bottom).offset(10)
       make.bottom.left.equalToSuperview()
       make.width.equalTo(self.popupView.snp.width).multipliedBy(0.5)
-      make.height.equalTo(56)
+      make.height.equalTo(40)
     }
     
     self.rightButton.snp.makeConstraints { make in
+      make.top.equalTo(selectLabel.snp.bottom).offset(10)
       make.bottom.right.equalToSuperview()
       make.width.equalTo(self.popupView.snp.width).multipliedBy(0.5)
-      make.height.equalTo(56)
-
+      make.height.equalTo(40)
     }
   }
+
+  
   @objc private func leftButtonTapped() {
     leftButtonAction?()
   }
@@ -195,16 +166,5 @@ class MyPopupView: UIView {
   
   @objc private func selectButtonTapped() {
     selectButtonAction?()
-  }
-}
-
-extension UIColor {
-  func asImage(_ width: CGFloat = UIScreen.main.bounds.width, _ height: CGFloat = 1.0) -> UIImage {
-    let size: CGSize = CGSize(width: width, height: height)
-    let image: UIImage = UIGraphicsImageRenderer(size: size).image { context in
-      setFill()
-      context.fill(CGRect(origin: .zero, size: size))
-    }
-    return image
   }
 }

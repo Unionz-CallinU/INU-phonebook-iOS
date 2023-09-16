@@ -16,7 +16,6 @@ final class ResultViewController: NaviHelper {
   var searchKeyword: String?
   var starStatus: Bool?
   
-  
   init(searchKeyword: String) {
     self.searchKeyword = searchKeyword
     
@@ -45,6 +44,7 @@ final class ResultViewController: NaviHelper {
       searchBarTextField.font = UIFont.systemFont(ofSize: 18)
       searchBarTextField.layer.cornerRadius = 25
       searchBarTextField.layer.masksToBounds = true
+      searchBarTextField.backgroundColor = UIColor.blueGrey
     }
     
     bar.setImage(UIImage(), for: UISearchBar.Icon.search, state: .normal)
@@ -66,7 +66,14 @@ final class ResultViewController: NaviHelper {
   lazy var resultTableView: UITableView = {
     let tableView = UITableView()
     tableView.register(CustomCell.self, forCellReuseIdentifier: CustomCell.cellId)
+    tableView.separatorInset.left = 0
     return tableView
+  }()
+  
+  lazy var tableViewLine: UIView = {
+    let line = UIView()
+    line.backgroundColor = UIColor.grey2
+    return line
   }()
   
   override func viewDidLoad() {
@@ -103,11 +110,11 @@ final class ResultViewController: NaviHelper {
     searchController.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalTo(mainTitle).offset(60)
-      make.width.equalTo(290)
+      make.width.equalToSuperview().multipliedBy(0.8)
       make.height.equalTo(45)
     }
     
-    resultTableView.snp.makeConstraints { (make) in
+    resultTableView.snp.makeConstraints { make in
       make.top.equalTo(searchController.snp.bottom).offset(60)
       make.left.right.bottom.equalToSuperview()
     }

@@ -70,7 +70,6 @@ final class UserManager {
             isSaved: coreDataUsers.contains { $0.id == String(dto.id) },
             category: "기본"
           )
-          print(employee)
           return employee
         }
         self.userApiDatas = employees

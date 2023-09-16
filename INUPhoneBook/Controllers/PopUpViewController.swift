@@ -36,11 +36,12 @@ class MyPopupViewController: UIViewController {
     self.popupView.rightButtonAction = { [unowned self] in
       guard let user = self.user else { return }
       self.userManager.saveUserData(with: user) {
+
         DispatchQueue.main.async { [weak self] in
           guard let self = self, let senderCell = self.senderCell else { return }
+      
           senderCell.user?.isSaved = true
           senderCell.setButtonStatus()
-          
         }
         self.dismiss(animated: true, completion: nil)
       }
@@ -75,6 +76,9 @@ class MyPopupViewController: UIViewController {
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
+    dropDown.backgroundColor = .white
+    dropDown.textColor = UIColor.grey3
+    
     dropDown.customCellConfiguration = { (index, item, cell) in
       let separator = UIView()
       separator.backgroundColor = .lightGray

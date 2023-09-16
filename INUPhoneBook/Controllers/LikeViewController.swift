@@ -87,7 +87,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       tableView.sectionHeaderTopPadding = 5
     }
     
-    tableView.separatorStyle = UITableViewCell.SeparatorStyle.singleLine
+    tableView.separatorStyle = .singleLine
+    tableView.separatorInset.left = 0
     return tableView
   }()
   
@@ -299,9 +300,16 @@ extension LikeViewController: UITableViewDataSource {
       guard let self = self else { return }
       self.makeRemoveCheckAlert { okAction in
         if okAction {
+          let customPopupVC = CustomPopupViewController()
+          
+          customPopupVC.titleLabel.text = "\(user.name!) 님이"
+          customPopupVC.descriptionLabel.text = "즐겨찾기목록에 삭제되었습니다."
+          
+          customPopupVC.modalPresentationStyle = .overFullScreen
+          self.present(customPopupVC, animated: false, completion: nil)
+
           self.userManager.deleteUserFromCoreData(with: user) {
             self.resultTableView.reloadData()
-            print("삭제 및 테이블뷰 리로드 완료")
           }
         } else {
           print("삭제 취소")
@@ -368,7 +376,6 @@ extension LikeViewController {
     
     checkButton.setImage(btnImage, for: .normal)
     checkButton.addTarget(self, action: #selector(checkButtonTapped(_:)), for: .touchUpInside)
-    checkButton.frame.size = CGSize(width: 26, height: 26)
     
     let titleLabel = UILabel()
     titleLabel.text = sections[section]
@@ -381,8 +388,10 @@ extension LikeViewController {
       checkButton.snp.makeConstraints { make in
         make.leading.equalTo(headerView.snp.leading).offset(10)
         make.centerY.equalTo(headerView.snp.centerY)
+        make.width.equalTo(26) // 원하는 너비 설정
+        make.height.equalTo(26) // 원하는 높이 설정
       }
-      
+
       headerView.addSubview(titleLabel)
       titleLabel.snp.makeConstraints { make in
         make.leading.equalTo(checkButton.snp.trailing).offset(10)

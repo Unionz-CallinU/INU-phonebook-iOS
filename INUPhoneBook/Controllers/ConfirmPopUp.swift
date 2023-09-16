@@ -41,7 +41,6 @@ class CustomPopupViewController: UIViewController {
     view.addSubview(popupView)
 
     makeUI()
-    
   }
   
   @objc private func confirmButtonTapped() {
