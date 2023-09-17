@@ -6,11 +6,13 @@
 //
 
 import UIKit
-
 class NaviHelper: UIViewController {
   // MARK: - navi 설정
   func navigationItemSetting() {
-    let leftButton = UIBarButtonItem(image: UIImage(named: "home"),
+    let homeImageName = String.modeDependentString("Home", "Home_dark")
+    let homeImage = UIImage(named: homeImageName)?.withRenderingMode(.alwaysOriginal)
+
+    let leftButton = UIBarButtonItem(image: homeImage,
                                      style: .plain,
                                      target: self,
                                      action: #selector(homeButtonTapped(_:)))
@@ -19,13 +21,11 @@ class NaviHelper: UIViewController {
                                       style: .plain,
                                       target: self,
                                       action: #selector(likeButtonTapped(_:)))
-    leftButton.tintColor = .black
-    rightButton.tintColor = .black
     
     self.navigationItem.rightBarButtonItem = rightButton
     self.navigationItem.leftBarButtonItem = leftButton
   }
-  
+
   @objc func homeButtonTapped(_ sender: UIBarButtonItem) {
     let mainView = MainViewController()
     self.navigationController?.pushViewController(mainView, animated: true)

@@ -51,7 +51,7 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    self.view.backgroundColor = .white
+    self.view.backgroundColor = UIColor.defaultLabelColor
     
     setupLayout()
     makeUI()

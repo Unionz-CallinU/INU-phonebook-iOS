@@ -388,8 +388,6 @@ extension LikeViewController {
       checkButton.snp.makeConstraints { make in
         make.leading.equalTo(headerView.snp.leading).offset(10)
         make.centerY.equalTo(headerView.snp.centerY)
-        make.width.equalTo(26) // 원하는 너비 설정
-        make.height.equalTo(26) // 원하는 높이 설정
       }
 
       headerView.addSubview(titleLabel)

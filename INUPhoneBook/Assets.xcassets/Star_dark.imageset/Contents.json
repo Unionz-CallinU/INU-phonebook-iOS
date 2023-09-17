@@ -1,11 +1,11 @@
 {
   "images" : [
     {
+      "filename" : "Star_dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "INU2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
