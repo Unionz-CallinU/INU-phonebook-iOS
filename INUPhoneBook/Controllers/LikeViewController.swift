@@ -95,7 +95,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.view.backgroundColor = .white
+    let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
+                                                 darkValue: UIColor.mainBlack)
+    self.view.backgroundColor = mainBackGroundColor
+    
     setSections()
     
     setupLayout()
@@ -369,7 +372,9 @@ extension LikeViewController {
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let headerView = UIView()
-    headerView.backgroundColor = UIColor.grey1
+    let headerBackGroundColor = UIColor.selectColor(lightValue: .grey1,
+                                                 darkValue: .grey4)
+    headerView.backgroundColor = headerBackGroundColor
     
     let checkButton = UIButton(type: .custom)
     let btnImage = UIImage(named: "emptycheck")

@@ -27,6 +27,7 @@
 		EE17F0A92A8338B100BA7EF0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0A82A8338B100BA7EF0 /* NetworkManager.swift */; };
 		EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AA2A83395F00BA7EF0 /* User.swift */; };
 		EE17F0AD2A83574F00BA7EF0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */; };
+		EE39A3092AB8748500830162 /* SearchBarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE39A3082AB8748500830162 /* SearchBarExtension.swift */; };
 		EE4C55B22AA8CB7000308807 /* Users+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55AE2AA8CB7000308807 /* Users+CoreDataClass.swift */; };
 		EE4C55B32AA8CB7000308807 /* Users+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55AF2AA8CB7000308807 /* Users+CoreDataProperties.swift */; };
 		EE4C55B42AA8CB7000308807 /* Categories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE4C55B02AA8CB7000308807 /* Categories+CoreDataClass.swift */; };
@@ -74,6 +75,7 @@
 		EE17F0A82A8338B100BA7EF0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		EE17F0AA2A83395F00BA7EF0 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EE17F0AC2A83574F00BA7EF0 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		EE39A3082AB8748500830162 /* SearchBarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtension.swift; sourceTree = "<group>"; };
 		EE4C55AE2AA8CB7000308807 /* Users+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		EE4C55AF2AA8CB7000308807 /* Users+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Users+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		EE4C55B02AA8CB7000308807 /* Categories+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -160,6 +162,7 @@
 				EE63FDAE2A94395E005DD117 /* StringExtension.swift */,
 				EE1678B62AAC919D000558EC /* UIImageExtension.swift */,
 				EE1678D62AB2F07E000558EC /* UIColorExtension.swift */,
+				EE39A3082AB8748500830162 /* SearchBarExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				EE1678B72AAC919D000558EC /* UIImageExtension.swift in Sources */,
 				EE73FD0E2A90EFEC00719D26 /* PopUpViewController.swift in Sources */,
 				EE1678D72AB2F07E000558EC /* UIColorExtension.swift in Sources */,
+				EE39A3092AB8748500830162 /* SearchBarExtension.swift in Sources */,
 				EE752AFA2A7A3D02002B6AE2 /* ResultViewController.swift in Sources */,
 				EE63FDBC2A9650BD005DD117 /* CategoryManager.swift in Sources */,
 				EE17F0AB2A83395F00BA7EF0 /* User.swift in Sources */,

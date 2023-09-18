@@ -47,6 +47,9 @@ class DetailViewController: NaviHelper {
   // MARK: - 바뀌는 label
   private let nameTextLabel: UILabel = {
     let label = UILabel()
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    label.textColor = labelColor
     label.font = UIFont(name: "Pretendard", size: 24)
     label.textAlignment = .center
     return label
@@ -54,13 +57,19 @@ class DetailViewController: NaviHelper {
   
   private let collegeLabel: UILabel = {
     let label = UILabel()
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .grey2)
+    label.textColor = labelColor
     label.font = UIFont(name: "Pretendard", size: 16)
-    label.textColor = .lightGray
+    label.textColor = labelColor
     return label
   }()
   
   private let departmentLabel: UILabel = {
     let label = UILabel()
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .grey2)
+    label.textColor = labelColor
     label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = .lightGray
     return label
@@ -74,25 +83,31 @@ class DetailViewController: NaviHelper {
   
   private let roleLabel: UILabel = {
     let label = UILabel()
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .grey2)
     label.font = UIFont(name: "Pretendard", size: 16)
-    label.textColor = .lightGray
+    label.textColor = labelColor
     return label
   }()
   
   private let phoneNumLabel: UIButton = {
     let btn = UIButton()
+    let btnColor = UIColor.selectColor(lightValue: .black,
+                                       darkValue: .white)
     btn.titleLabel?.font = UIFont(name: "Pretendard", size: 18)
     btn.setTitle("Phone", for: .normal)
-    btn.setTitleColor(.black ,for: .normal)
+    btn.setTitleColor(btnColor ,for: .normal)
     btn.addTarget(self, action: #selector(touchUpForCalling), for: .touchUpInside )
     return btn
   }()
   
   private let emailLabel: UIButton = {
     let btn = UIButton()
+    let btnColor = UIColor.selectColor(lightValue: .black,
+                                       darkValue: .white)
     btn.titleLabel?.font = UIFont(name: "Pretendard", size: 18)
     btn.setTitle("Title", for: .normal)
-    btn.setTitleColor(.black ,for: .normal)
+    btn.setTitleColor(btnColor ,for: .normal)
     btn.addTarget(self, action: #selector(touchUpFormailing), for: .touchUpInside )
     
     return btn
@@ -110,8 +125,10 @@ class DetailViewController: NaviHelper {
   
   lazy var selectButton: UIButton = {
     let button = UIButton()
+    let btnColor = UIColor.selectColor(lightValue: .grey1,
+                                       darkValue: .grey4)
     button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
-    button.backgroundColor = UIColor.grey1
+    button.backgroundColor = btnColor
     return button
   }()
   
@@ -124,7 +141,10 @@ class DetailViewController: NaviHelper {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    self.view.backgroundColor = .white
+    let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
+                                                 darkValue: UIColor.mainBlack)
+    self.view.backgroundColor = mainBackGroundColor
+    
     NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
     
     

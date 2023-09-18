@@ -9,15 +9,16 @@ import UIKit
 class NaviHelper: UIViewController {
   // MARK: - navi 설정
   func navigationItemSetting() {
-    let homeImageName = String.modeDependentString("Home", "Home_dark")
-    let homeImage = UIImage(named: homeImageName)?.withRenderingMode(.alwaysOriginal)
-
-    let leftButton = UIBarButtonItem(image: homeImage,
+    let homeImgName = String.modeDependentString("Home", "Home_dark")
+    let homeImg = UIImage(named: homeImgName)?.withRenderingMode(.alwaysOriginal)
+    let leftButton = UIBarButtonItem(image: homeImg,
                                      style: .plain,
                                      target: self,
                                      action: #selector(homeButtonTapped(_:)))
     
-    let rightButton = UIBarButtonItem(image: UIImage(named: "Star"),
+    let starImgName = String.modeDependentString("Star", "Star_dark")
+    let starImg = UIImage(named: starImgName)?.withRenderingMode(.alwaysOriginal)
+    let rightButton = UIBarButtonItem(image: starImg,
                                       style: .plain,
                                       target: self,
                                       action: #selector(likeButtonTapped(_:)))

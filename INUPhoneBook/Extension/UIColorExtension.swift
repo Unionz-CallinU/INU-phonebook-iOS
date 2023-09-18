@@ -16,6 +16,8 @@ extension UIColor {
   static let grey1 = UIColor(red: 0.91, green: 0.91, blue: 0.91, alpha: 1.00)
   static let grey2 = UIColor(red: 0.63, green: 0.63, blue: 0.63, alpha: 1.00)
   static let grey3 = UIColor(red: 0.40, green: 0.40, blue: 0.40, alpha: 1.00)
+  static let grey4 = UIColor(red: 0.19, green: 0.19, blue: 0.19, alpha: 1.00)
+
   static let mainBlack = UIColor(red: 0.14, green: 0.14, blue: 0.14, alpha: 1.00)
   
   func asImage(_ width: CGFloat = UIScreen.main.bounds.width, _ height: CGFloat = 1.0) -> UIImage {
@@ -29,18 +31,13 @@ extension UIColor {
 }
 
 extension UIColor {
-  static var defaultLabelColor: UIColor {
+  static func selectColor(lightValue: UIColor, darkValue: UIColor) -> UIColor {
     if #available(iOS 13, *) {
-      return UIColor { (traitCollection: UITraitCollection) -> UIColor in
-        if traitCollection.userInterfaceStyle == .light {
-          return .white
-        } else {
-          return UIColor.mainBlack
-          
-        }
+      return UIColor { traitCollection in
+        return traitCollection.userInterfaceStyle == .light ? lightValue : darkValue
       }
     } else {
-      return .black
+      return lightValue // iOS 12 이하에서는 항상 라이트 모드 색상 반환
     }
   }
 }

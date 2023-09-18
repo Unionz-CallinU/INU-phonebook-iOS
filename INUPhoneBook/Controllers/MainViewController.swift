@@ -18,40 +18,15 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
     return img
   }()
   
-  private let searchController: UISearchBar = {
-    let bar = UISearchBar()
-    bar.placeholder = "상세정보를 입력하세요"
-    bar.tintColor = UIColor.grey2
-    bar.searchTextField.font = UIFont(name: "Pretendard", size: 20)
-    
-    if let searchBarTextField = bar.value(forKey: "searchField") as? UITextField {
-      searchBarTextField.font = UIFont.systemFont(ofSize: 18)
-      searchBarTextField.layer.cornerRadius = 25
-      searchBarTextField.layer.masksToBounds = true
-      searchBarTextField.backgroundColor = UIColor.blueGrey
-    }
-    
-    bar.setImage(UIImage(), for: UISearchBar.Icon.search, state: .normal)
+  private let searchController = UISearchBar.createSearchBar()
 
-    bar.showsBookmarkButton = true
-    bar.setImage(UIImage(named: "Search"), for: .bookmark, state: .normal)
-    bar.searchTextField.clearButtonMode = .never
-
-    bar.backgroundImage = UIImage()
-    
-    bar.layer.shadowColor = UIColor.blueGrey.cgColor
-    bar.layer.shadowOffset = CGSize(width: 1, height: 1) // 쉐도우의 오프셋 설정
-    bar.layer.shadowOpacity = 0.25 // 쉐도우의 투명도 설정
-    bar.layer.shadowRadius = 4 // 쉐도우의 반경 설정
-        
-    return bar
-  }()
-  
-  
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    self.view.backgroundColor = UIColor.defaultLabelColor
+    
+    let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
+                                                 darkValue: UIColor.mainBlack)
+    self.view.backgroundColor = mainBackGroundColor
     
     setupLayout()
     makeUI()
