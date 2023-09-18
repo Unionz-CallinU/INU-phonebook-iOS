@@ -23,7 +23,10 @@ class MyPopupViewController: UIViewController {
     self.user = user
     self.senderCell = senderCell
     
-    self.view.backgroundColor = .clear
+    let backGroundColor = UIColor.selectColor(lightValue: .black,
+                                              darkValue: .grey4)
+    
+    self.view.backgroundColor = backGroundColor
     self.view.addSubview(self.popupView)
     self.setupConstraints()
     
@@ -73,10 +76,12 @@ class MyPopupViewController: UIViewController {
     }
     
     let dropDown = DropDown()
+    let dropDownColor = UIColor.selectColor(lightValue: .white,
+                                            darkValue: .grey2)
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
-    dropDown.backgroundColor = .white
+    dropDown.backgroundColor = dropDownColor
     dropDown.textColor = UIColor.grey3
     
     dropDown.customCellConfiguration = { (index, item, cell) in

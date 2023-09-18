@@ -30,7 +30,12 @@ class DetailViewController: NaviHelper {
   
   private let circleImage: UIImageView = {
     let view = UIImageView()
-    view.image = UIImage(named: "backGround")
+    
+    let viewImgName = String.selectImgMode("ImgBackGround",
+                                           "ImgBackGround_dark")
+    let viewImg = UIImage(named: viewImgName)?.withRenderingMode(.alwaysOriginal)
+    
+    view.image = viewImg
     view.frame = CGRect(x: 0, y: 0, width: 120, height: 120)
     return view
   }()
@@ -143,6 +148,7 @@ class DetailViewController: NaviHelper {
     
     let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
                                                  darkValue: UIColor.mainBlack)
+    
     self.view.backgroundColor = mainBackGroundColor
     
     NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
@@ -159,14 +165,25 @@ class DetailViewController: NaviHelper {
     let buttonImage: UIImage?
     let action: Selector
     
+    let plusImgName = String.selectImgMode("Plus",
+                                           "Plus_dark")
+    let plusImg = UIImage(named: plusImgName)?.withRenderingMode(.alwaysOriginal)
+    
+    let minusImgName = String.selectImgMode("Minus",
+                                           "Minus_dark")
+    let minusImg = UIImage(named: minusImgName)?.withRenderingMode(.alwaysOriginal)
+    
+    let backBtnColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .grey2)
+    
     self.navigationController?.navigationBar.topItem?.title = ""
-    self.navigationController?.navigationBar.tintColor = .black
+    self.navigationController?.navigationBar.tintColor = backBtnColor
     
     if userToCore?.isSaved == true || makeStatus == true {
-      buttonImage = UIImage(named: "Minus")
+      buttonImage = minusImg
       action = #selector(addToLike)
     } else {
-      buttonImage = UIImage(named: "Plus")
+      buttonImage = plusImg
       action = #selector(addToLike)
     }
     

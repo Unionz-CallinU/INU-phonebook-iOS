@@ -23,7 +23,7 @@ extension UISearchBar {
       searchBarTextField.backgroundColor = searchBarColor
     }
     
-    let searchImgName = String.modeDependentString("Search", "Search_dark")
+    let searchImgName = String.selectImgMode("Search", "Search_dark")
     let searchImg = UIImage(named: searchImgName)?.withRenderingMode(.alwaysOriginal)
     
     bar.setImage(UIImage(), for: UISearchBar.Icon.search, state: .normal)

@@ -22,7 +22,7 @@ extension String {
 }
 
 extension String {
-  static func modeDependentString(_ lightValue: String, _ darkValue: String) -> String {
+  static func selectImgMode(_ lightValue: String, _ darkValue: String) -> String {
     if #available(iOS 13.0, *) {
       if UITraitCollection.current.userInterfaceStyle == .light {
         return lightValue

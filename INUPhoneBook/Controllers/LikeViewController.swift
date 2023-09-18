@@ -43,8 +43,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   private let editButton: UIButton = {
     let btn = UIButton()
-    let img = UIImage(named: "Edit")
-    btn.setImage(img, for: .normal)
+    let btnImgName = String.selectImgMode("Edit", "Edit_dark")
+    let btnImg = UIImage(named: btnImgName)?.withRenderingMode(.alwaysOriginal)
+
+    btn.setImage(btnImg, for: .normal)
     btn.addTarget(self,
                   action: #selector(editButtonTapped),
                   for: .touchUpInside)
@@ -61,8 +63,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   private let plusButton: UIButton = {
     let btn = UIButton()
-    let img = UIImage(named: "Plus")
-    btn.setImage(img, for: .normal)
+    let btnImgName = String.selectImgMode("Plus", "Plus_dark")
+    let btnImg = UIImage(named: btnImgName)?.withRenderingMode(.alwaysOriginal)
+
+    btn.setImage(btnImg, for: .normal)
     btn.addTarget(self,
                   action: #selector(plusButtonTapped),
                   for: .touchUpInside)
@@ -71,8 +75,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   private let minusButton: UIButton = {
     let btn = UIButton()
-    let img = UIImage(named: "Minus")
-    btn.setImage(img, for: .normal)
+    let btnImgName = String.selectImgMode("Minus", "Minus_dark")
+    let btnImg = UIImage(named: btnImgName)?.withRenderingMode(.alwaysOriginal)
+
+    btn.setImage(btnImg, for: .normal)
     btn.addTarget(self,
                   action: #selector(minusButtonTapped),
                   for: .touchUpInside)
@@ -216,9 +222,11 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let alert = UIAlertController(title: "",
                                   message: "원하는 이름을 입력하세요",
                                   preferredStyle: .alert)
+    let alertColor = UIColor.selectColor(lightValue: .white,
+                                       darkValue: .grey4)
     
+    alert.view.backgroundColor = alertColor
     alert.addTextField { $0.placeholder = "카테고리 이름" }
-    
     let addAction = UIAlertAction(title: "추가",
                                   style: .default) { [weak self] action in
       guard let categoryName = alert.textFields?.first?.text,
@@ -231,7 +239,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         self?.sections.append(categoryName)
         self?.resultTableView.reloadData()
         
-       
         let customPopupVC = CustomPopupViewController()
         
         customPopupVC.titleLabel.text = categoryName

@@ -26,15 +26,18 @@ class CustomPopupViewController: UIViewController {
 
   let popupView : UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor.white
+    let backGroundColor = UIColor.selectColor(lightValue: .white,
+                                            darkValue: .grey4)
+    view.backgroundColor = backGroundColor
     view.layer.cornerRadius = 15
     return view
   }()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    view.backgroundColor = UIColor.lightGray.withAlphaComponent(0.8)
+    let backGroundColor = UIColor.selectColor(lightValue: .white,
+                                            darkValue: .grey4)
+    view.backgroundColor = backGroundColor
   
     setupLayout()
 
@@ -63,7 +66,9 @@ class CustomPopupViewController: UIViewController {
 
     rectShape.bounds = confirmButton.bounds
     rectShape.position = confirmButton.center
-    rectShape.path = UIBezierPath(roundedRect: confirmButton.bounds, byRoundingCorners: [.bottomLeft, .bottomRight], cornerRadii: CGSize(width: 15, height: 15)).cgPath
+    rectShape.path = UIBezierPath(roundedRect: confirmButton.bounds,
+                                  byRoundingCorners: [.bottomLeft, .bottomRight],
+                                  cornerRadii: CGSize(width: 15, height: 15)).cgPath
 
     maskLayer.path = rectShape.path
     
@@ -72,14 +77,17 @@ class CustomPopupViewController: UIViewController {
       make.height.equalTo(140)
       make.centerY.centerX.equalToSuperview()
     }
+    
     titleLabel.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(20)
       make.centerX.equalToSuperview()
     }
+    
     descriptionLabel.snp.makeConstraints { make in
       make.top.equalTo(titleLabel.snp.bottom).offset(-10)
       make.centerX.equalToSuperview()
     }
+    
     confirmButton.snp.makeConstraints { make in
       make.centerX.bottom.equalToSuperview()
       make.width.equalTo(popupView)
@@ -93,6 +101,7 @@ extension UIButton {
   func roundedButton(){
     clipsToBounds = true
     layer.cornerRadius = 10
-    layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+    layer.maskedCorners = [.layerMinXMaxYCorner,
+                           .layerMaxXMaxYCorner]
   }
 }

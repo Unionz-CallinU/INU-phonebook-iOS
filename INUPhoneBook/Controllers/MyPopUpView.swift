@@ -16,7 +16,9 @@ class MyPopupView: UIView {
   
   private let popupView: UIView = {
     let view = UIView()
-    view.backgroundColor = .white
+    let viewColor = UIColor.selectColor(lightValue: .white,
+                                         darkValue: .grey4)
+    view.backgroundColor = viewColor
     view.layer.cornerRadius = 12
     view.clipsToBounds = true
     return view
@@ -24,7 +26,9 @@ class MyPopupView: UIView {
   
   private let titleLabel: UILabel = {
     let label = UILabel()
-    label.textColor = .black
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    label.textColor = labelColor
     label.font = UIFont(name: "Pretendard", size: 24)
     label.numberOfLines = 0
     label.textAlignment = .center
@@ -33,7 +37,9 @@ class MyPopupView: UIView {
   
   private let descLabel: UILabel = {
     let label = UILabel()
-    label.textColor = .black
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    label.textColor = labelColor
     label.font = UIFont(name: "Pretendard", size: 16)
     label.numberOfLines = 0
     label.textAlignment = .center
@@ -64,16 +70,26 @@ class MyPopupView: UIView {
   
   private let leftButton: UIButton = {
     let button = UIButton()
-    button.setTitleColor(.black, for: .normal)
-    button.setBackgroundImage(UIColor.white.withAlphaComponent(0.5).asImage(), for: .normal)
+    let btnColor = UIColor.selectColor(lightValue: .white,
+                                            darkValue: .grey4)
+    let btnTextColor = UIColor.selectColor(lightValue: .black,
+                                            darkValue: .white)
+    
+    button.setTitleColor(btnTextColor, for: .normal)
+    button.setBackgroundImage(btnColor.asImage(), for: .normal)
     button.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
     return button
   }()
   
   private let rightButton: UIButton = {
     let button = UIButton()
-    button.setTitleColor(.black, for: .normal)
-    button.setBackgroundImage(UIColor.white.asImage(), for: .normal)
+    let btnColor = UIColor.selectColor(lightValue: .white,
+                                            darkValue: .grey4)
+    let btnTextColor = UIColor.selectColor(lightValue: .black,
+                                            darkValue: .white)
+    
+    button.setTitleColor(btnTextColor, for: .normal)
+    button.setBackgroundImage(btnColor.asImage(), for: .normal)
     button.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
     return button
   }()
