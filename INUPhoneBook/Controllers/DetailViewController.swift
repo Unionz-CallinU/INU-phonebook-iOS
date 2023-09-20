@@ -233,9 +233,10 @@ class DetailViewController: NaviHelper {
     roleLabel.text = dataToCore.role
     emailLabel.setTitle(dataToCore.email, for: .normal)
     
+    
     if let img = UIImage(base64: dataToCore.imgUrl!, withPrefix: false) {
       professorImage.image = img
-    } else{
+    } else {
       professorImage.image = UIImage(named: "mainimage")
     }
   }

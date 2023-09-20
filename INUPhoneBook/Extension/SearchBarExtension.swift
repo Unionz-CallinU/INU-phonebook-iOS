@@ -10,12 +10,15 @@ import UIKit
 extension UISearchBar {
   static func createSearchBar() -> UISearchBar {
     let bar = UISearchBar()
-    let barTextColor = UIColor.selectColor(lightValue: .grey2, darkValue: .grey0)
+    let barTextColor = UIColor.selectColor(lightValue: .grey2,
+                                           darkValue: .grey0)
+ 
     bar.placeholder = "상세정보를 입력하세요"
-    bar.tintColor = UIColor.grey2
+    bar.tintColor = barTextColor
     bar.searchTextField.font = UIFont(name: "Pretendard", size: 20)
     
-    let searchBarColor = UIColor.selectColor(lightValue: .blueGrey, darkValue: .grey3)
+    let searchBarColor = UIColor.selectColor(lightValue: .blueGrey,
+                                             darkValue: .grey3)
     if let searchBarTextField = bar.value(forKey: "searchField") as? UITextField {
       searchBarTextField.font = UIFont.systemFont(ofSize: 18)
       searchBarTextField.layer.cornerRadius = 25

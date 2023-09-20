@@ -21,9 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     guard let windowScene = (scene as? UIWindowScene) else { return }
     
     window = UIWindow(frame: UIScreen.main.bounds)
-    
-    window = UIWindow(frame: UIScreen.main.bounds)
-    
+        
     let splashVC = SplashViewController() // 처음 보일 view controller
     let navigationController = UINavigationController(rootViewController: splashVC)
     window?.rootViewController = navigationController
@@ -31,7 +29,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // 3초 후
       let mainVC = MainViewController()
-      navigationController.pushViewController(mainVC, animated: true)
+      navigationController.pushViewController(mainVC, animated: false)
+
     }
     
     window?.windowScene = windowScene

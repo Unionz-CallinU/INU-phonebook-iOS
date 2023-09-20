@@ -23,7 +23,7 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
   override func viewDidLoad() {
     
     super.viewDidLoad()
-    
+
     let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
                                                  darkValue: UIColor.mainBlack)
     self.view.backgroundColor = mainBackGroundColor
