@@ -413,9 +413,10 @@ class DetailViewController: NaviHelper {
     dropDown.anchorView = sender
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
     dropDown.dataSource = categoryNames
+    dropDown.backgroundColor = .grey1
     dropDown.customCellConfiguration = { (index, item, cell) in
       let separator = UIView()
-      separator.backgroundColor = .lightGray
+      separator.backgroundColor = .grey3
       cell.addSubview(separator)
       separator.snp.makeConstraints { make in
         make.leading.trailing.equalToSuperview()
@@ -424,6 +425,7 @@ class DetailViewController: NaviHelper {
       }
       
       cell.optionLabel.textAlignment = .center
+      cell.optionLabel.textColor = .grey3
     }
     
     dropDown.selectionAction = { [weak self] (index, item) in

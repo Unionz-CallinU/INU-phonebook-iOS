@@ -28,8 +28,8 @@ final class ResultViewController: NaviHelper {
   
   private let mainTitle: UILabel = {
     let label = UILabel()
-    let labelColor = UIColor.selectColor(lightValue: .white,
-                                         darkValue: UIColor.grey0)
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .grey0)
     label.text = "검색결과"
     label.font = UIFont(name: "Pretendard", size: 24)
     label.textColor = labelColor

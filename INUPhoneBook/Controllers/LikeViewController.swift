@@ -87,12 +87,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   private let resultTableView: UITableView = {
     let tableView = UITableView()
+    let tableViewColor = UIColor.selectColor(lightValue: .white,
+                                             darkValue: .mainBlack)
     tableView.register(SavedCustomCell.self,
                        forCellReuseIdentifier: SavedCustomCell.cellId)
     if #available(iOS 15, *) {
       tableView.sectionHeaderTopPadding = 5
     }
-    
+    tableView.backgroundColor = tableViewColor
     tableView.separatorStyle = .singleLine
     tableView.separatorInset.left = 0
     return tableView
@@ -222,15 +224,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let alert = UIAlertController(title: "",
                                   message: "원하는 이름을 입력하세요",
                                   preferredStyle: .alert)
-    let alertColor = UIColor.selectColor(lightValue: .white,
-                                       darkValue: .grey4)
-    
-    alert.view.backgroundColor = alertColor
+
     alert.addTextField { $0.placeholder = "카테고리 이름" }
+    
     let addAction = UIAlertAction(title: "추가",
                                   style: .default) { [weak self] action in
       guard let categoryName = alert.textFields?.first?.text,
             !categoryName.isEmpty else { return }
+      
       
       // 중복 체크
       if self?.sections.contains(categoryName) == false {
@@ -253,14 +254,19 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     let cancelAction = UIAlertAction(title: "취소",
                                      style: .cancel,
                                      handler: nil)
-    addAction.setValue(UIColor.black, forKey: "titleTextColor")
-    cancelAction.setValue(UIColor.black, forKey: "titleTextColor")
+    let alertColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    
+    addAction.setValue(alertColor, forKey: "titleTextColor")
+    cancelAction.setValue(alertColor, forKey: "titleTextColor")
 
     alert.addAction(addAction)
     alert.addAction(cancelAction)
     
     if let alert = alert.view.subviews.first?.subviews.first?.subviews.first {
-      alert.backgroundColor = .white
+      let alertColor = UIColor.selectColor(lightValue: .white,
+                                                   darkValue: .grey4)
+      alert.backgroundColor = alertColor
     }
     present(alert, animated: true, completion: nil)
   }
@@ -298,6 +304,8 @@ extension LikeViewController: UITableViewDataSource {
     let user = userManager.getUsersFromCoreData().filter {
       $0.category == sections[indexPath.section] }[indexPath.row]
     let img = UIImage(named: "StarChecked")
+    let cellColor = UIColor.selectColor(lightValue: .white,
+                                        darkValue: .mainBlack)
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
@@ -305,7 +313,7 @@ extension LikeViewController: UITableViewDataSource {
     cell.star.setImage(img, for: .normal)
     
     cell.user = user
-    
+    cell.backgroundColor = cellColor
     cell.saveButtonPressed = { [weak self] (senderCell) in
       guard let self = self else { return }
       self.makeRemoveCheckAlert { okAction in

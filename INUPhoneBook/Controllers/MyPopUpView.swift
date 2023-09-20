@@ -106,7 +106,8 @@ class MyPopupView: UIView {
     
     super.init(frame: .zero)
     
-    self.backgroundColor = .black.withAlphaComponent(0.3)
+    self.backgroundColor = .clear
+    
     self.addSubview(self.popupView)
     self.popupView.addSubview(self.titleLabel)
     self.popupView.addSubview(self.descLabel)

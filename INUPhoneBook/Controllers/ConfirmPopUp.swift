@@ -35,9 +35,8 @@ class CustomPopupViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    let backGroundColor = UIColor.selectColor(lightValue: .white,
-                                            darkValue: .grey4)
-    view.backgroundColor = backGroundColor
+ 
+    view.backgroundColor = .lightGray.withAlphaComponent(0.8)
   
     setupLayout()
 

@@ -23,10 +23,8 @@ class PopUpViewAtDetail: UIViewController {
     super.init(nibName: nil, bundle: nil)
     
     self.user = user
-    
-    let backGroundColor = UIColor.selectColor(lightValue: .black,
-                                              darkValue: .grey4)
-    self.view.backgroundColor = backGroundColor
+    self.view.backgroundColor = .lightGray.withAlphaComponent(0.8)
+
     self.view.addSubview(self.popupView)
     self.setupConstraints()
     
@@ -75,8 +73,7 @@ class PopUpViewAtDetail: UIViewController {
 
     let dropDown = DropDown()
     let dropDownColor = UIColor.selectColor(lightValue: .white,
-                                            darkValue: .grey2)
-    
+                                            darkValue: .grey4)
     dropDown.anchorView = sender
     dropDown.backgroundColor = dropDownColor
     dropDown.bottomOffset = CGPoint(x: 0, y: sender.frame.size.height)
@@ -91,11 +88,10 @@ class PopUpViewAtDetail: UIViewController {
         make.height.equalTo(1)
       }
       cell.optionLabel.textAlignment = .center
+
     }
     dropDown.selectionAction = { [weak self] (index, item) in
-      // DropDown의 항목 선택 시의 동작을 구현합니다.
       guard let self = self else { return }
-      // 선택된 항목(item)을 사용하여 원하는 동작을 수행합니다.
       self.user?.category = item
       self.popupView.selectLabel.text = item
   
