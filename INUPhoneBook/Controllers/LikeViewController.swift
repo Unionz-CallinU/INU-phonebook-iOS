@@ -330,7 +330,6 @@ extension LikeViewController: UITableViewDataSource {
             self.resultTableView.reloadData()
           }
         } else {
-          print("삭제 취소")
         }
       }
     }
@@ -352,6 +351,13 @@ extension LikeViewController: UITableViewDataSource {
                                style: .cancel) { cancelAction in
       completion(false)
     }
+    
+    let alertColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    
+    cancel.setValue(alertColor, forKey: "titleTextColor")
+    ok.setValue(alertColor, forKey: "titleTextColor")
+    
     alert.addAction(ok)
     alert.addAction(cancel)
     self.present(alert, animated: true, completion: nil)

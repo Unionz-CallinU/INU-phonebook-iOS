@@ -29,6 +29,11 @@ class SplashViewController: UIViewController {
     playerController.player = player
     playerController.videoGravity = .resizeAspectFill
     
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(playerDidFinishPlaying),
+                                           name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+                                           object: nil)
+
     present(playerController, animated: true) {
       DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
         self.playerController.dismiss(animated: false, completion: nil)
@@ -37,5 +42,8 @@ class SplashViewController: UIViewController {
     }
   }
   
-
+  @objc func playerDidFinishPlaying(note: NSNotification) {
+    let mainVC = MainViewController()
+    navigationController?.pushViewController(mainVC, animated: true)
+  }
 }

@@ -19,21 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     //    guard let _ = (scene as? UIWindowScene) else { return }
     
     guard let windowScene = (scene as? UIWindowScene) else { return }
+    window = UIWindow(windowScene: windowScene)
     
-    window = UIWindow(frame: UIScreen.main.bounds)
-        
     let splashVC = SplashViewController() // 처음 보일 view controller
+    let mainVC = MainViewController()
     let navigationController = UINavigationController(rootViewController: splashVC)
     window?.rootViewController = navigationController
-    window?.makeKeyAndVisible()   // 화면에 보이게끔 설정
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 3) { // 3초 후
-      let mainVC = MainViewController()
-      navigationController.pushViewController(mainVC, animated: false)
-
-    }
+    window?.makeKeyAndVisible()
     
-    window?.windowScene = windowScene
   }
   
   func sceneDidDisconnect(_ scene: UIScene) {

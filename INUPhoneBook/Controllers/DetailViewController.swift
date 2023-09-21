@@ -391,7 +391,6 @@ class DetailViewController: NaviHelper {
               self.present(customPopupVC, animated: false, completion: nil)
             }
           } else {
-            print("저장된 것 삭제하기 취소됨")
           }
         }
       } else {
@@ -435,7 +434,6 @@ class DetailViewController: NaviHelper {
         self.coreDataManager.updateCategory(for: userToCore, with: item) {
           self.selectLabel.text = item
           self.senderLikeVC?.reloadTalbeView()
-          print("Category updated.")
         }
       }
     }

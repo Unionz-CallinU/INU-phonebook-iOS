@@ -41,7 +41,6 @@ extension UISearchBar {
     bar.layer.shadowOffset = CGSize(width: 1, height: 1)
     bar.layer.shadowOpacity = 0.25
     bar.layer.shadowRadius = 4
-    
     return bar
   }
   
