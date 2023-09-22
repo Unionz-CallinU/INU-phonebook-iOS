@@ -17,7 +17,6 @@
 		EE1678C82AAC93A9000558EC /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE1678BF2AAC93A8000558EC /* Pretendard-SemiBold.otf */; };
 		EE1678C92AAC93A9000558EC /* Pretendard-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE1678C02AAC93A8000558EC /* Pretendard-Thin.otf */; };
 		EE1678CA2AAC93A9000558EC /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE1678C12AAC93A9000558EC /* Pretendard-Medium.otf */; };
-		EE1678CB2AAC93A9000558EC /* Pretendard-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = EE1678C22AAC93A9000558EC /* Pretendard-Black.otf */; };
 		EE1678CD2AAC93B6000558EC /* PretendardVariable.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EE1678CC2AAC93B6000558EC /* PretendardVariable.ttf */; };
 		EE1678D22AB2B1FF000558EC /* ConfirmPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1678D12AB2B1FF000558EC /* ConfirmPopUp.swift */; };
 		EE1678D72AB2F07E000558EC /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE1678D62AB2F07E000558EC /* UIColorExtension.swift */; };
@@ -65,7 +64,6 @@
 		EE1678BF2AAC93A8000558EC /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-SemiBold.otf"; path = "../../../../../Downloads/Pretendard-1.3.8/public/static/Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
 		EE1678C02AAC93A8000558EC /* Pretendard-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Thin.otf"; path = "../../../../../Downloads/Pretendard-1.3.8/public/static/Pretendard-Thin.otf"; sourceTree = "<group>"; };
 		EE1678C12AAC93A9000558EC /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Medium.otf"; path = "../../../../../Downloads/Pretendard-1.3.8/public/static/Pretendard-Medium.otf"; sourceTree = "<group>"; };
-		EE1678C22AAC93A9000558EC /* Pretendard-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Pretendard-Black.otf"; path = "../../../../../Downloads/Pretendard-1.3.8/public/static/Pretendard-Black.otf"; sourceTree = "<group>"; };
 		EE1678CC2AAC93B6000558EC /* PretendardVariable.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = PretendardVariable.ttf; path = "../../../../../Downloads/Pretendard-1.3.8/public/variable/PretendardVariable.ttf"; sourceTree = "<group>"; };
 		EE1678D12AB2B1FF000558EC /* ConfirmPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmPopUp.swift; sourceTree = "<group>"; };
 		EE1678D62AB2F07E000558EC /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 		EE1678B92AAC9378000558EC /* Font */ = {
 			isa = PBXGroup;
 			children = (
-				EE1678C22AAC93A9000558EC /* Pretendard-Black.otf */,
 				EE1678BA2AAC93A8000558EC /* Pretendard-Bold.otf */,
 				EE1678BD2AAC93A8000558EC /* Pretendard-ExtraBold.otf */,
 				EE1678BB2AAC93A8000558EC /* Pretendard-ExtraLight.otf */,
@@ -339,7 +336,6 @@
 				EE1678C82AAC93A9000558EC /* Pretendard-SemiBold.otf in Resources */,
 				EEC2D6B92A60EC640015C715 /* LaunchScreen.storyboard in Resources */,
 				EEC2D6B62A60EC640015C715 /* Assets.xcassets in Resources */,
-				EE1678CB2AAC93A9000558EC /* Pretendard-Black.otf in Resources */,
 				EE1678CA2AAC93A9000558EC /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
