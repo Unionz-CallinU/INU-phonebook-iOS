@@ -1,0 +1,48 @@
+{
+  "_buildCommand2" : {
+    "command" : "prepareForIndexing",
+    "enableIndexBuildArena" : false,
+    "targets" : null
+  },
+  "buildCommand" : "build",
+  "configuredTargets" : [
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e9830528bfce1e8093078fab9491e58afd2"
+    },
+    {
+      "guid" : "bfdfe7dc352907fc980b868725387e98fa2e43183734e48231e71168c0841a74"
+    }
+  ],
+  "containerPath" : "/Users/yong/Desktop/YH/INUPhoneBook/Pods/Pods.xcodeproj",
+  "continueBuildingAfterErrors" : true,
+  "enableIndexBuildArena" : false,
+  "hideShellScriptEnvironment" : false,
+  "parameters" : {
+    "action" : "build",
+    "arenaInfo" : {
+      "buildIntermediatesPath" : "",
+      "buildProductsPath" : "",
+      "derivedDataPath" : "/Users/yong/Library/Developer/Xcode/DerivedData",
+      "indexDataStoreFolderPath" : "/Users/yong/Library/Developer/Xcode/DerivedData/Pods-bpqjqoxyeqccyidboetbcfzlyxlt/Index.noindex/DataStore",
+      "indexEnableDataStore" : true,
+      "indexPCHPath" : "/Users/yong/Library/Developer/Xcode/DerivedData/Pods-bpqjqoxyeqccyidboetbcfzlyxlt/Index.noindex/PrecompiledHeaders",
+      "pchPath" : ""
+    },
+    "configurationName" : "Release",
+    "overrides" : {
+      "synthesized" : {
+        "table" : {
+          "ENABLE_PREVIEWS" : "NO"
+        }
+      }
+    }
+  },
+  "qos" : "default",
+  "schemeCommand" : "launch",
+  "schemeCommand2" : "launch",
+  "showNonLoggedProgress" : true,
+  "useDryRun" : true,
+  "useImplicitDependencies" : false,
+  "useLegacyBuildLocations" : false,
+  "useParallelTargets" : false
+}

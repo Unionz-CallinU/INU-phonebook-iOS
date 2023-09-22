@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIImage {
-  
   public var base64: String {
     return self.jpegData(compressionQuality: 1.0)!.base64EncodedString()
   }

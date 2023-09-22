@@ -21,6 +21,7 @@ extension String {
   }  
 }
 
+// MARK: - 다크모드 관련 함수
 extension String {
   static func selectImgMode(_ lightValue: String, _ darkValue: String) -> String {
     if #available(iOS 13.0, *) {

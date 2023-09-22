@@ -30,6 +30,7 @@ extension UIColor {
   }
 }
 
+// MARK: - 다크모드 관련 함수
 extension UIColor {
   static func selectColor(lightValue: UIColor, darkValue: UIColor) -> UIColor {
     if #available(iOS 13, *) {

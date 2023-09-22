@@ -457,7 +457,7 @@ extension DetailViewController {
   
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
-                                  message: "정말 저장된거 지우시겠습니까?",
+                                  message: "정말 지우시겠습니까?",
                                   preferredStyle: .alert)
     let ok = UIAlertAction(title: "확인",
                            style: .default) { okAction in
@@ -467,6 +467,13 @@ extension DetailViewController {
                                style: .cancel) { cancelAction in
       completion(false)
     }
+    
+    let alertColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    
+    cancel.setValue(alertColor, forKey: "titleTextColor")
+    ok.setValue(alertColor, forKey: "titleTextColor")
+    
     alert.addAction(ok)
     alert.addAction(cancel)
     self.present(alert, animated: true, completion: nil)

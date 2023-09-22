@@ -91,9 +91,11 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
                                              darkValue: .mainBlack)
     tableView.register(SavedCustomCell.self,
                        forCellReuseIdentifier: SavedCustomCell.cellId)
+    
     if #available(iOS 15, *) {
       tableView.sectionHeaderTopPadding = 5
     }
+    
     tableView.backgroundColor = tableViewColor
     tableView.separatorStyle = .singleLine
     tableView.separatorInset.left = 0
@@ -114,7 +116,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     
     navigationItemSetting()
     setNavigationbar()
-    
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -311,9 +312,10 @@ extension LikeViewController: UITableViewDataSource {
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.star.setImage(img, for: .normal)
-    
+  
     cell.user = user
     cell.backgroundColor = cellColor
+    
     cell.saveButtonPressed = { [weak self] (senderCell) in
       guard let self = self else { return }
       self.makeRemoveCheckAlert { okAction in
@@ -329,7 +331,6 @@ extension LikeViewController: UITableViewDataSource {
           self.userManager.deleteUserFromCoreData(with: user) {
             self.resultTableView.reloadData()
           }
-        } else {
         }
       }
     }
@@ -338,10 +339,9 @@ extension LikeViewController: UITableViewDataSource {
     return cell
   }
   
-  
   func makeRemoveCheckAlert(completion: @escaping (Bool) -> Void) {
     let alert = UIAlertController(title: "삭제?",
-                                  message: "정말 저장된거 지우시겠습니까?",
+                                  message: "정말 지우시겠습니까?",
                                   preferredStyle: .alert)
     let ok = UIAlertAction(title: "확인",
                            style: .default) { okAction in

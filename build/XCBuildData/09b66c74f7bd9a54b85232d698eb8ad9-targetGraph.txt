@@ -1,0 +1,4 @@
+Target dependency graph (2 targets)
+lottie-ios in Pods, no dependencies
+Pods-INUPhoneBook in Pods, depends on:
+lottie-ios in Pods (explicit)
