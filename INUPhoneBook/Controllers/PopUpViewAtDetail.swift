@@ -66,8 +66,8 @@ class PopUpViewAtDetail: UIViewController {
     var categoryNames: [String] = []
   
     for category in categories {
-      if let categoryName = category.cellCategory{ // categoryName에 옵셔널 값이 들어있는 경우
-        categoryNames.append(categoryName) // 옵셔널 값을 제거한 후 배열에 추가합니다.
+      if let categoryName = category.cellCategory {
+        categoryNames.append(categoryName) 
       }
     }
 

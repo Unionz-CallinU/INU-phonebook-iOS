@@ -172,7 +172,6 @@ class MyPopupView: UIView {
     }
   }
 
-  
   @objc private func leftButtonTapped() {
     leftButtonAction?()
   }

@@ -124,7 +124,6 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     user.isSaved = isSaved
     
     let starImage = user.isSaved! ? UIImage(named: "StarChecked") : UIImage(named: "GreyStar")
-    
     cell.name.text = user.name
     cell.email.text = user.email
     cell.college.text = user.college
@@ -158,7 +157,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
         }
       }
     }
-    
+        
     cell.selectionStyle = .none
     return cell
   }
@@ -167,18 +166,18 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
     
+    let detailVC = DetailViewController()
+    
     if userManager.getUsersFromCoreData().first(where: { $0.id == String(selectedItem.id) }) != nil {
-      let detailVC = DetailViewController()
       detailVC.userData = [selectedItem]
       detailVC.makeStatus = true
-      detailVC.resultVC = self
-      self.navigationController?.pushViewController(detailVC, animated: true)
     } else {
-      let detailVC = DetailViewController()
       detailVC.userData = [selectedItem]
-      detailVC.resultVC = self
-      self.navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    detailVC.resultVC = self
+    self.navigationController?.pushViewController(detailVC, animated: true)
+
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -221,6 +220,17 @@ extension ResultViewController {
                                                     desc: "즐겨찾기목록에 추가하시겠습니까?",
                                                     user: senderCell.user,
                                                     senderCell: senderCell)
+
+    popupViewController.saveAction = { [weak self] user, senderCell in
+      let customPopupVC = CustomPopupViewController()
+      
+      customPopupVC.titleLabel.text = (senderCell.user?.name)! + "님이"
+      customPopupVC.descriptionLabel.text = "즐겨찾기목록에 추가되었습니다."
+
+      customPopupVC.modalPresentationStyle = .overFullScreen
+      self?.present(customPopupVC, animated: false, completion: nil)
+    }
+    
     popupViewController.modalPresentationStyle = .overFullScreen
     self.present(popupViewController, animated: false)
   }

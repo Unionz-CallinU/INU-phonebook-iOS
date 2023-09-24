@@ -46,7 +46,7 @@ class CustomPopupViewController: UIViewController {
   }
   
   @objc private func confirmButtonTapped() {
-    dismiss(animated:true, completion:nil)
+    dismiss(animated: true, completion: nil)
   }
   
   func setupLayout(){

@@ -15,6 +15,8 @@ class MyPopupViewController: UIViewController {
   private let popupView: MyPopupView
   private var user: User?
   private var senderCell: CustomCell?
+  var saveAction: ((User, CustomCell) -> Void)?
+
   
   init(title: String, desc: String, user: User?, senderCell: CustomCell?) {
     self.popupView = MyPopupView(title: title, desc: desc)
@@ -44,6 +46,8 @@ class MyPopupViewController: UIViewController {
           senderCell.user?.isSaved = true
           senderCell.setButtonStatus()
           
+          self.saveAction?(user, senderCell)
+
         }
         self.dismiss(animated: true, completion: nil)
       }
