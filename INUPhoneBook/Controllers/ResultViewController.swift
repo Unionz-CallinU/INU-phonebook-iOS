@@ -41,7 +41,7 @@ final class ResultViewController: NaviHelper {
   lazy var resultTableView: UITableView = {
     let tableView = UITableView()
     let tableViewBackGroundColor = UIColor.selectColor(lightValue: .white,
-                                                 darkValue: UIColor.mainBlack)
+                                                       darkValue: UIColor.mainBlack)
     tableView.register(CustomCell.self,
                        forCellReuseIdentifier: CustomCell.cellId)
     tableView.backgroundColor = tableViewBackGroundColor
@@ -59,7 +59,7 @@ final class ResultViewController: NaviHelper {
     super.viewDidLoad()
     
     let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
-                                                 darkValue: UIColor.mainBlack)
+                                                  darkValue: UIColor.mainBlack)
     self.view.backgroundColor = mainBackGroundColor
     
     setupLayout()
@@ -116,7 +116,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     var user = userManager.getUsersFromAPI()[indexPath.row]
     var isSaved = false
     let cellBackGroundColor = UIColor.selectColor(lightValue: .white,
-                                                 darkValue: UIColor.mainBlack)
+                                                  darkValue: UIColor.mainBlack)
     cell.backgroundColor = cellBackGroundColor
     userManager.getUsersFromCoreData().forEach { userToCore in
       if userToCore.id == String(user.id) { isSaved = true}
@@ -129,7 +129,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     cell.college.text = user.college
     cell.phoneNum.text = user.phoneNumber
     cell.star.setImage(starImage, for: .normal)
-  
+    
     cell.user = user
     
     cell.saveButtonPressed = { [weak self] (senderCell, isSaved) in
@@ -147,7 +147,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
               
               customPopupVC.titleLabel.text = (senderCell.user?.name)! + "님이"
               customPopupVC.descriptionLabel.text = "즐겨찾기목록에 삭제되었습니다."
-
+              
               customPopupVC.modalPresentationStyle = .overFullScreen
               self.present(customPopupVC, animated: false, completion: nil)
             }
@@ -157,7 +157,7 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
         }
       }
     }
-        
+    
     cell.selectionStyle = .none
     return cell
   }
@@ -177,9 +177,9 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
     
     detailVC.resultVC = self
     self.navigationController?.pushViewController(detailVC, animated: true)
-
+    
   }
-
+  
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 70
   }
@@ -220,14 +220,29 @@ extension ResultViewController {
                                                     desc: "즐겨찾기목록에 추가하시겠습니까?",
                                                     user: senderCell.user,
                                                     senderCell: senderCell)
-
+    
     popupViewController.saveAction = { [weak self] user, senderCell in
       let customPopupVC = CustomPopupViewController()
       
-      customPopupVC.titleLabel.text = (senderCell.user?.name)! + "님이"
-      customPopupVC.descriptionLabel.text = "즐겨찾기목록에 추가되었습니다."
-
+      let userName = senderCell.user?.name ?? ""
+      let nameAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont(name: "Pretendard", size: 24)
+      ]
+      
+      let attributedName = NSAttributedString(string: userName, attributes: nameAttributes)
+      let descriptionAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont(name: "Pretendard", size: 18)
+      ]
+      let descriptionText = NSAttributedString(string: "님이", attributes: descriptionAttributes)
+      let finalText = NSMutableAttributedString()
+      
+      finalText.append(attributedName)
+      finalText.append(descriptionText)
+      
+      customPopupVC.titleLabel.attributedText = finalText
+      customPopupVC.descriptionLabel.text = "즐겨찾기에 추가되었습니다."
       customPopupVC.modalPresentationStyle = .overFullScreen
+      
       self?.present(customPopupVC, animated: false, completion: nil)
     }
     

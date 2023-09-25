@@ -58,7 +58,9 @@ class MyPopupView: UIView {
   lazy var selectButton: UIButton = {
     let button = UIButton()
     button.backgroundColor = UIColor.blueGrey
-    button.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
+    button.addTarget(self,
+                     action: #selector(selectButtonTapped),
+                     for: .touchUpInside)
     return button
   }()
   
@@ -77,7 +79,9 @@ class MyPopupView: UIView {
     
     button.setTitleColor(btnTextColor, for: .normal)
     button.setBackgroundImage(btnColor.asImage(), for: .normal)
-    button.addTarget(self, action: #selector(leftButtonTapped), for: .touchUpInside)
+    button.addTarget(self,
+                     action: #selector(leftButtonTapped),
+                     for: .touchUpInside)
     return button
   }()
   
@@ -90,7 +94,9 @@ class MyPopupView: UIView {
     
     button.setTitleColor(btnTextColor, for: .normal)
     button.setBackgroundImage(btnColor.asImage(), for: .normal)
-    button.addTarget(self, action: #selector(rightButtonTapped), for: .touchUpInside)
+    button.addTarget(self,
+                     action: #selector(rightButtonTapped),
+                     for: .touchUpInside)
     return button
   }()
   

@@ -444,12 +444,38 @@ class DetailViewController: NaviHelper {
 
 // MARK: - 즐겨찾기에 저장,삭제 시 Alert 함수
 extension DetailViewController {
-  // User로 받음
   @objc private func addBtnTapped() {
     let pop = PopUpViewAtDetail(title: "즐겨찾기",
                                 desc: "즐겨찾기목록에 추가하시겠습니까?",
                                 user: userToLike,
                                 senderVC: self)
+    
+    pop.saveAction = { [weak self]  in
+      let customPopupVC = CustomPopupViewController()
+      
+      let userName =  self?.userToLike?.name
+      let nameAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont(name: "Pretendard", size: 24)
+      ]
+      
+      let attributedName = NSAttributedString(string: userName ?? "",
+                                              attributes: nameAttributes)
+      let descriptionAttributes: [NSAttributedString.Key: Any] = [
+        .font: UIFont(name: "Pretendard", size: 18)
+      ]
+      let descriptionText = NSAttributedString(string: "님이", attributes: descriptionAttributes)
+      let finalText = NSMutableAttributedString()
+      
+      finalText.append(attributedName)
+      finalText.append(descriptionText)
+      
+      customPopupVC.titleLabel.attributedText = finalText
+      customPopupVC.descriptionLabel.text = "즐겨찾기에 추가되었습니다."
+      customPopupVC.modalPresentationStyle = .overFullScreen
+      
+      self?.present(customPopupVC, animated: false, completion: nil)
+    }
+    
     pop.modalPresentationStyle = .overFullScreen
     
     self.present(pop, animated: false)

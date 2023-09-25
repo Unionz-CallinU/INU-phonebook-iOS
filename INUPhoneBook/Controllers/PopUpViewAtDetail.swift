@@ -15,8 +15,8 @@ class PopUpViewAtDetail: UIViewController {
   private let userManager = UserManager.shared
   private let popupView: MyPopupView
   private var user: User?
-  
   private let sections: [String] = []
+  var saveAction: (() -> Void)?
 
   init(title: String, desc: String, user: User? , senderVC: DetailViewController) {
     self.popupView = MyPopupView(title: title, desc: desc)
@@ -43,6 +43,8 @@ class PopUpViewAtDetail: UIViewController {
         senderVC.self.addUI()
         senderVC.self.makeStatus = true
         senderVC.self.setNavigationbar()
+        
+        self?.saveAction!()
       }
     }
     
