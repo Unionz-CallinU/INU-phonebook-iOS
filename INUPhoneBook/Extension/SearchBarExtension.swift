@@ -43,5 +43,4 @@ extension UISearchBar {
     bar.layer.shadowRadius = 4
     return bar
   }
-  
 }

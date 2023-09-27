@@ -398,10 +398,18 @@ extension LikeViewController {
     headerView.backgroundColor = headerBackGroundColor
     
     let checkButton = UIButton(type: .custom)
-    let btnImage = UIImage(named: "emptycheck")
     
-    checkButton.setImage(btnImage, for: .normal)
-    checkButton.addTarget(self, action: #selector(checkButtonTapped(_:)), for: .touchUpInside)
+    if let btnImage = UIImage(named: "emptycheck") {
+        let resizedImage = btnImage.withRenderingMode(.alwaysOriginal)
+            .resized(to: CGSize(width: 20, height: 20))
+
+        checkButton.setImage(resizedImage, for: .normal)
+    }
+
+//    checkButton.setImage(btnImage, for: .normal)
+    checkButton.addTarget(self,
+                          action: #selector(checkButtonTapped(_:)),
+                          for: .touchUpInside)
     
     let titleLabel = UILabel()
     titleLabel.text = sections[section]
@@ -440,8 +448,15 @@ extension LikeViewController {
        let titleLabel = headerView.subviews.first(where: { $0 is UILabel }) as? UILabel {
       
       checkButtonStatus.toggle()
-      let btnImage = checkButtonStatus ? UIImage(named: "checked") : UIImage(named: "emptycheck")
-      minusButton.setImage(btnImage, for: .normal)
+      
+      let imageName = checkButtonStatus ? "checked" : "emptycheck"
+      
+      if let image = UIImage(named: imageName) {
+        let resizedImage = image.withRenderingMode(.alwaysOriginal)
+          .resized(to: CGSize(width: 20, height: 20))
+        
+        minusButton.setImage(resizedImage, for: .normal)
+      }
       
       if !checkButtonStatus {
         if let index = deleteSections.firstIndex(of: titleLabel.text!) {

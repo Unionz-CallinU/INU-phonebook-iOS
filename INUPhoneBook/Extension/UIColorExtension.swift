@@ -38,7 +38,7 @@ extension UIColor {
         return traitCollection.userInterfaceStyle == .light ? lightValue : darkValue
       }
     } else {
-      return lightValue // iOS 12 이하에서는 항상 라이트 모드 색상 반환
+      return lightValue
     }
   }
 }
