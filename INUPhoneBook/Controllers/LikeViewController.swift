@@ -274,14 +274,46 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   @objc private func minusButtonTapped() {
     for section in deleteSections {
-      categoryManager.deleteCategory(category: section)
-      
-      if let index = sections.firstIndex(of: section) {
-        sections.remove(at: index)
+      let usersInCategory = userManager.getUsersFromCoreData().filter {
+        $0.category == section
+      }
+      print(usersInCategory)
+      if !usersInCategory.isEmpty {
+        let alert = UIAlertController(title: "삭제",
+                                      message: "카테고리에 속한 데이터를 전부 지우시겠습니까?",
+                                      preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "확인",
+                                      style: .default,
+                                      handler: { _ in
+          self.categoryManager.deleteCategory(category: section)
+          for user in usersInCategory {
+            self.userManager.deleteUserFromCoreData(with: user) {
+            }
+          }
+          if let index = self.sections.firstIndex(of: section) {
+            self.sections.remove(at: index)
+          }
+          self.resultTableView.reloadData()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "취소",
+                                      style: .cancel,
+                                      handler: nil))
+        
+        present(alert, animated: true, completion: nil)
+      } else {
+        categoryManager.deleteCategory(category: section)
+        if let index = sections.firstIndex(of: section) {
+          sections.remove(at: index)
+        }
+        resultTableView.reloadData()
       }
     }
-    resultTableView.reloadData()
   }
+
+
+
   
   func reloadTalbeView(){
     self.resultTableView.reloadData()

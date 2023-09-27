@@ -147,11 +147,13 @@ class DetailViewController: NaviHelper {
     super.viewDidLoad()
     
     let mainBackGroundColor = UIColor.selectColor(lightValue: .white,
-                                                 darkValue: UIColor.mainBlack)
+                                                  darkValue: UIColor.mainBlack)
     
     self.view.backgroundColor = mainBackGroundColor
     
-    NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
+    NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground),
+                                           name: UIApplication.didEnterBackgroundNotification,
+                                           object: nil)
     
     
     cellToDetail()
@@ -170,11 +172,11 @@ class DetailViewController: NaviHelper {
     let plusImg = UIImage(named: plusImgName)?.withRenderingMode(.alwaysOriginal)
     
     let minusImgName = String.selectImgMode("Minus",
-                                           "Minus_dark")
+                                            "Minus_dark")
     let minusImg = UIImage(named: minusImgName)?.withRenderingMode(.alwaysOriginal)
     
     let backBtnColor = UIColor.selectColor(lightValue: .black,
-                                         darkValue: .grey2)
+                                           darkValue: .grey2)
     
     self.navigationController?.navigationBar.topItem?.title = ""
     self.navigationController?.navigationBar.tintColor = backBtnColor
@@ -204,7 +206,7 @@ class DetailViewController: NaviHelper {
     roleLabel.text = data.role
     emailLabel.setTitle(data.email, for: .normal)
     
-    guard let img = data.imageUrl else { return }
+    guard data.imageUrl != nil else { return }
     if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
       professorImage.image = img
     } else{
@@ -398,6 +400,7 @@ class DetailViewController: NaviHelper {
       }
     }
   }
+  
   // 카테고리 관련 함수
   @objc func selectButtonTapped(sender: UIButton) {
     let categories = CategoryManager.shared.fetchCategories()

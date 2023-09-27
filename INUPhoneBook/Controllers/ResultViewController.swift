@@ -226,12 +226,12 @@ extension ResultViewController {
       
       let userName = senderCell.user?.name ?? ""
       let nameAttributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont(name: "Pretendard", size: 24)
+        .font: UIFont(name: "Pretendard", size: 24) as Any
       ]
       
       let attributedName = NSAttributedString(string: userName, attributes: nameAttributes)
       let descriptionAttributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont(name: "Pretendard", size: 18)
+        .font: UIFont(name: "Pretendard", size: 18) as Any
       ]
       let descriptionText = NSAttributedString(string: "님이", attributes: descriptionAttributes)
       let finalText = NSMutableAttributedString()

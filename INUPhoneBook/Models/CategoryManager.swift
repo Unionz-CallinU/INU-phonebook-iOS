@@ -64,15 +64,12 @@ class CategoryManager {
     do {
       let categories = try persistentContainer.viewContext.fetch(fetchRequest)
       
-      // 만약 카테고리가 비어있다면 기본 카테고리를 추가합니다.
       if categories.isEmpty {
         let defaultCategory = Categories(context: persistentContainer.viewContext)
         defaultCategory.cellCategory = "기본"
-        // 기타 속성들을 설정하려면 여기에서 설정합니다.
         
         try persistentContainer.viewContext.save()
         
-        // 기본 카테고리를 포함하여 다시 가져옵니다.
         return [defaultCategory]
       }
       
