@@ -1,6 +1,0 @@
-framework module Pods_INUPhoneBook {
-  umbrella header "Pods-INUPhoneBook-umbrella.h"
-
-  export *
-  module * { export * }
-}
