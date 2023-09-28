@@ -124,7 +124,7 @@ class DetailViewController: NaviHelper {
     label.textColor = UIColor.blue
     label.font = UIFont(name: "Pretendard", size: 18)
     label.numberOfLines = 1
-    label.text = userToCore?.category ?? "기본"
+    label.text = userToCore?.category ?? userToLike?.category
     return label
   }()
   
@@ -205,7 +205,7 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.setTitle(data.phoneNumber, for: .normal)
     roleLabel.text = data.role
     emailLabel.setTitle(data.email, for: .normal)
-    
+
     guard data.imageUrl != nil else { return }
     if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
       professorImage.image = img
@@ -234,7 +234,6 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.setTitle(dataToCore.phoneNumber, for: .normal)
     roleLabel.text = dataToCore.role
     emailLabel.setTitle(dataToCore.email, for: .normal)
-    
     
     if let img = UIImage(base64: dataToCore.imgUrl!, withPrefix: false) {
       professorImage.image = img
@@ -439,6 +438,13 @@ class DetailViewController: NaviHelper {
           self.senderLikeVC?.reloadTalbeView()
         }
       }
+      if let userToLike = self.userToLike {
+        if let matchingUser = self.userManager.getUsersFromCoreData().first(where: { $0.name == userToLike.name }) {
+          self.coreDataManager.updateCategory(for: matchingUser, with: item) {
+            self.selectLabel.text = item
+          }
+        }
+      }
     }
     
     dropDown.show()
@@ -458,13 +464,13 @@ extension DetailViewController {
       
       let userName =  self?.userToLike?.name
       let nameAttributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont(name: "Pretendard", size: 24)
+        .font: UIFont(name: "Pretendard", size: 24) as Any
       ]
       
       let attributedName = NSAttributedString(string: userName ?? "",
                                               attributes: nameAttributes)
       let descriptionAttributes: [NSAttributedString.Key: Any] = [
-        .font: UIFont(name: "Pretendard", size: 18)
+        .font: UIFont(name: "Pretendard", size: 18) as Any
       ]
       let descriptionText = NSAttributedString(string: "님이", attributes: descriptionAttributes)
       let finalText = NSMutableAttributedString()

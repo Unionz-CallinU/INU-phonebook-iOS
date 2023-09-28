@@ -67,7 +67,8 @@ final class CoreDataManager {
     }
   }
   
-  func updateCategory(for user: Users, with category: String, completion: @escaping () -> Void) {
+  func updateCategory(for user: Users, with category: String,
+                      completion: @escaping () -> Void) {
       user.category = category
       
       do {
@@ -77,6 +78,8 @@ final class CoreDataManager {
           print(error)
       }
   }
+  
+
 
   // MARK: - [Delete] 코어데이터에서 데이터 삭제하기 (일치하는 데이터 찾아서 ===> 삭제)
   func deleteUser(with user: Users, completion: @escaping () -> Void) {

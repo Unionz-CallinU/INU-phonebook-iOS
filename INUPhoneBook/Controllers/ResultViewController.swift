@@ -165,11 +165,11 @@ extension ResultViewController: UITableViewDelegate, UITableViewDataSource {
   // UITableViewDelegate 함수 (선택)
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let selectedItem = userManager.getUsersFromAPI()[indexPath.row]
-    
+    let test = userManager.getUsersFromCoreData().first(where: { $0.id == String(selectedItem.id) })
     let detailVC = DetailViewController()
     
     if userManager.getUsersFromCoreData().first(where: { $0.id == String(selectedItem.id) }) != nil {
-      detailVC.userData = [selectedItem]
+      detailVC.userToCore = test
       detailVC.makeStatus = true
     } else {
       detailVC.userData = [selectedItem]
