@@ -155,11 +155,6 @@ class DetailViewController: NaviHelper {
     
     self.view.backgroundColor = mainBackGroundColor
     
-    NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackground),
-                                           name: UIApplication.didEnterBackgroundNotification,
-                                           object: nil)
-    
-    
     cellToDetail()
     cellToDetailCore()
     isSavedCheck()
@@ -548,9 +543,4 @@ extension DetailViewController {
     }
   }
   
-  @objc func didEnterBackground() {
-    let AfterCallingVC = self.storyboard?.instantiateViewController(identifier: "AfterCallingVC") as! DetailViewController
-    self.modalPresentationStyle = .fullScreen
-    self.present(AfterCallingVC, animated: true, completion: nil)
-  }
 }
