@@ -65,13 +65,13 @@ extension MainViewController: UISearchBarDelegate {
     guard let keyword = searchBar.text else { return }
     
     let searchResultController = ResultViewController(searchKeyword: keyword)
-    
+  
     userManager.fetchUsersFromAPI(with: keyword) { [self] in
       let countCell = userManager.getUsersFromAPI().count
       DispatchQueue.main.async {
         if countCell > 0 {
           self.navigationController?.pushViewController(searchResultController,
-                                                   animated: true)
+                                                        animated: true)
         } else {
           let alertController = UIAlertController(title: "검색 결과 없음",
                                                   message: "다시 확인하고 입력해주세요.",

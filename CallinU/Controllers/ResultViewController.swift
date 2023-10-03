@@ -20,6 +20,7 @@ final class ResultViewController: NaviHelper {
     self.searchKeyword = searchKeyword
     
     super.init(nibName: nil, bundle: nil)
+    mainTitle.text = searchKeyword
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -30,7 +31,6 @@ final class ResultViewController: NaviHelper {
     let label = UILabel()
     let labelColor = UIColor.selectColor(lightValue: .black,
                                          darkValue: .grey0)
-    label.text = "검색결과"
     label.font = UIFont(name: "Pretendard", size: 24)
     label.textColor = labelColor
     return label

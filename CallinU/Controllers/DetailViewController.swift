@@ -328,7 +328,6 @@ class DetailViewController: NaviHelper {
     }
     
     departmentLabel.snp.makeConstraints { make in
-      print(roleLabelSize.width)
       if roleLabelSize.width < 135 {
         make.centerX.equalToSuperview().offset(-roleLabelSize.width / 2 - 5)
       } else {
