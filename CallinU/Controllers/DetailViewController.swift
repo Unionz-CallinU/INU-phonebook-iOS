@@ -92,6 +92,8 @@ class DetailViewController: NaviHelper {
                                          darkValue: .grey2)
     label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = labelColor
+    label.numberOfLines = 0
+    label.lineBreakMode = .byWordWrapping
     return label
   }()
   
@@ -234,7 +236,7 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.setTitle(dataToCore.phoneNumber, for: .normal)
     roleLabel.text = dataToCore.role
     emailLabel.setTitle(dataToCore.email, for: .normal)
-    
+  
     if let img = UIImage(base64: dataToCore.imgUrl ?? "mainimage", withPrefix: false) {
       professorImage.image = img
     } else {
@@ -281,6 +283,9 @@ class DetailViewController: NaviHelper {
   
   // MARK: - UI세팅
   func makeUI() {
+    let roleLabelSize = roleLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude,
+                                                      height: CGFloat.greatestFiniteMagnitude))
+
     selectButton.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(118)
       make.width.equalToSuperview()
@@ -322,7 +327,7 @@ class DetailViewController: NaviHelper {
     }
     
     departmentLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview().offset(-20)
+      make.centerX.equalToSuperview().offset(-roleLabelSize.width / 2 - 5)
       make.top.equalTo(collegeLabel.snp.bottom).offset(10)
     }
     
@@ -349,7 +354,7 @@ class DetailViewController: NaviHelper {
     }
   }
   
-  // 즐겨찾기에 저장 여부에 따라 UI변경
+  // MARK: - 저장여부에 따라 UI 변경
   func deleteUI(){
     self.selectButton.isHidden = true
     self.selectLabel.isHidden = true

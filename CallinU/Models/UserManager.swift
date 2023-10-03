@@ -65,6 +65,7 @@ final class UserManager {
             college: dto.college,
             phoneNumber: dto.phoneNumber?.withHypen,
             department: dto.department,
+            role: dto.role,
             email: dto.email,
             imageUrl: dto.imageUrl,
             isSaved: coreDataUsers.contains { $0.id == String(dto.id) },

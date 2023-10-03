@@ -67,9 +67,9 @@ extension MainViewController: UISearchBarDelegate {
     let searchResultController = ResultViewController(searchKeyword: keyword)
     
     userManager.fetchUsersFromAPI(with: keyword) { [self] in
-      let test = userManager.getUsersFromAPI().count
+      let countCell = userManager.getUsersFromAPI().count
       DispatchQueue.main.async {
-        if test > 0 {
+        if countCell > 0 {
           self.navigationController?.pushViewController(searchResultController,
                                                    animated: true)
         } else {
