@@ -72,7 +72,7 @@ class DetailViewController: NaviHelper {
   
   private let departmentLabel: UILabel = {
     let label = UILabel()
-    let labelColor = UIColor.selectColor(lightValue: .black,
+    let labelColor = UIColor.selectColor(lightValue: .lightGray,
                                          darkValue: .grey2)
     label.textColor = labelColor
     label.font = UIFont(name: "Pretendard", size: 16)
@@ -86,14 +86,16 @@ class DetailViewController: NaviHelper {
     return view
   }()
   
-  private let roleLabel: UILabel = {
+  lazy var roleLabel: UILabel = {
     let label = UILabel()
-    let labelColor = UIColor.selectColor(lightValue: .black,
+    let labelColor = UIColor.selectColor(lightValue: .lightGray,
                                          darkValue: .grey2)
     label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = labelColor
-    label.numberOfLines = 0
     label.lineBreakMode = .byWordWrapping
+    label.numberOfLines = 5
+    label.textAlignment = .left
+
     return label
   }()
   
@@ -285,7 +287,6 @@ class DetailViewController: NaviHelper {
   func makeUI() {
     let roleLabelSize = roleLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude,
                                                       height: CGFloat.greatestFiniteMagnitude))
-
     selectButton.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(118)
       make.width.equalToSuperview()
@@ -327,7 +328,12 @@ class DetailViewController: NaviHelper {
     }
     
     departmentLabel.snp.makeConstraints { make in
-      make.centerX.equalToSuperview().offset(-roleLabelSize.width / 2 - 5)
+      print(roleLabelSize.width)
+      if roleLabelSize.width < 135 {
+        make.centerX.equalToSuperview().offset(-roleLabelSize.width / 2 - 5)
+      } else {
+        make.centerX.equalToSuperview().offset(-20)
+      }
       make.top.equalTo(collegeLabel.snp.bottom).offset(10)
     }
     
@@ -341,11 +347,12 @@ class DetailViewController: NaviHelper {
     roleLabel.snp.makeConstraints { make in
       make.leading.equalTo(dividerView.snp.trailing).offset(5)
       make.top.equalTo(departmentLabel)
+      make.trailing.lessThanOrEqualToSuperview().inset(20)
     }
     
     phoneNumLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
-      make.top.equalTo(departmentLabel.snp.bottom).offset(30)
+      make.top.equalTo(roleLabel.snp.bottom).offset(30)
     }
     
     emailLabel.snp.makeConstraints { make in

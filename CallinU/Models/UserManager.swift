@@ -62,16 +62,16 @@ final class UserManager {
           var employee = User(
             id: dto.id,
             name: dto.name,
-            college: dto.college,
-            phoneNumber: dto.phoneNumber?.withHypen,
-            department: dto.department,
-            role: dto.role,
-            email: dto.email,
+            college: dto.college ?? "-",
+            phoneNumber: dto.phoneNumber?.withHypen ?? "-",
+            department: dto.department ?? "-",
+            role: dto.role ?? "-",
+            email: dto.email ?? "-",
             imageUrl: dto.imageUrl,
             isSaved: coreDataUsers.contains { $0.id == String(dto.id) },
             category: "기본"
           )
-          
+        
           return employee
         }
         self.userApiDatas = employees
