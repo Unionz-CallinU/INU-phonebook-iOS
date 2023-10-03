@@ -257,14 +257,29 @@ extension ResultViewController: UISearchBarDelegate {
   func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
     guard let keyword = searchBar.text else { return }
     
+    searchBar.isUserInteractionEnabled = false
+
+    // 검색 중 표시를 위한 UIActivityIndicatorView 추가
+    let activityIndicator = UIActivityIndicatorView(style: .large)
+    activityIndicator.startAnimating()
+    searchBar.addSubview(activityIndicator)
+    activityIndicator.center = CGPoint(x: searchBar.bounds.size.width / 2,
+                                       y: searchBar.bounds.size.height / 2)
+    
+
     let searchResultController = ResultViewController(searchKeyword: keyword)
     
     userManager.fetchUsersFromAPI(with: keyword) { [self] in
-      let test = userManager.getUsersFromAPI().count
+      let countCell = userManager.getUsersFromAPI().count
       DispatchQueue.main.async {
-        if test > 0 {
-          self.navigationController?.pushViewController(searchResultController,
-                                                   animated: true)
+        // 검색 완료 시 UIActivityIndicatorView 숨기기
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
+        
+        searchBar.isUserInteractionEnabled = true
+        
+        if countCell > 0 {
+          self.navigationController?.pushViewController(searchResultController, animated: true)
         } else {
           let alertController = UIAlertController(title: "검색 결과 없음",
                                                   message: "다시 확인하고 입력해주세요.",
