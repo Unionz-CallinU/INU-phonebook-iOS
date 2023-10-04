@@ -13,11 +13,13 @@ import DropDown
 
 class PopUpViewAtDetail: UIViewController {
   private let userManager = UserManager.shared
+  private let categoryManager = CategoryManager.shared
   private let popupView: MyPopupView
   private var user: User?
   private let sections: [String] = []
   var saveAction: (() -> Void)?
-
+  var check: Bool?
+  
   init(title: String, desc: String, user: User? , senderVC: DetailViewController) {
     self.popupView = MyPopupView(title: title, desc: desc)
     super.init(nibName: nil, bundle: nil)
@@ -35,6 +37,15 @@ class PopUpViewAtDetail: UIViewController {
     }
     
     self.popupView.rightButtonAction = { [weak self] in
+      if self?.check != true {
+        var nonCheck = self?.categoryManager.fetchCategories().first?.cellCategory ?? ""
+        
+        self?.user?.category = nonCheck
+        senderVC.self.labelText = nonCheck
+      } else {
+        senderVC.self.labelText = self?.user?.category
+      }
+      
       guard let user = self?.user else { return }
       self?.userManager.saveUserData(with: user) {
         self?.user?.isSaved = true
@@ -94,10 +105,12 @@ class PopUpViewAtDetail: UIViewController {
     }
     dropDown.selectionAction = { [weak self] (index, item) in
       guard let self = self else { return }
+      
       self.user?.category = item
       self.popupView.selectLabel.text = item
-  
+      self.check = true
     }
+  
     dropDown.show()
   }
 }

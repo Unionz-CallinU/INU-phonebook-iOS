@@ -12,11 +12,12 @@ import DropDown
 
 class MyPopupViewController: UIViewController {
   private let userManager = UserManager.shared
+  private let categoryManager = CategoryManager.shared
   private let popupView: MyPopupView
   private var user: User?
   private var senderCell: CustomCell?
   var saveAction: ((User, CustomCell) -> Void)?
-
+  var check: Bool?
   
   init(title: String, desc: String, user: User?, senderCell: CustomCell?) {
     self.popupView = MyPopupView(title: title, desc: desc)
@@ -37,6 +38,9 @@ class MyPopupViewController: UIViewController {
     }
     
     self.popupView.rightButtonAction = { [unowned self] in
+      if check != true {
+        self.user?.category = self.categoryManager.fetchCategories().first?.cellCategory ?? ""
+      }
       guard let user = self.user else { return }
       self.userManager.saveUserData(with: user) {
         
@@ -103,6 +107,7 @@ class MyPopupViewController: UIViewController {
       guard let self = self else { return }
       self.user?.category = item
       self.popupView.selectLabel.text = item
+      self.check = true
     }
     
     dropDown.show()

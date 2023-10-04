@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class MyPopupView: UIView {
-  
+  private let categoryManager = CategoryManager.shared
   var leftButtonAction: (() -> Void)?
   var rightButtonAction: (() -> Void)?
   var selectButtonAction: (() -> Void)?
@@ -51,7 +51,7 @@ class MyPopupView: UIView {
     label.textColor = .gray
     label.font = UIFont(name: "Pretendard", size: 20)
     label.numberOfLines = 1
-    label.text = "기본"
+    label.text = categoryManager.fetchCategories().first?.cellCategory ?? ""
     return label
   }()
   

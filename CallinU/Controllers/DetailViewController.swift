@@ -21,6 +21,7 @@ class DetailViewController: NaviHelper {
   var makeStatus: Bool?
   var senderLikeVC: LikeViewController?
   var resultVC: ResultViewController?
+  var labelText: String?
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
@@ -128,7 +129,7 @@ class DetailViewController: NaviHelper {
     label.textColor = UIColor.blue
     label.font = UIFont(name: "Pretendard", size: 18)
     label.numberOfLines = 1
-    label.text = userToCore?.category ?? userToLike?.category
+    label.text = userToCore?.category
     return label
   }()
   
@@ -489,8 +490,7 @@ extension DetailViewController {
       customPopupVC.descriptionLabel.text = "즐겨찾기에 추가되었습니다."
       customPopupVC.modalPresentationStyle = .overFullScreen
       
-      self?.selectLabel.text = self?.userToLike?.category
-      
+      self?.selectLabel.text = self?.labelText
       self?.present(customPopupVC, animated: false, completion: nil)
     }
     

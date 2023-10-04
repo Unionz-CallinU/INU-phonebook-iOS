@@ -312,9 +312,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     }
   }
 
-
-
-  
   func reloadTalbeView(){
     self.resultTableView.reloadData()
   }
