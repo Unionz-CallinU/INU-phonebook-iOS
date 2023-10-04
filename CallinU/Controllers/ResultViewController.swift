@@ -278,7 +278,7 @@ extension ResultViewController: UISearchBarDelegate {
         
         searchBar.isUserInteractionEnabled = true
         
-        if countCell > 0 {
+        if countCell > 0 && keyword != " " {
           self.navigationController?.pushViewController(searchResultController, animated: true)
         } else {
           let alertController = UIAlertController(title: "검색 결과 없음",
