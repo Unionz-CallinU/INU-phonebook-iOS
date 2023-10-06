@@ -87,8 +87,7 @@ class DetailViewController: NaviHelper {
                                          darkValue: .grey2)
     label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = labelColor
-    label.textAlignment = .left
-
+  
     return label
   }()
   
@@ -99,8 +98,7 @@ class DetailViewController: NaviHelper {
     label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = labelColor
     label.lineBreakMode = .byWordWrapping
-    label.numberOfLines = 5
-    label.textAlignment = .left
+    label.numberOfLines = 2
 
     return label
   }()
@@ -289,6 +287,8 @@ class DetailViewController: NaviHelper {
   
   // MARK: - UI세팅
   func makeUI() {
+    let roleLabelSize = roleLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude,
+                                                      height: CGFloat.greatestFiniteMagnitude))
     selectButton.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(118)
       make.width.equalToSuperview()
@@ -338,10 +338,17 @@ class DetailViewController: NaviHelper {
       make.top.equalTo(departmentLabel.snp.bottom).offset(10)
       make.centerX.equalToSuperview()
     }
+    
+    
     roleLabel.snp.makeConstraints { make in
+      if roleLabelSize.width < view.bounds.width {
+        make.centerX.equalToSuperview()
+      } else {
+        make.leading.trailing.equalToSuperview().inset(20)
+      }
       make.top.equalTo(positionLabel.snp.bottom).offset(10)
-      make.centerX.equalToSuperview()
     }
+    
     
     phoneNumLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
