@@ -13,6 +13,7 @@
         <attribute name="isSaved" optional="YES" attributeType="Boolean"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="phoneNumber" optional="YES" attributeType="String"/>
+        <attribute name="position" optional="YES" attributeType="String"/>
         <attribute name="role" optional="YES" attributeType="String"/>
     </entity>
 </model>

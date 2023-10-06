@@ -81,10 +81,15 @@ class DetailViewController: NaviHelper {
     return label
   }()
   
-  private let dividerView: UIView = {
-    let view = UIView()
-    view.backgroundColor = .lightGray
-    return view
+  lazy var positionLabel: UILabel = {
+    let label = UILabel()
+    let labelColor = UIColor.selectColor(lightValue: .lightGray,
+                                         darkValue: .grey2)
+    label.font = UIFont(name: "Pretendard", size: 16)
+    label.textColor = labelColor
+    label.textAlignment = .left
+
+    return label
   }()
   
   lazy var roleLabel: UILabel = {
@@ -205,7 +210,8 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.setTitle(data.phoneNumber, for: .normal)
     roleLabel.text = data.role
     emailLabel.setTitle(data.email, for: .normal)
-
+    positionLabel.text = data.position
+    
     guard data.imageUrl != nil else { return }
     if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
       professorImage.image = img
@@ -222,6 +228,7 @@ class DetailViewController: NaviHelper {
     userToLike?.email = data.email
     userToLike?.isSaved = data.isSaved
     userToLike?.college = data.category
+    userToLike?.position = data.position
     
     userToLike = data
   }
@@ -234,7 +241,8 @@ class DetailViewController: NaviHelper {
     phoneNumLabel.setTitle(dataToCore.phoneNumber, for: .normal)
     roleLabel.text = dataToCore.role
     emailLabel.setTitle(dataToCore.email, for: .normal)
-  
+    positionLabel.text = dataToCore.position
+    
     if let img = UIImage(base64: dataToCore.imgUrl ?? "mainimage", withPrefix: false) {
       professorImage.image = img
     } else {
@@ -273,7 +281,7 @@ class DetailViewController: NaviHelper {
       collegeLabel,
       departmentLabel,
       roleLabel,
-      dividerView
+      positionLabel
     ].forEach {
       view.addSubview($0)
     }
@@ -281,8 +289,6 @@ class DetailViewController: NaviHelper {
   
   // MARK: - UI세팅
   func makeUI() {
-    let roleLabelSize = roleLabel.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude,
-                                                      height: CGFloat.greatestFiniteMagnitude))
     selectButton.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(118)
       make.width.equalToSuperview()
@@ -324,25 +330,17 @@ class DetailViewController: NaviHelper {
     }
     
     departmentLabel.snp.makeConstraints { make in
-      if roleLabelSize.width < 135 {
-        make.centerX.equalToSuperview().offset(-roleLabelSize.width / 2 - 5)
-      } else {
-        make.centerX.equalToSuperview().offset(-20)
-      }
+      make.centerX.equalToSuperview()
       make.top.equalTo(collegeLabel.snp.bottom).offset(10)
     }
     
-    dividerView.snp.makeConstraints { make in
-      make.leading.equalTo(departmentLabel.snp.trailing).offset(5)
-      make.width.equalTo(1)
-      make.height.equalTo(departmentLabel)
-      make.top.equalTo(departmentLabel)
+    positionLabel.snp.makeConstraints { make in
+      make.top.equalTo(departmentLabel.snp.bottom).offset(10)
+      make.centerX.equalToSuperview()
     }
-    
     roleLabel.snp.makeConstraints { make in
-      make.leading.equalTo(dividerView.snp.trailing).offset(5)
-      make.top.equalTo(departmentLabel)
-      make.trailing.lessThanOrEqualToSuperview().inset(20)
+      make.top.equalTo(positionLabel.snp.bottom).offset(10)
+      make.centerX.equalToSuperview()
     }
     
     phoneNumLabel.snp.makeConstraints { make in

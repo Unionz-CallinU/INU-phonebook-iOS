@@ -69,7 +69,8 @@ final class UserManager {
             email: dto.email ?? "-",
             imageUrl: dto.imageUrl,
             isSaved: coreDataUsers.contains { $0.id == String(dto.id) },
-            category: "기본"
+            category: "기본",
+            position: dto.position
           )
           return employee
         }

@@ -32,4 +32,5 @@ struct User: Codable {
   var imageUrl: String? = "없음"
   var isSaved: Bool?
   var category: String? = "기본"
+  var position: String?
 }

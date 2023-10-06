@@ -1,8 +1,8 @@
 //
 //  Users+CoreDataProperties.swift
-//  INUPhoneBook
+//  CallinU
 //
-//  Created by 최용헌 on 2023/09/11.
+//  Created by 최용헌 on 2023/10/06.
 //
 //
 
@@ -21,11 +21,12 @@ extension Users {
     @NSManaged public var department: String?
     @NSManaged public var email: String?
     @NSManaged public var id: String?
+    @NSManaged public var imgUrl: String?
     @NSManaged public var isSaved: Bool
     @NSManaged public var name: String?
     @NSManaged public var phoneNumber: String?
     @NSManaged public var role: String?
-    @NSManaged public var imgUrl: String?
+    @NSManaged public var position: String?
 
 }
 
