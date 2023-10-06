@@ -277,7 +277,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       let usersInCategory = userManager.getUsersFromCoreData().filter {
         $0.category == section
       }
-      print(usersInCategory)
+
       if !usersInCategory.isEmpty {
         let alert = UIAlertController(title: "삭제",
                                       message: "카테고리에 속한 데이터를 전부 지우시겠습니까?",
@@ -435,7 +435,6 @@ extension LikeViewController {
         checkButton.setImage(resizedImage, for: .normal)
     }
 
-//    checkButton.setImage(btnImage, for: .normal)
     checkButton.addTarget(self,
                           action: #selector(checkButtonTapped(_:)),
                           for: .touchUpInside)
@@ -445,7 +444,7 @@ extension LikeViewController {
     titleLabel.font = UIFont(name: "Pretendard", size: 18)
     titleLabel.textColor = UIColor.blue
     
-    if minusButtonVisible == true {
+    if minusButtonVisible == true && sections[section] != "기본" {
       mainTitle.text = "즐겨찾기편집"
       headerView.addSubview(checkButton)
       checkButton.snp.makeConstraints { make in
