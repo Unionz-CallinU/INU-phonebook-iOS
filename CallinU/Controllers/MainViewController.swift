@@ -33,6 +33,7 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
     
     searchController.delegate = self
     navigationItemSetting()
+    setNavigationbar()
   }
   
   // MARK: - view 계층 구성
@@ -56,6 +57,15 @@ final class MainViewController: NaviHelper, UITableViewDelegate {
       make.top.equalToSuperview().offset(358)
       make.width.equalToSuperview().multipliedBy(0.8)
     }
+  }
+  
+  func setNavigationbar() {
+    navigationItem.leftBarButtonItem = .none
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationItem.hidesBackButton = true
   }
 }
 

@@ -28,25 +28,10 @@ class NaviHelper: UIViewController {
   }
 
   @objc func homeButtonTapped(_ sender: UIBarButtonItem) {
-      // 현재 화면이 MainViewController인지 확인
-      if let currentViewController = self.navigationController?.visibleViewController,
-         currentViewController is MainViewController {
-       
-        let customPopupVC = CustomPopupViewController()
-        
-        customPopupVC.titleLabel.text = "Home"
-        customPopupVC.descriptionLabel.text = "이미 Home 화면입니다."
-        
-        customPopupVC.modalPresentationStyle = .overFullScreen
-        self.present(customPopupVC, animated: false, completion: nil)
-        return
-      }
-      
-      // MainViewController로 이동
-      let mainView = MainViewController()
-      self.navigationController?.pushViewController(mainView, animated: true)
+    let mainView = MainViewController()
+    self.navigationController?.pushViewController(mainView, animated: true)
   }
-
+  
   
   @objc func likeButtonTapped(_ sender: UIBarButtonItem) {
     let likeView = LikeViewController()
