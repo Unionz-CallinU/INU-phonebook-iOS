@@ -87,7 +87,7 @@ class DetailViewController: NaviHelper {
                                          darkValue: .grey2)
     label.font = UIFont(name: "Pretendard", size: 16)
     label.textColor = labelColor
-  
+    
     return label
   }()
   
@@ -99,30 +99,62 @@ class DetailViewController: NaviHelper {
     label.textColor = labelColor
     label.lineBreakMode = .byWordWrapping
     label.numberOfLines = 2
-
+    
     return label
   }()
   
   lazy var phoneNumLabel: UIButton = {
     let btn = UIButton()
-    let btnColor = UIColor.selectColor(lightValue: .black,
-                                       darkValue: .white)
+    let btnColor = UIColor.selectColor(lightValue: .black, darkValue: .white)
     btn.titleLabel?.font = UIFont(name: "Pretendard", size: 18)
-    btn.setTitle("Phone", for: .normal)
     btn.setTitleColor(btnColor ,for: .normal)
+    btn.addTarget(self, action: #selector(touchUpForCalling), for: .touchUpInside)
+    // 왼쪽 이미지 설정
+    let leftImage = UIImage(named: "Call")
+    btn.setImage(leftImage, for: .normal)
+    
+    let spacingBetweenImageAndTextLeftSide : CGFloat = 8.0
+    btn.imageEdgeInsets = UIEdgeInsets(top: 0,
+                                       left:-spacingBetweenImageAndTextLeftSide,
+                                       bottom :0,
+                                       right :spacingBetweenImageAndTextLeftSide)
+    return btn
+  }()
+  
+  lazy var phoneNumButton: UIButton = {
+    let btn = UIButton()
     btn.addTarget(self, action: #selector(touchUpForCalling), for: .touchUpInside )
+    
+    let leftImage = UIImage(named: "linkImg")
+    btn.setImage(leftImage, for: .normal)
     return btn
   }()
   
   lazy var emailLabel: UIButton = {
     let btn = UIButton()
-    let btnColor = UIColor.selectColor(lightValue: .black,
-                                       darkValue: .white)
+    let btnColor = UIColor.selectColor(lightValue: .black, darkValue: .white)
     btn.titleLabel?.font = UIFont(name: "Pretendard", size: 18)
-    btn.setTitle("Title", for: .normal)
     btn.setTitleColor(btnColor ,for: .normal)
     btn.addTarget(self, action: #selector(touchUpFormailing), for: .touchUpInside )
     
+    // 왼쪽 이미지 설정
+    let leftImage = UIImage(named: "Mail")
+    btn.setImage(leftImage, for: .normal)
+    
+    let spacingBetweenImageAndTextLeftSide : CGFloat = 8.0
+    btn.imageEdgeInsets = UIEdgeInsets(top: 0,
+                                       left:-spacingBetweenImageAndTextLeftSide,
+                                       bottom :0,
+                                       right :spacingBetweenImageAndTextLeftSide)
+    return btn
+  }()
+  
+  lazy var maillinkButton: UIButton = {
+    let btn = UIButton()
+    btn.addTarget(self, action: #selector(touchUpFormailing), for: .touchUpInside )
+    
+    let leftImage = UIImage(named: "linkImg")
+    btn.setImage(leftImage, for: .normal)
     return btn
   }()
   
@@ -279,7 +311,9 @@ class DetailViewController: NaviHelper {
       collegeLabel,
       departmentLabel,
       roleLabel,
-      positionLabel
+      positionLabel,
+      maillinkButton,
+      phoneNumButton
     ].forEach {
       view.addSubview($0)
     }
@@ -349,16 +383,25 @@ class DetailViewController: NaviHelper {
       make.top.equalTo(positionLabel.snp.bottom).offset(10)
     }
     
-    
     phoneNumLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalTo(roleLabel.snp.bottom).offset(30)
     }
     
+    phoneNumButton.snp.makeConstraints { make in
+      make.leading.equalTo(phoneNumLabel.snp.trailing).offset(5)
+      make.centerY.equalTo(phoneNumLabel.snp.centerY)
+    }
     emailLabel.snp.makeConstraints { make in
       make.centerX.equalToSuperview()
       make.top.equalTo(phoneNumLabel.snp.bottom).offset(10)
     }
+    
+    maillinkButton.snp.makeConstraints { make in
+      make.leading.equalTo(emailLabel.snp.trailing).offset(5)
+      make.centerY.equalTo(emailLabel.snp.centerY)
+    }
+
   }
   
   // MARK: - 저장여부에 따라 UI 변경
@@ -473,7 +516,7 @@ extension DetailViewController {
                                 user: userToLike,
                                 senderVC: self)
     pop.saveAction = { [weak self]  in
-
+      
       let customPopupVC = CustomPopupViewController()
       let userName =  self?.userToLike?.name
       let nameAttributes: [NSAttributedString.Key: Any] = [
@@ -535,7 +578,7 @@ extension DetailViewController {
     guard let number = phoneNumLabel.titleLabel?.text else { return }
     
     if let url = NSURL(string: "tel://" + number),
-      UIApplication.shared.canOpenURL(url as URL) {
+       UIApplication.shared.canOpenURL(url as URL) {
       UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
     }
   }
