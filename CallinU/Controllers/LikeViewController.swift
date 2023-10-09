@@ -274,16 +274,24 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   @objc func minusButtonTapped(){
     buttonStackView.isHidden = true
+
     
+    checkButtonStatus.toggle()
+    
+    let imageName = checkButtonStatus ? "checked" : "emptycheck"
     lazy var allSelectButton: UIButton = {
       let btn = UIButton()
+      if let image = UIImage(named: imageName) {
+        let resizedImage = image.withRenderingMode(.alwaysOriginal)
+          .resized(to: CGSize(width: 20, height: 20))
+        
+        btn.setImage(resizedImage, for: .normal)
+      }
       btn.setTitle("선택해제", for: .normal)
-      let btnImgName = String.selectImgMode("Plus", "Plus_dark")
-      let btnImg = UIImage(named: btnImgName)?.withRenderingMode(.alwaysOriginal)
 
-      btn.setImage(btnImg, for: .normal)
       return btn
     }()
+
     
     view.addSubview(allSelectButton)
     
