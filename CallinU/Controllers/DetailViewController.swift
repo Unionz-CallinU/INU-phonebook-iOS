@@ -443,7 +443,7 @@ class DetailViewController: NaviHelper {
               DispatchQueue.main.async {
                 self.deleteUI()
                 self.setNavigationbar()
-                self.senderLikeVC?.reloadTalbeView()
+                self.senderLikeVC?.reloadTableView()
               }
               
               self.present(customPopupVC, animated: false, completion: nil)
@@ -492,7 +492,7 @@ class DetailViewController: NaviHelper {
       if let userToCore = self.userToCore {
         self.coreDataManager.updateCategory(for: userToCore, with: item) {
           self.selectLabel.text = item
-          self.senderLikeVC?.reloadTalbeView()
+          self.senderLikeVC?.reloadTableView()
         }
       }
       if let userToLike = self.userToLike {

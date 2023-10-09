@@ -272,7 +272,31 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     present(alert, animated: true, completion: nil)
   }
   
-  @objc private func minusButtonTapped() {
+  @objc func minusButtonTapped(){
+    buttonStackView.isHidden = true
+    
+    lazy var allSelectButton: UIButton = {
+      let btn = UIButton()
+      btn.setTitle("선택해제", for: .normal)
+      let btnImgName = String.selectImgMode("Plus", "Plus_dark")
+      let btnImg = UIImage(named: btnImgName)?.withRenderingMode(.alwaysOriginal)
+
+      btn.setImage(btnImg, for: .normal)
+      return btn
+    }()
+    
+    view.addSubview(allSelectButton)
+    
+    allSelectButton.snp.makeConstraints { make in
+      print("1")
+      make.leading.equalToSuperview().offset(10)
+      make.top.equalTo(mainTitle.snp.bottom).offset(50)
+    }
+    
+  }
+
+  
+  @objc private func deleteButtonTapped() {
     for section in deleteSections {
       let usersInCategory = userManager.getUsersFromCoreData().filter {
         $0.category == section
@@ -312,7 +336,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     }
   }
 
-  func reloadTalbeView(){
+  func reloadTableView(){
     self.resultTableView.reloadData()
   }
 }
