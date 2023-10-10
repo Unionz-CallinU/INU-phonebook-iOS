@@ -21,6 +21,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   private var sections: [String] = []
   private var deleteSections: [String] = []
   
+  // MARK: - 화면구성
   private let mainTitle: UILabel = {
     let label = UILabel()
     label.font = UIFont.systemFont(ofSize: 24)
@@ -102,6 +103,41 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     return tableView
   }()
   
+  lazy var allSelectButton: UIButton = {
+    let btn = UIButton()
+    
+    if let image = UIImage(named: "emptycheck") {
+      let resizedImage = image.withRenderingMode(.alwaysOriginal)
+        .resized(to: CGSize(width: 20, height: 20))
+      
+      btn.setImage(resizedImage, for: .normal)
+    }
+    btn.addTarget(self,
+                  action: #selector(allSelectBtnTapped),
+                  for: .touchUpInside)
+    return btn
+  }()
+  
+  lazy var deleteButton: UIButton = {
+    let btn = UIButton()
+    
+    let btnTitleColor = UIColor.selectColor(lightValue: .black,
+                                                 darkValue: .white)
+    btn.setTitle("삭제", for: .normal)
+    btn.setTitleColor(btnTitleColor, for: .normal)
+    
+    let btnBackGroundColor = UIColor.selectColor(lightValue: .grey1,
+                                                 darkValue: .grey4)
+    btn.backgroundColor = btnBackGroundColor
+    btn.layer.cornerRadius = 10
+    btn.addTarget(self,
+                  action: #selector(deleteButtonTapped),
+                  for: .touchUpInside)
+    return btn
+  }()
+  
+
+  // MARK: - viewDidLoad
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -135,6 +171,7 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     }
   }
   
+  // UI함수
   func setupLayout(){
     let countSections = categoryManager.fetchCategories().count
     if countSections == 0 {
@@ -194,9 +231,11 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     }
   }
   
+  // MARK: - Edit 함수
   @objc private func editButtonTapped() {
     editButton.isHidden = true
-    
+    buttonStackView.isHidden = false
+
     // editButton의 숨김 상태 변경 이후에 뷰의 레이아웃 업데이트
     view.setNeedsLayout()
     view.layoutIfNeeded()
@@ -213,14 +252,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         make.top.equalTo(mainTitle.snp.bottom).offset(50)
       }
     }
-    minusButtonVisible.toggle()
-    resultTableView.reloadData()
+
   }
   
   @objc private func plusButtonTapped() {
     showCategoryInputAlert()
   }
   
+  // MARK: - 카테고리 추가 함수
   func showCategoryInputAlert() {
     let alert = UIAlertController(title: "",
                                   message: "원하는 이름을 입력하세요",
@@ -272,38 +311,69 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     present(alert, animated: true, completion: nil)
   }
   
+  // MARK: - 카테고리 삭제 함수
   @objc func minusButtonTapped(){
     buttonStackView.isHidden = true
-
-    
-    checkButtonStatus.toggle()
-    
-    let imageName = checkButtonStatus ? "checked" : "emptycheck"
-    lazy var allSelectButton: UIButton = {
-      let btn = UIButton()
-      if let image = UIImage(named: imageName) {
-        let resizedImage = image.withRenderingMode(.alwaysOriginal)
-          .resized(to: CGSize(width: 20, height: 20))
-        
-        btn.setImage(resizedImage, for: .normal)
-      }
-      btn.setTitle("선택해제", for: .normal)
-
-      return btn
-    }()
-
+    deleteButton.isHidden = false
+    allSelectButton.isHidden = false
     
     view.addSubview(allSelectButton)
+    view.addSubview(deleteButton)
+    
+    
+    minusButtonVisible.toggle()
+    resultTableView.reloadData()
     
     allSelectButton.snp.makeConstraints { make in
-      print("1")
       make.leading.equalToSuperview().offset(10)
       make.top.equalTo(mainTitle.snp.bottom).offset(50)
     }
     
+    deleteButton.snp.makeConstraints { make in
+      make.trailing.equalToSuperview().offset(-10) // 오른쪽 여백 조절
+      make.bottom.equalTo(resultTableView.snp.top).offset(-10) // 아래 여백 조절
+      make.width.equalTo(60)
+    }
+    
+    let action: Selector = #selector(backButtonTapped)
+    let buttonImage = UIImage(named: "Back")
+    if let originalImage = buttonImage?.withRenderingMode(.alwaysOriginal) {
+      navigationItem.rightBarButtonItem = UIBarButtonItem(
+        image: originalImage,
+        style: .plain,
+        target: self,
+        action: action
+      )
+    }
+  }
+  
+  // MARK: - 카테고리 전체 선택
+  @objc func allSelectBtnTapped() {
+    checkButtonStatus.toggle()
+    
+    if let imageName = checkButtonStatus ? "checked" : "emptycheck",
+       let image = UIImage(named: imageName) {
+      let resizedImage = image.withRenderingMode(.alwaysOriginal)
+        .resized(to: CGSize(width: 20, height: 20))
+      allSelectButton.setImage(resizedImage, for: .normal)
+    }
+    
+    for section in 0..<sections.count {
+      if let headerView = resultTableView.headerView(forSection: section),
+         let checkButton = headerView.subviews.first(where: { $0 is UIButton }) as? UIButton {
+        let imageName = checkButtonStatus ? "checked" : "emptycheck"
+        if let image = UIImage(named: imageName) {
+          let resizedImage = image.withRenderingMode(.alwaysOriginal)
+            .resized(to: CGSize(width: 20, height: 20))
+          checkButton.setImage(resizedImage, for: .normal)
+        }
+      }
+    }
+    
+    resultTableView.reloadData()
   }
 
-  
+  // 카테고리 삭제버튼
   @objc private func deleteButtonTapped() {
     for section in deleteSections {
       let usersInCategory = userManager.getUsersFromCoreData().filter {
@@ -344,11 +414,22 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     }
   }
 
+  @objc func backButtonTapped(){
+    deleteButton.isHidden = true
+    allSelectButton.isHidden = true
+    editButton.isHidden = false
+    minusButtonVisible.toggle()
+    
+    reloadTableView()
+    navigationItem.rightBarButtonItem = .none
+  }
+  
   func reloadTableView(){
     self.resultTableView.reloadData()
   }
 }
 
+// MARK: - tableView 함수
 extension LikeViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     return 70
@@ -508,9 +589,7 @@ extension LikeViewController {
        let titleLabel = headerView.subviews.first(where: { $0 is UILabel }) as? UILabel {
       
       checkButtonStatus.toggle()
-      
       let imageName = checkButtonStatus ? "checked" : "emptycheck"
-      
       if let image = UIImage(named: imageName) {
         let resizedImage = image.withRenderingMode(.alwaysOriginal)
           .resized(to: CGSize(width: 20, height: 20))
