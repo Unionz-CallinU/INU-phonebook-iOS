@@ -20,7 +20,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   
   private var sections: [String] = []
   private var deleteSections: [String] = []
-  
+  private var checkButtons: [UIButton] = []
+
   // MARK: - 화면구성
   private let mainTitle: UILabel = {
     let label = UILabel()
@@ -346,7 +347,8 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       )
     }
   }
-  
+
+
   // MARK: - 카테고리 전체 선택
   @objc func allSelectBtnTapped() {
     checkButtonStatus.toggle()
@@ -356,22 +358,18 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       let resizedImage = image.withRenderingMode(.alwaysOriginal)
         .resized(to: CGSize(width: 20, height: 20))
       allSelectButton.setImage(resizedImage, for: .normal)
-    }
-    
-    for section in 0..<sections.count {
-      if let headerView = resultTableView.headerView(forSection: section),
-         let checkButton = headerView.subviews.first(where: { $0 is UIButton }) as? UIButton {
-        let imageName = checkButtonStatus ? "checked" : "emptycheck"
-        if let image = UIImage(named: imageName) {
-          let resizedImage = image.withRenderingMode(.alwaysOriginal)
-            .resized(to: CGSize(width: 20, height: 20))
-          checkButton.setImage(resizedImage, for: .normal)
-        }
+      for button in checkButtons {
+        button.setImage(image, for: .normal)
       }
     }
     
-    resultTableView.reloadData()
+    if checkButtonStatus {
+      deleteSections = sections.filter { $0 != "기본" }
+    } else {
+      deleteSections.removeAll()
+    }
   }
+  
 
   // 카테고리 삭제버튼
   @objc private func deleteButtonTapped() {
@@ -547,6 +545,8 @@ extension LikeViewController {
 
         checkButton.setImage(resizedImage, for: .normal)
     }
+    
+    checkButtons.append(checkButton)
 
     checkButton.addTarget(self,
                           action: #selector(checkButtonTapped(_:)),

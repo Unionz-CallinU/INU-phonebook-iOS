@@ -38,6 +38,7 @@ class DetailViewController: NaviHelper {
     
     view.image = viewImg
     view.frame = CGRect(x: 0, y: 0, width: 120, height: 120)
+    
     return view
   }()
   
@@ -244,7 +245,12 @@ class DetailViewController: NaviHelper {
     
     guard data.imageUrl != nil else { return }
     if let img = UIImage(base64: data.imageUrl!, withPrefix: false) {
-      professorImage.image = img
+      
+      let resizedImage = img.withRenderingMode(.alwaysOriginal)
+        .resized(to: CGSize(width: 64, height: 81))
+      
+      professorImage.image = resizedImage
+      
     } else{
       professorImage.image = UIImage(named: "mainimage")
     }
@@ -401,7 +407,7 @@ class DetailViewController: NaviHelper {
       make.leading.equalTo(emailLabel.snp.trailing).offset(5)
       make.centerY.equalTo(emailLabel.snp.centerY)
     }
-
+    
   }
   
   // MARK: - 저장여부에 따라 UI 변경
