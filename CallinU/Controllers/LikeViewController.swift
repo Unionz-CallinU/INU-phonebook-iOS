@@ -137,6 +137,17 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     return btn
   }()
   
+  private let allSelectLabel: UILabel = {
+    let label = UILabel()
+    
+    let labelColor = UIColor.selectColor(lightValue: .black,
+                                         darkValue: .white)
+    label.textColor = labelColor
+    label.text = "전체선택"
+    label.font = UIFont(name: "Pretendard", size: 16)
+
+    return label
+  }()
 
   // MARK: - viewDidLoad
   override func viewDidLoad() {
@@ -237,7 +248,6 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     editButton.isHidden = true
     buttonStackView.isHidden = false
 
-    // editButton의 숨김 상태 변경 이후에 뷰의 레이아웃 업데이트
     view.setNeedsLayout()
     view.layoutIfNeeded()
     
@@ -317,8 +327,10 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
     buttonStackView.isHidden = true
     deleteButton.isHidden = false
     allSelectButton.isHidden = false
+    allSelectLabel.isHidden = false
     
     view.addSubview(allSelectButton)
+    view.addSubview(allSelectLabel)
     view.addSubview(deleteButton)
     
     
@@ -330,9 +342,14 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
       make.top.equalTo(mainTitle.snp.bottom).offset(50)
     }
     
+    allSelectLabel.snp.makeConstraints { make in
+      make.leading.equalTo(allSelectButton.snp.trailing)
+      make.centerY.equalTo(allSelectButton.snp.centerY)
+    }
+    
     deleteButton.snp.makeConstraints { make in
-      make.trailing.equalToSuperview().offset(-10) // 오른쪽 여백 조절
-      make.bottom.equalTo(resultTableView.snp.top).offset(-10) // 아래 여백 조절
+      make.trailing.equalToSuperview().offset(-10)
+      make.bottom.equalTo(resultTableView.snp.top).offset(-10)
       make.width.equalTo(60)
     }
     
@@ -359,15 +376,19 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
         .resized(to: CGSize(width: 20, height: 20))
       allSelectButton.setImage(resizedImage, for: .normal)
       for button in checkButtons {
-        button.setImage(image, for: .normal)
+        button.setImage(resizedImage, for: .normal)
       }
     }
+
     
     if checkButtonStatus {
       deleteSections = sections.filter { $0 != "기본" }
     } else {
       deleteSections.removeAll()
     }
+    
+    let allSelected = deleteSections.count == sections.count - 1
+    allSelectLabel.text = allSelected ? "선택해제" : "전체선택"
   }
   
 
@@ -415,10 +436,17 @@ final class LikeViewController: NaviHelper, UITableViewDelegate {
   @objc func backButtonTapped(){
     deleteButton.isHidden = true
     allSelectButton.isHidden = true
+    allSelectLabel.isHidden = true
     editButton.isHidden = false
     minusButtonVisible.toggle()
     
     reloadTableView()
+    
+    let image = UIImage(named: "emptycheck")
+    let resizedImage = image?.withRenderingMode(.alwaysOriginal)
+      .resized(to: CGSize(width: 20, height: 20))
+    allSelectButton.setImage(resizedImage, for: .normal)
+    
     navigationItem.rightBarButtonItem = .none
   }
   
@@ -606,6 +634,8 @@ extension LikeViewController {
           deleteSections.append(titleLabel.text ?? "기본")
         }
       }
+      let allSelected = deleteSections.count == sections.count - 1
+      allSelectLabel.text = allSelected ? "선택해제" : "전체선택"
     }
   }
 }
